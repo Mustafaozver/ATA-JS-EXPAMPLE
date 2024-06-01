@@ -36,7 +36,6 @@ module.exports=((ATA)=>{
 	transport_list.push(console_transport);
 	transport_list.push(file_transport);
 	
-	
 	const createLog = (transports)=>{
 		return createLogger({
 			level: "debug",
