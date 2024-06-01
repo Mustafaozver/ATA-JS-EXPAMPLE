@@ -4,8 +4,9 @@
 	"description": "atajs example program",
 	"main": "./App/Main.js",
 	"scripts": {
-		"start": "node ./App/Main.js start",
-		"test": "nodemon ./App/Test.js"
+		"start": "npx electron ./App/Electron.JS",
+		"serve": "node ./App/Main.JS serve",
+		"test": "nodemon ./App/Test.JS"
 	},
 	"repository": {
 		"type": "git",
