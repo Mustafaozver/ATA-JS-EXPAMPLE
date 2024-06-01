@@ -4,7 +4,7 @@
 	"description": "atajs example program",
 	"main": "./App/Main.js",
 	"scripts": {
-		"start": "npx electron ./App/Electron.JS",
+		"start": "npx electron ./App/Electron.js",
 		"serve": "node ./App/Main.JS serve",
 		"test": "nodemon ./App/Test.JS"
 	},

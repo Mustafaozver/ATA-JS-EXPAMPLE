@@ -19,5 +19,5 @@
 		ATA.OnMessage(arg);
 	});
 	
-	ATA.Require("./index.js");
+	ATA.Require("./Core/Electron.JS");
 })(require("ata.js")(), process, window);
