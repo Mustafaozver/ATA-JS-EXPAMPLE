@@ -30,7 +30,13 @@
 	},
 	"homepage": "https://github.com/Mustafaozver/ATA-JS-EXPAMPLE#readme",
 	"dependencies": {
-		"ata.js": "^8.0.12"
+		"ata.js": "^8.0.12",
+		"ejs": "^3.1.10",
+		"sass": "^1.77.4",
+		"terser": "^5.31.0",
+		"typescript": "^5.4.5",
+		"winston": "^3.13.0",
+		"winston-daily-rotate-file": "^5.0.0"
 	},
 	"devDependencies": {
 		"mocha": "^10.2.0",

@@ -34,24 +34,25 @@
 		});
 		
 		Top.hide();
-		Win.show();
+		Win.hide();
+		//Win.show();
 		
 		Win.loadFile(path);
 		//Win.loadURL("http://localhost:1683/");
 		
-		Win.webContents.openDevTools(true);
-		Win.maximize();
+		//Win.webContents.openDevTools(true);
+		//Win.maximize();
 		
-		Win.setAlwaysOnTop(true);
-		Win.setFullScreen(true);
+		//Win.setAlwaysOnTop(true);
+		//Win.setFullScreen(true);
 		//Win.setProgressBar(50);
 		//Win.setOpacity(50);
 		//Win.setIcon("");
-		Win.setMenuBarVisibility(false);
-		Win.setMovable(false);
-		Win.setClosable(false);
-		Win.setResizable(false);
-		Win.setKiosk(true);
+		Win.setMenuBarVisibility(true);
+		Win.setMovable(true);
+		Win.setClosable(true);
+		Win.setResizable(true);
+		//Win.setKiosk(true);
 		//Win.setMenu();
 		
 		Electron.globalShortcut.register("Control+Shift+I", ()=>{
@@ -82,7 +83,7 @@
 			
 		});
 		
-		ATA.__ = {
+		ATA.ANA = {
 			Electron,
 			Top,
 			Win,

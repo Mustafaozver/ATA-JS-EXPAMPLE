@@ -1,5 +1,6 @@
 ((ATA, process, window)=>{
 	const Electron = ATA.Require("electron");
+	process.env["METHOD"] = "ELECTRON";
 	ATA.Electron = Electron;
 	ATA.Window = window;
 	window.Electron = Electron;
@@ -19,5 +20,7 @@
 		ATA.OnMessage(arg);
 	});
 	
-	ATA.Require("./Core/Electron.JS");
+	ATA.Setups.push(()=>{
+		ATA.Require("./Core/Electron.JS");
+	});
 })(require("ata.js")(), process, window);
