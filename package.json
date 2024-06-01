@@ -1,0 +1,42 @@
+{
+	"name": "ata-js-example_v1.0.0",
+	"version": "1.0.0",
+	"description": "atajs example program",
+	"main": "./App/Main.js",
+	"scripts": {
+		"start": "node ./App/Main.js start",
+		"test": "nodemon ./App/Test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Mustafaozver/ATA-JS-EXPAMPLE.git"
+	},
+	"keywords": [
+		"ata",
+		"typescript",
+		"javascript"
+	],
+	"author": "Mustafa ÖZVER",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/Mustafaozver/ATA-JS-EXPAMPLE/issues"
+	},
+	"nodemonConfig": {
+		"ignore": [
+			"*"
+		],
+		"delay": 100
+	},
+	"homepage": "https://github.com/Mustafaozver/ATA-JS-EXPAMPLE#readme",
+	"dependencies": {
+		"ata.js": "^8.0.12"
+	},
+	"devDependencies": {
+		"mocha": "^10.2.0",
+		"nodemon": "^2.0.21"
+	},
+	"engines": {
+		"node": ">=18.0.0",
+		"npm": ">=8.0.0"
+	}
+}
