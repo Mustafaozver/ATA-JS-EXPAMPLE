@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/.e852b3da3797a6aeaca05460e35cda1fa7084983-audit.json",
+    "files": [
+        {
+            "date": 1717284361850,
+            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-06-02.log",
+            "hash": "18111f3c896798f03f1d58abf890c00910e5415ca95d85fa851e27b7d8acbd25"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,3 +1,4 @@
 node_modules
 package-*.json
 GIT_MSG.txt
+Log/log-*.log
