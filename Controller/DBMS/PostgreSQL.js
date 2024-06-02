@@ -6,22 +6,26 @@
 		DataTypes,
 		Op,
 		Model,
+		ExtendedModel,
 		GenerateConfig,
 		Connect,
+		LoadModel,
 	} = PostgreSQL;
 	
 	const Stack = [];
 	
-	const ScanModels = ()=>{
+	const ScanModels = (conn)=>{
 		const path = ATA.Path.join(ATA.CWD, "./DB/PostgreSQL/Model/");
 		ATA.FS.readdirSync(path).map((filename)=>{
 			const filepath = ATA.Path.join(path, filename);
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
-			const model = ATA.Require(filepath);
-			model.Setup(DataTypes, Op, Model);
+			const model = LoadModel(filepath, conn);
 			Stack.push(model);
+		});
+		Stack.map((model)=>{
+			model.Associate();
 		});
 	};
 	
