@@ -83,7 +83,7 @@
 			
 		});
 		
-		ATA.ANA = {
+		ATA.GLOBAL.ANA = {
 			Electron,
 			Top,
 			Win,

@@ -1,5 +1,5 @@
 ((ATA)=>{
-	const Logger = ATA.ANA.Library.Logger;
+	const Logger = ANA.Library.Logger;
 	
 	ATA.GLOBAL.Logger = Logger.createLog([
 		Logger.file_transport,

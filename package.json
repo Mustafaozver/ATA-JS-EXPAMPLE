@@ -31,6 +31,7 @@
 	"homepage": "https://github.com/Mustafaozver/ATA-JS-EXPAMPLE#readme",
 	"dependencies": {
 		"ata.js": "^8.0.12",
+		"dotenv": "^16.4.5",
 		"ejs": "^3.1.10",
 		"sass": "^1.77.4",
 		"terser": "^5.31.0",
