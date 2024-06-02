@@ -24,4 +24,8 @@
 		
 		ATA.Require("./Service/Scenario.JS");
 	});
+	
+	setTimeout(()=>{
+		process.exit();
+	}, 5000);
 })(ATA());
