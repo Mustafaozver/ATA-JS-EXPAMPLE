@@ -48,13 +48,11 @@
 	ScanConstants();
 	ScanConfigs();
 	
-	ANA.Configurations = {};
-	
-	Object.assign(ANA.Configurations, {
+	ANA.Configurations = {
 		GetAdminUUID,
 		GetEmptyUUID,
 		GetConstant,
 		GetConfig,
-	});
+	};
 	
 })(ATA());
