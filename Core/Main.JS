@@ -7,8 +7,17 @@
 	
 	const Package = ATA.Require("./package.json");
 	
+	const Project = {
+		Name: Package.name,
+		Version: Package.version,
+		Description: Package.description,
+		Author: Package.author,
+		License: Package.license,
+	};
+	
 	ATA.GLOBAL.ANA = {
 		Package,
+		Project,
 		Library: {
 			Logger,
 			Render,
@@ -18,7 +27,7 @@
 		}
 	};
 	
-	console.log("gg => ", Package);
+	console.log("gg => ", Project);
 	
 	ATA.Setups.push(()=>{
 		ATA.Require("./Controller/Logger.js");
