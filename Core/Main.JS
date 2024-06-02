@@ -9,9 +9,10 @@
 		}
 	};
 	
-	ATA.Setups.push(() => {
+	ATA.Setups.push(()=>{
 		ATA.Require("./Controller/Logger.js");
 		ATA.Require("./Controller/Configuration.js");
+		ATA.Require("./Controller/DBMS.js");
 		
 		ATA.Require("./Service/Scenario.JS");
 	});
