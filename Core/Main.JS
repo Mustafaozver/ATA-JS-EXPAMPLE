@@ -27,8 +27,6 @@
 		}
 	};
 	
-	console.log("gg => ", Project);
-	
 	ATA.Setups.push(()=>{
 		ATA.Require("./Controller/Logger.js");
 		ATA.Require("./Controller/Configuration.js");

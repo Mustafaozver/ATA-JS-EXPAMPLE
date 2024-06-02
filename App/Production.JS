@@ -11,6 +11,10 @@
 				shell: true,
 				cwd: ATA.CWD,
 				//detached: true,
+				env: {
+					mode,
+					
+				}
 			});
 			worker.addListener("exit", ()=>{
 				console.log("exit");
