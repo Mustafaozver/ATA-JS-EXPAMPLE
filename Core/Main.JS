@@ -7,7 +7,7 @@
 		Library: {
 			Logger,
 			Render,
-			DBMS
+			DBMS,
 		}
 	};
 	
