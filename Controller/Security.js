@@ -1,7 +1,7 @@
 ((ATA)=>{
 	const Security = ANA.Library.Security;
 	
-	const config = ANA.Configurations.GetConstant("Security.json");
+	const config = ANA.Configurations.GetConstant("Security");
 	
 	const privateKey = config.privatekey;
 	

@@ -31,7 +31,7 @@
 		ATA.Require("./Controller/Logger.js");
 		ATA.Require("./Controller/Configuration.js");
 		ATA.Require("./Controller/DBMS.js");
-		//ATA.Require("./Controller/DBMS.js");
+		ATA.Require("./Controller/DBMS.js");
 		ATA.Require("./Controller/Security.js");
 		
 		ATA.Require("./Service/Scenario.JS");

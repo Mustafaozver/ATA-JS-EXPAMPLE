@@ -14,7 +14,7 @@
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".json")return;
-			Constants[filename] = ATA.Require(filepath);
+			Constants[filename.split(".")[0]] = ATA.Require(filepath);
 		});
 	};
 	
@@ -25,7 +25,7 @@
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
-			Configs[filename] = ATA.Require(filepath);
+			Configs[filename.split(".")[0]] = ATA.Require(filepath);
 		});
 	};
 	

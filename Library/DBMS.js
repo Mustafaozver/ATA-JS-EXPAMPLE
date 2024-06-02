@@ -1,7 +1,5 @@
 module.exports=((ATA)=>{
-	const DBMS = {};
-	
-	//ATA.Require("./Library/DBMS/ORM.0.js");
+	const Stack = {};
 	
 	const ScanDBS = ()=>{
 		const path = ATA.Path.join(ATA.CWD, "./Library/DBMS/DB/");
@@ -10,14 +8,14 @@ module.exports=((ATA)=>{
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
-			DBMS[filename] = ATA.Require(filepath);
+			Stack[filename.split(".")[0]] = ATA.Require(filepath);
 		});
 	};
 	
 	ScanDBS();
 	
 	return{
-		...DBMS,
+		...Stack,
 		//
 	};
 	

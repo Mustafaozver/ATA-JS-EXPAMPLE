@@ -1,5 +1,5 @@
 module.exports=((ATA)=>{
-	const Static = {};
+	const Stack = {};
 	
 	const ScanStatics = ()=>{
 		const path = ATA.Path.join(ATA.CWD, "./DB/Static/");
@@ -8,14 +8,14 @@ module.exports=((ATA)=>{
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
-			Static[filename] = ATA.Require(filepath);
+			Stack[filename.split(".")[0]] = ATA.Require(filepath);
 		});
 	};
 	
 	ScanStatics();
 	
 	return{
-		...Static,
+		...Stack,
 		//
 	};
 	
