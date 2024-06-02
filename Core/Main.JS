@@ -5,7 +5,10 @@
 	const HTTP = ATA.Require("./Library/HTTP.js");
 	const Security = ATA.Require("./Library/Security.js");
 	
+	const Package = ATA.Require("./package.json");
+	
 	ATA.GLOBAL.ANA = {
+		Package,
 		Library: {
 			Logger,
 			Render,
@@ -14,6 +17,8 @@
 			Security,
 		}
 	};
+	
+	console.log("gg => ", Package);
 	
 	ATA.Setups.push(()=>{
 		ATA.Require("./Controller/Logger.js");
@@ -24,8 +29,4 @@
 		
 		ATA.Require("./Service/Scenario.JS");
 	});
-	
-	setTimeout(()=>{
-		process.exit();
-	}, 5000);
 })(ATA());
