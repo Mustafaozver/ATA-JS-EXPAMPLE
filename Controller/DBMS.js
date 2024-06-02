@@ -1,5 +1,5 @@
 ((ATA)=>{
-	const DBMS = ATA.Require("./Library/DBMS.js");
+	const DBMS = ANA.Library.DBMS;
 	
 	
 	

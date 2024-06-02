@@ -1,11 +1,13 @@
 ((ATA)=>{
 	const Logger = ATA.Require("./Library/Logger.js");
 	const Render = ATA.Require("./Library/Render.js");
+	const DBMS = ATA.Require("./Library/DBMS.js");
 	
 	ATA.GLOBAL.ANA = {
 		Library: {
 			Logger,
 			Render,
+			DBMS
 		}
 	};
 	
