@@ -5,19 +5,23 @@
 
 
 
-sudo apt-get install postgresql postgresql-contrib -y
+sudo apt install postgresql postgresql-contrib -y
 
 sudo service postgresql restart
 ps -ef | grep postgres
 sudo -u postgres psql -c "SELECT version();"
-sudo -i -u postgres
-psql
+sudo -i -u postgres psql -c "ALTER ROLE postgres WITH LOGIN;"
+
+
 ALTER ROLE postgres WITH LOGIN;
+
+
 \password postgres
 
 sudo systemctl start postgresql.service
 sudo -i -u postgres
 
+sudo -u postgres psql -c "CREATE SCHEMA project;"
 
 curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
 

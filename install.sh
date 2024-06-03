@@ -9,6 +9,8 @@ FONT_BOLD="\033[1m"
 _ST="$BACKGRUND_WHITE$TEXT_BLUE$FONT_BOLD"
 _FN="$RESET_CONSOLE"
 
+git pull
+
 echo "$_ST                                                    $_FN"
 echo "$_ST Gerekli Paketler Kuruluyor                         $_FN"
 echo "$_ST                                                    $_FN"

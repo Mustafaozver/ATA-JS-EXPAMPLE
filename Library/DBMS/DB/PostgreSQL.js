@@ -4,17 +4,18 @@ module.exports=((ATA)=>{
 	
 	const GenerateConfig = (opts={})=>{
 		return Object.assign({
+			"HOST": "localhost",
 			"USER": "postgres",
 			"PASSWORD": "postgres",
-			"SCHEMA": "postgres",
-			"HOST": "localhost",
-			"PORT": 5432
+			"DATABASE": "postgres",
+			"SCHEMA": "public",
+			"PORT": 5432,
 		}, {...opts});
 	};
 	
 	const Connect = (config)=>{
 		return new Sequelize(
-			config.SCHEMA,
+			config.DATABASE,
 			config.USER,
 			config.PASSWORD,
 			{
@@ -35,14 +36,6 @@ module.exports=((ATA)=>{
 	};
 	
 	const ExtendedModel = class extends Model{
-		static Init(model, sequelize, columns){
-			model.init(Object.assign(columns, BindingModel()), {
-				sequelize,
-				modelName: model.name,
-				freezeTableName: true,
-				tableName: model.name,
-			});
-		};
 		async Create(data){
 			return await this.create(data);
 		};
@@ -80,11 +73,20 @@ module.exports=((ATA)=>{
 		};
 	};
 	
-	const LoadModel = (path, conn)=>{
-		const model = ATA.Require(filepath);
-		model.Setup(conn, DataTypes, Op, ExtendedModel);
-		//model.Init();
-		return model;
+	const LoadModel = (name, columns={}, schema="public", sequelize)=>{ // sequelize : conn
+		const Class = class extends ExtendedModel{};
+		Class.init(Object.assign(columns, BindingModel()), {
+			sequelize,
+			schema,
+			modelName: name,
+			freezeTableName: true,
+			tableName: name,
+		});
+		return Class;
+	};
+	
+	const ConvertColumns = (columns)=>{
+		
 	};
 	
 	return{
@@ -95,5 +97,6 @@ module.exports=((ATA)=>{
 		GenerateConfig,
 		Connect,
 		LoadModel,
+		ConvertColumns,
 	};
 })(ATA());
