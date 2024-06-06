@@ -1,8 +1,11 @@
 module.exports=((ATA)=>{
 	
-	const Setup = (conn, DataTypes, Op, Model)=>{
-		const User = class extends Model {};
-		User.Init(User, conn, columns);
+	const Definition = (DataTypes)=>{
+		return{
+			username:{
+				type: DataTypes.STRING(128)
+			}
+		};
 	};
 	
 	const Associate = (Models)=>{
@@ -10,7 +13,7 @@ module.exports=((ATA)=>{
 	};
 	
 	return{
-		Setup,
+		Definition,
 		Associate,
 	};
 })(ATA());
