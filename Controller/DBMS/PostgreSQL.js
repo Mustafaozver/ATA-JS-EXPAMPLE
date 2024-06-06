@@ -89,7 +89,7 @@
 			const name = filename.split(".")[0];
 			const {columns} = ATA.Require(filepath);
 			
-			const model = LoadModel(name, ConvertColumns(columns), schema, sequelize);
+			const model = LoadModel(name, (columns), schema, sequelize);
 			Stack.push(model);
 		});
 		Stack.map((model)=>{
