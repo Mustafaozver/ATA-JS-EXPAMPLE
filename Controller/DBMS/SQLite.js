@@ -8,7 +8,7 @@
 		LoadModel,
 	} = SQLite;
 	
-	const Stack = [];
+	const Stack = {};
 	
 	const ScanModels = (sequelize, schema)=>{
 		const path = ATA.Path.join(ATA.CWD, "./DB/SQLite/Model/");
@@ -22,13 +22,13 @@
 			const columns = ATA.Require(filepath);
 			
 			const model = LoadModel(name, (columns), schema, sequelize);
-			Stack.push(columns);
+			Stack[name] = model;
 		});
-		Stack.filter((model)=>{
-			if(model.Associate)return true;
-			return false;
+		
+		Object.keys(Stack).map((key)=>{
+			return Stack[key];
 		}).map((model)=>{
-			model.Associate();
+			model.Associate(Stack);
 		});
 	};
 	
@@ -36,9 +36,7 @@
 		ANA.DBMS.SQLite.Connection = Connect(GenerateConfig(config));
 		ScanModels(ANA.DBMS.SQLite.Connection, config.SCHEMA);
 		
-		setTimeout(()=>{
-			//ANA.DBMS.SQLite.Connection.sync({force: true});
-		}, 5000)
+		ANA.DBMS.SQLite.Connection.sync({force: true});
 	};
 	
 	ATA.Setups.push(()=>{

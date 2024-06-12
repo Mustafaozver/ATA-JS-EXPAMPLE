@@ -23,6 +23,9 @@
 		});
 		setTimeout(()=>{
 			Setup(rl);
+			
+			ANA.DBMS.SQLite.Connection.sync({force: true});
+			ANA.DBMS.PostgreSQL.Connection.sync({force: true});
 		}, 5000);
 	});
 })(ATA());

@@ -69,7 +69,12 @@ module.exports=((ATA)=>{
 	};
 	
 	const LoadModel = (name, modelObject, schema="public", sequelize)=>{ // sequelize : conn
-		const Class = class extends ExtendedModel{};
+		const Class = class extends ExtendedModel{
+			static Associate(models){
+				if(modelObject.Associate)return modelObject.Associate(models, Class);
+				return false;
+			};
+		};
 		Class.init(Object.assign(modelObject.Definition(DataTypes), BindingModel()), {
 			sequelize,
 			schema,

@@ -8,7 +8,7 @@ module.exports=((ATA)=>{
 		};
 	};
 	
-	const Associate = (Models, ME)=>{
+	const Associate = (Models)=>{
 		//...
 	};
 	

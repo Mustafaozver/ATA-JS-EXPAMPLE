@@ -36,6 +36,11 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 
 
 
-sudo apt-get install redis
+sudo apt install redis
 sudo service redis-server start
 redis-cli --version
+
+
+
+
+sudo apt install sqlite3
