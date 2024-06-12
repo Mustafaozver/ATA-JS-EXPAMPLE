@@ -28,7 +28,36 @@
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
 			const nPath = "./" + filename.split("_").join("/");
 			
-			Logger.info("Compile File " + nPath);
+			Logger.info("Compile TS/JS File " + nPath);
+			
+			Render.CompileSASSFile(filepath, {
+				...render_data,
+				...render_data_ts,
+			}).then((data)=>{
+				ATA.FS.writeFile(ATA.Path.join(ATA.CWD, nPath), data, {
+					flag: "w",
+					encoding: "UTF8"
+				}, (err)=>{
+					if(err){
+						Logger.error("Compiling File Write Error " + nPath);
+						return;
+					}
+					Logger.info("Compiling File is DONE " + nPath);
+				});
+			});
+		});
+	});
+	
+	ATA.Setups.push(()=>{
+		const dir = ATA.Path.join(ATA.CWD, "./Controller/Compile/SASS/");
+		const regex = /^(?<name>\S+)\.css$/g;
+		
+		ATA.FS.readdirSync(dir).map((filename)=>{
+			const filepath = ATA.Path.join(dir, filename);
+			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			const nPath = "./" + filename.split("_").join("/");
+			
+			Logger.info("Compile SASS/CSS File " + nPath);
 			
 			Render.CompileTSFile(filepath, {
 				...render_data,
@@ -47,5 +76,4 @@
 			});
 		});
 	});
-	
 })(ATA());

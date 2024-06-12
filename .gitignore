@@ -2,5 +2,5 @@ node_modules
 package-*.json
 GIT_MSG.txt
 Log/log-*.log
-View/www/Asset/js0/*
-View/www/Asset/css0/*
+View/www/Asset/js0/*.js
+View/www/Asset/css0/*.css
