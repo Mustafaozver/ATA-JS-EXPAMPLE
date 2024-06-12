@@ -35,8 +35,6 @@
 	const Setup = ()=>{
 		ANA.DBMS.SQLite.Connection = Connect(GenerateConfig(config));
 		ScanModels(ANA.DBMS.SQLite.Connection, config.SCHEMA);
-		
-		ANA.DBMS.SQLite.Connection.sync({force: true});
 	};
 	
 	ATA.Setups.push(()=>{

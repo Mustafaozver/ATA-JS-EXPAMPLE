@@ -1,6 +1,4 @@
 {
 	"SCHEMA": "public",
-	"HOST": "localhost",
-	"PORT": 5432,
 	"MEMORY" : "./DB/SQLite/DB0.db"
 }

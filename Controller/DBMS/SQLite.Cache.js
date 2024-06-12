@@ -11,7 +11,7 @@
 	const Stack = {};
 	
 	const ScanModels = (sequelize, schema)=>{
-		const path = ATA.Path.join(ATA.CWD, "./DB/SQLite/Model/");
+		const path = ATA.Path.join(ATA.CWD, "./DB/Cache/Model/");
 		ATA.FS.readdirSync(path).map((filename)=>{
 			const filepath = ATA.Path.join(path, filename);
 			if(ATA.FS.statSync(filepath).isDirectory())return;
@@ -33,17 +33,17 @@
 	};
 	
 	const Setup = ()=>{
-		ANA.DBMS.SQLite.Connection = Connect(GenerateConfig(config));
-		ScanModels(ANA.DBMS.SQLite.Connection, config.SCHEMA);
+		ANA.DBMS.Cache.Connection = Connect(GenerateConfig(config));
+		ScanModels(ANA.DBMS.Cache.Connection, config.SCHEMA);
 		
-		ANA.DBMS.SQLite.Connection.sync({force: true});
+		ANA.DBMS.Cache.Connection.sync({force: true});
 	};
 	
 	ATA.Setups.push(()=>{
 		Setup();
 	});
 	
-	ANA.DBMS.SQLite = {
+	ANA.DBMS.Cache = {
 		
 	};
 })(ATA());
