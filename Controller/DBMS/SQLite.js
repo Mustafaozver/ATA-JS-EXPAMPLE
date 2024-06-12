@@ -1,19 +1,17 @@
 ((ATA)=>{
-	const PostgreSQL = ANA.Library.DBMS["PostgreSQL"];
-	const config = ANA.Configurations.GetConstant("PostgreSQL");
+	const SQLite = ANA.Library.DBMS["SQLite"];
+	const config = ANA.Configurations.GetConstant("SQLite");
 	
 	const {
 		GenerateConfig,
 		Connect,
 		LoadModel,
-		//ConvertColumns,
-		//Column,
-	} = PostgreSQL;
+	} = SQLite;
 	
 	const Stack = [];
 	
 	const ScanModels = (sequelize, schema)=>{
-		const path = ATA.Path.join(ATA.CWD, "./DB/PostgreSQL/Model/");
+		const path = ATA.Path.join(ATA.CWD, "./DB/SQLite/Model/");
 		ATA.FS.readdirSync(path).map((filename)=>{
 			const filepath = ATA.Path.join(path, filename);
 			if(ATA.FS.statSync(filepath).isDirectory())return;
@@ -35,11 +33,11 @@
 	};
 	
 	const Setup = ()=>{
-		ANA.DBMS.PostgreSQL.Connection = Connect(GenerateConfig(config));
-		ScanModels(ANA.DBMS.PostgreSQL.Connection, config.SCHEMA);
+		ANA.DBMS.SQLite.Connection = Connect(GenerateConfig(config));
+		ScanModels(ANA.DBMS.SQLite.Connection, config.SCHEMA);
 		
 		setTimeout(()=>{
-			//ANA.DBMS.PostgreSQL.Connection.sync({force: true});
+			//ANA.DBMS.SQLite.Connection.sync({force: true});
 		}, 5000)
 	};
 	
@@ -47,7 +45,7 @@
 		Setup();
 	});
 	
-	ANA.DBMS.PostgreSQL = {
+	ANA.DBMS.SQLite = {
 		
 	};
 })(ATA());

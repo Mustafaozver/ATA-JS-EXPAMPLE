@@ -7,5 +7,6 @@
 	ATA.Setups.push(()=>{
 		console.log("Inspector on => ", inspector.url());
 		
+		ATA.Require("./Core/Install.JS");
 	});
 })(require("ata.js")());

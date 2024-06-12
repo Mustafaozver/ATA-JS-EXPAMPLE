@@ -4,35 +4,23 @@ module.exports=((ATA)=>{
 	
 	const GenerateConfig = (opts={})=>{
 		return Object.assign({
-			"HOST": "localhost",
-			"USER": "postgres",
-			"PASSWORD": "postgres",
-			"DATABASE": "postgres",
-			"SCHEMA": "public",
-			"PORT": 5432,
+			MEMORY: opts.MEMORY ? ATA.Path.join(ATA.CWD, opts.MEMORY) : ":memory:",
 		}, {...opts});
 	};
 	
 	const Connect = (config)=>{
-		return new Sequelize(
-			config.DATABASE,
-			config.USER,
-			config.PASSWORD,
-			{
-				host: config.HOST,
-				port: config.PORT,
-				dialect: "postgres",
-				pool: {
-					max: 5,
-					min: 0,
-					acquire: 30000,
-					idle: 10000,
-				},
-				logging: (log)=>{
-					Logger.info(log);
-				},
-			}
-		);
+		return new Sequelize({
+			dialect: "sqlite",
+			storage: config.MEMORY || ":memory:",
+			pool: {
+				max: 1,
+				idle: Infinity,
+				maxUses: Infinity
+			},
+			logging: (log) => {
+				Logger.info(log);
+			},
+		});
 	};
 	
 	const ExtendedModel = class extends Model{
@@ -66,6 +54,13 @@ module.exports=((ATA)=>{
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
 				unique: true,
+				/*
+				
+				type: Sequelize.INTEGER,
+				primaryKey: true,
+				autoincement: true,
+				
+				*/
 			},
 			ADDATA:{
 				type: DataTypes.JSON,
@@ -84,6 +79,7 @@ module.exports=((ATA)=>{
 		});
 		return Class;
 	};
+	
 	return{
 		DataTypes,
 		Op,
