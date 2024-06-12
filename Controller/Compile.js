@@ -30,7 +30,7 @@
 			
 			Logger.info("Compile TS/JS File " + nPath);
 			
-			Render.CompileSASSFile(filepath, {
+			Render.CompileTSFile(filepath, {
 				...render_data,
 				...render_data_ts,
 			}).then((data)=>{
@@ -59,7 +59,7 @@
 			
 			Logger.info("Compile SASS/CSS File " + nPath);
 			
-			Render.CompileTSFile(filepath, {
+			Render.CompileSASSFile(filepath, {
 				...render_data,
 				...render_data_ts,
 			}).then((data)=>{
