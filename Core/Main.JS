@@ -6,6 +6,7 @@
 	const Security = ATA.Require("./Library/Security.js");
 	
 	const Package = ATA.Require("./package.json");
+	const Me = ATA.Require("./Service/Me.json");
 	
 	const Project = {
 		Name: Package.name,
@@ -16,6 +17,7 @@
 	};
 	
 	ATA.GLOBAL.ANA = {
+		Me,
 		Package,
 		Project,
 		Library: {
