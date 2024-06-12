@@ -3,6 +3,6 @@
 	
 	
 	ATA.Setups.push(()=>{
-		console.log("ewgthgfhj");
+		console.log("Sistem Başlatılıyor...");
 	});
 })(ATA());
