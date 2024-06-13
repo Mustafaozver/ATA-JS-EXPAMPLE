@@ -20,6 +20,12 @@ module.exports=((ATA)=>{
 			logging: (log) => {
 				Logger.info(log);
 			},
+			define: {
+				charset: "utf8",
+				dialectOptions: {
+					collate: "utf8_general_ci"
+				}
+			}
 		});
 	};
 	
@@ -40,7 +46,7 @@ module.exports=((ATA)=>{
 			});
 		};
 		async Delete(where){
-			return await this.destroy({ where });
+			return await this.destroy({ where, force: true });
 		};
 		async Update(data, where){
 			return await this.update(data, { where });

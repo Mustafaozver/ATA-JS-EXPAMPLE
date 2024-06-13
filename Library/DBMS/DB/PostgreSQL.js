@@ -31,7 +31,13 @@ module.exports=((ATA)=>{
 				logging: (log)=>{
 					Logger.info(log);
 				},
-			}
+				define: {
+					charset: "utf8",
+					dialectOptions: {
+						collate: "utf8_general_ci"
+					}
+				}
+			},
 		);
 	};
 	
