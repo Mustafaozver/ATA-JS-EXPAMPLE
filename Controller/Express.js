@@ -22,7 +22,7 @@
 	
 	app.use(router);
 	
-	app.use(ATA.Require("./Controller/Express/Error/404.js")());
+	app.use(ATA.Require("./Controller/Express/Error/404.js"));
 	
 	ATA.Setups.push(()=>{
 		const server = http.createServer(app);
