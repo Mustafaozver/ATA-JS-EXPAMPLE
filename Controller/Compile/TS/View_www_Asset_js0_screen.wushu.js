@@ -1,4 +1,4 @@
 ((ATA)=>{
-	console.log("WUSHU");
+	console.log("WUSHU SCREEN");
 	ATA.MODE = "SCREEN";
 })(ATA());

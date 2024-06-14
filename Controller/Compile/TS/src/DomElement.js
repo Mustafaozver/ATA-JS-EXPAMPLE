@@ -123,13 +123,5 @@
 		return Class;
 	})();
 	
-	ATA.Setups.push(()=>{
-		
-	});
-	
-	ATA.Dom = {
-		DomElement,
-		
-	};
-	
+	return DomElement;
 })(ATA(), window, document);
