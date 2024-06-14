@@ -44,6 +44,7 @@
 		"pg-hstore": "^2.3.4",
 		"sass": "^1.77.4",
 		"sequelize": "^6.37.3",
+		"socket.io": "^4.7.5",
 		"sqlite3": "^5.1.7",
 		"terser": "^5.31.0",
 		"typescript": "^5.4.5",
