@@ -89,16 +89,12 @@ module.exports=((ATA)=>{try{
 	app.use(json({ limit: "50mb" }));
 	app.use(urlencoded({ extended: false, limit: "50mb" }));
 	
-	
-	
-	app.set("views", ATA.Path.join(ATA.CWD, "./View/www/"));
-	app.use(static(ATA.Path.join(ATA.CWD, "./View/www/")));
-	
 	return{
 		http,
 		https,
 		Request,
 		Router,
+		static,
 		app,
 	};
 }catch(e){console.log(e)}

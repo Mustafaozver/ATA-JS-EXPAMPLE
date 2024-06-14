@@ -34,13 +34,12 @@
 			const mw = ATA.Require(filepath);
 			Router.use((req, res, next)=>{
 				mw(req, res, next);
-				next();
 			});
 		});
 	});
 	
 	ATA.Setups.push(()=>{
-		const path = ATA.Path.join(ATA.CWD, "./Controller/Express/MiddleWare/");
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Express/Router/");
 		ATA.FS.readdirSync(path).map((filename)=>{
 			const filepath = ATA.Path.join(path, filename);
 			if(ATA.FS.statSync(filepath).isDirectory())return;
