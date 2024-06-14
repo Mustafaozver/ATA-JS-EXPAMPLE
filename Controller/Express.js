@@ -3,7 +3,7 @@
 	
 	const http = HTTP.http; // https
 	const app = HTTP.app;
-	const router = HTTP.
+	const router = HTTP.Router();
 	
 	const config = ANA.Configurations.GetConstant("Environment");
 	
@@ -20,7 +20,7 @@
 		next();
 	});
 	
-	
+	app.use(router);
 	
 	ATA.Setups.push(()=>{
 		const server = http.createServer(app);
