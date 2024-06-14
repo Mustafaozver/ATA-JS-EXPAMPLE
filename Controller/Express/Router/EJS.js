@@ -67,7 +67,7 @@ module.exports=((ATA)=>{
 		const dir = ATA.Path.join(ATA.CWD, "./View/EJS/TS/");
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
-			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			if(ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
 			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".js", (req, res, next)=>{
 				const render_data = GenerateData(req, res);
 				const render_data_ts = GenerateDataTS(req, res);
@@ -88,7 +88,7 @@ module.exports=((ATA)=>{
 		const dir = ATA.Path.join(ATA.CWD, "./View/EJS/SASS/");
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
-			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			if(ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
 			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".css", (req, res, next)=>{
 				const render_data = GenerateData(req, res);
 				const render_data_cs = GenerateDataCS(req, res);
