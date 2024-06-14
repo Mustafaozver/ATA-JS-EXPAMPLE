@@ -1,4 +1,4 @@
-module.exports=((ATA)=>{
+module.exports=((ATA)=>{try{
 	const http = ATA.Require("http");
 	const https = ATA.Require("https");
 	
@@ -8,6 +8,9 @@ module.exports=((ATA)=>{
 	const cors = ATA.Require("cors");
 	const morgan = ATA.Require("morgan");
 	const cookieParser = ATA.Require("cookie-parser");
+	const helmet = ATA.Require("helmet");
+	
+	const { Router, static, json, urlencoded } = express;
 	
 	//const multer = ATA.Require("multer");
 	//const RateLimiter = ATA.Require("rate-limiter-flexible");
@@ -83,14 +86,20 @@ module.exports=((ATA)=>{
 	app.use(useragent.express());
 	app.use(bodyparser.urlencoded({ extended: true }));
 	app.use(bodyparser.json());
-	app.use(express.json({ limit: "50mb" }));
-	app.use(express.urlencoded({ extended: false, limit: "50mb" }));
+	app.use(json({ limit: "50mb" }));
+	app.use(urlencoded({ extended: false, limit: "50mb" }));
+	
+	
+	
+	app.set("views", ATA.Path.join(ATA.CWD, "./View/www/"));
+	app.use(static(ATA.Path.join(ATA.CWD, "./View/www/")));
 	
 	return{
 		http,
 		https,
 		Request,
+		Router,
 		app,
 	};
-	
+}catch(e){console.log(e)}
 })(ATA());
