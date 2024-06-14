@@ -1,5 +1,3 @@
-((ATA)=>{
-	ATA.Setups.push(()=>{
-		console.log("sfdgfdg");
-	});
-})(ATA());
+(()=>{
+	<%- include("./src/index.js"); %>;
+})();

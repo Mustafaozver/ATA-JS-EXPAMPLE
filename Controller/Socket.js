@@ -37,14 +37,18 @@
 	
 	
 	ATA.Setups.push(()=>{
-		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/Controller/");
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/Router/");
 		ATA.FS.readdirSync(path).map((filename)=>{
 			const filepath = ATA.Path.join(path, filename);
 			if(ATA.FS.statSync(filepath).isDirectory())return;
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
-			const emit = ATA.Require(filepath);
-			emit(ATA.Socket.socket);
+			const group = ATA.Require(filepath);
+			ATA.Socket.socket.use((socket, next)=>{
+				socket.on(filename.split(".")[0].toUpperCase(), (data)=>{
+					group(socket, data);
+				});
+			});
 		});
 	});
 	

@@ -8,6 +8,7 @@
 	const secret_key = Security.GetHash("private_key", config.privatekey);
 	
 	const render_data = {
+		ATA,
 		time: (new Date()).getTime(),
 		cycled_key,
 		secret_key,
