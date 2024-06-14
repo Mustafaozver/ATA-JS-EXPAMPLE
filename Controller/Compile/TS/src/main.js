@@ -31,6 +31,8 @@
 		});
 	});
 	
+	console.log("LOGIN MODE => ", ATA.MODE);
+	
 	ATA.Socket.on("HEARTBEAT", (data)=>{
 		console.log("HEARTBEAT");
 		SetTime(data);
