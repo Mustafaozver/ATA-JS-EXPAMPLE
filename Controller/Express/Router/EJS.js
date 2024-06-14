@@ -13,7 +13,16 @@ module.exports=((ATA)=>{
 	const render_data_cs = {};
 	
 	
-	router.get("/JS", (req, res, next)=>{
+	router.get("/JS", async(req, res, next)=>{
+		const data = CompileTSFile(zeroTS, {
+			...render_data,
+			...render_data_ts,
+		});
+		
+		res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
+		res.status(200).end(data);
+		
+		return;
 		CompileTSFile(zeroTS, {
 			...render_data,
 			...render_data_ts,

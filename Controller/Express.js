@@ -46,10 +46,7 @@
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
 			const router = ATA.Require(filepath);
-			Router.use((req, res, next)=>{
-				router(req, res, next);
-				next();
-			});
+			Router.use(router);
 		});
 	});
 	
