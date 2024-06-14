@@ -26,7 +26,7 @@
 		
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
-			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			if(ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
 			const nPath = "./" + filename.split("_").join("/");
 			
 			Logger.info("Compile TS/JS File " + nPath);
@@ -55,7 +55,7 @@
 		
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
-			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			if(ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
 			const nPath = "./" + filename.split("_").join("/");
 			
 			Logger.info("Compile SASS/CSS File " + nPath);
