@@ -110,17 +110,7 @@ module.exports=((ATA)=>{
 		ATA.FS.readdirSync(dir).map((filename)=>{
 		try{
 			const filepath = ATA.Path.join(dir, filename);
-			console.log("\n\n\n => " + "/_/" + filename.split(".")[0].toUpperCase() + ".html");
-			
-			console.log("isdir => ", ATA.FS.statSync(filepath).isDirectory());
-			console.log("regex => ", regex.test(filename));
-			
-			console.log({
-				regex,
-				filename
-			});
-			
-			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			if (ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
 			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".html", (req, res, next)=>{
 				const render_data = GenerateData(req, res);
 				CompileEJSFile(filepath, {
