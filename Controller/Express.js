@@ -56,15 +56,15 @@
 			switch (error.code) {
 				case "EACCES":
 					Logger.error("Hata : Sunucu ek izinlere ihtiyaç duyuyor.");
-					break;
+				break;
 				case "EADDRINUSE":
 					Logger.error("Hata : Bu port zaten kullanılıyor.");
-					break;
+				break;
 				default:
 					Logger.error("Server Error => ");
 					console.error(error);
 					throw error;
-					break;
+				break;
 			}
 			return;
 			setTimeout(()=>{
@@ -77,6 +77,9 @@
 			Logger.error("System works with non secure mood");
 		});
 		server.listen(config.PORT);
+		ATA.Express.Server = server;
+		
+		ATA.Require("./Controller/Socket.js");
 	});
 	
 	ATA.Express = {

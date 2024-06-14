@@ -1,4 +1,4 @@
-module.exports=((ATA)=>{try{
+module.exports=((ATA)=>{
 	const http = ATA.Require("http");
 	const https = ATA.Require("https");
 	
@@ -97,5 +97,4 @@ module.exports=((ATA)=>{try{
 		static,
 		app,
 	};
-}catch(e){console.log(e)}
 })(ATA());

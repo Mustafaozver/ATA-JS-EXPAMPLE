@@ -3,6 +3,7 @@
 	const Render = ATA.Require("./Library/Render.js");
 	const DBMS = ATA.Require("./Library/DBMS.js");
 	const HTTP = ATA.Require("./Library/HTTP.js");
+	const Socket = ATA.Require("./Library/Socket.js");
 	const Security = ATA.Require("./Library/Security.js");
 	
 	const Package = ATA.Require("./package.json");
@@ -25,6 +26,7 @@
 			Render,
 			DBMS,
 			HTTP,
+			Socket,
 			Security,
 		}
 	};

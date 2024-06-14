@@ -6,14 +6,9 @@
     "auditLog": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/.e852b3da3797a6aeaca05460e35cda1fa7084983-audit.json",
     "files": [
         {
-            "date": 1718289990403,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-06-13.log",
-            "hash": "a9a56cb4577a59fd395b823cafc44b91280cb8f1be227b3a815f5ab04edef954"
-        },
-        {
-            "date": 1718316822400,
+            "date": 1718392127893,
             "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-06-14.log",
-            "hash": "8d5f95d6bb8ee715efc73e5f95314a2f3742b4828a8810dd58dec4d48383deec"
+            "hash": "2a418cc561bd1465d881e0128f5b7c8173afde42ff5881de9854203aaf9f7c26"
         }
     ],
     "hashType": "sha256"
