@@ -42,6 +42,7 @@ module.exports=((ATA)=>{
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			console.log(filepath);
 			router.get("/_/" + filename.toUpperCase(), (req, res, next)=>{
 				CompileTSFile(filepath, {
 					...render_data,
@@ -61,6 +62,7 @@ module.exports=((ATA)=>{
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			console.log(filepath);
 			router.get("/_/" + filename.toUpperCase(), (req, res, next)=>{
 				CompileSASSFile(filepath, {
 					...render_data,
