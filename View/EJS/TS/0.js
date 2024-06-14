@@ -1,5 +1,5 @@
 ((ATA)=>{
 	ATA.Setups.push(()=>{
-		console.log("sfdgfdg");
+		console.log("sfdgfdg", <% __append(JSON.stringify(time)); %>);
 	});
 })(ATA());

@@ -1,6 +1,6 @@
 module.exports=((ATA)=>{
 	const { Router, static, app } = ANA.Library.HTTP;
-	const { CompileTSFile, CompileSASSFile } = ANA.Library.Render;
+	const { CompileEJSFile, CompileTSFile, CompileSASSFile } = ANA.Library.Render;
 	
 	const router = Router();
 	
@@ -8,21 +8,36 @@ module.exports=((ATA)=>{
 	const zeroTS = ATA.Path.join(ATA.CWD, "./View/EJS/TS/0.js");
 	const zeroSASS = ATA.Path.join(ATA.CWD, "./View/EJS/SASS/0.css");
 	
-	const render_data  = {};
-	const render_data_ts = {};
-	const render_data_cs = {};
+	const GetTime = ()=>{
+		const date = new Date();
+		return date.getTime();
+	};
+	
+	const GenerateData = (req, res)=>{
+		
+		return{
+			time: GetTime(),
+		};
+	};
+	
+	const GenerateDataTS = (req, res)=>{
+		
+		return{
+			TS: true,
+		};
+	};
+	
+	const GenerateDataCS = (req, res)=>{
+		
+		return{
+			CS: true,
+		};
+	};
 	
 	
-	router.get("/JS", async(req, res, next)=>{
-		const data = CompileTSFile(zeroTS, {
-			...render_data,
-			...render_data_ts,
-		});
-		
-		res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
-		res.status(200).end(data);
-		
-		return;
+	router.get("/JS", (req, res, next)=>{
+		const render_data = GenerateData(req, res);
+		const render_data_ts = GenerateDataTS(req, res);
 		CompileTSFile(zeroTS, {
 			...render_data,
 			...render_data_ts,
@@ -30,11 +45,13 @@ module.exports=((ATA)=>{
 			res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
 			res.status(200).end(data);
 		}).catch((err)=>{
-			//next(err);
+			next(err);
 		});
 	});
 	
 	router.get("/CSS", (req, res, next)=>{
+		const render_data = GenerateData(req, res);
+		const render_data_cs = GenerateDataCS(req, res);
 		CompileSASSFile(zeroSASS, {
 			...render_data,
 			...render_data_cs,
@@ -42,7 +59,7 @@ module.exports=((ATA)=>{
 			res.setHeader("Content-Type", "text/css; charset=UTF-8");
 			res.status(200).end(data);
 		}).catch((err)=>{
-			//next(err);
+			next(err);
 		});
 	});
 	
@@ -51,8 +68,9 @@ module.exports=((ATA)=>{
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
-			console.log(filepath);
-			router.get("/_/" + filename.toUpperCase(), (req, res, next)=>{
+			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".js", (req, res, next)=>{
+				const render_data = GenerateData(req, res);
+				const render_data_ts = GenerateDataTS(req, res);
 				CompileTSFile(filepath, {
 					...render_data,
 					...render_data_ts,
@@ -60,7 +78,7 @@ module.exports=((ATA)=>{
 					res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
 					res.status(200).end(data);
 				}).catch((err)=>{
-					//next(err);
+					next(err);
 				});
 			});
 		});
@@ -71,8 +89,9 @@ module.exports=((ATA)=>{
 		ATA.FS.readdirSync(dir).map((filename)=>{
 			const filepath = ATA.Path.join(dir, filename);
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
-			console.log(filepath);
-			router.get("/_/" + filename.toUpperCase(), (req, res, next)=>{
+			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".css", (req, res, next)=>{
+				const render_data = GenerateData(req, res);
+				const render_data_cs = GenerateDataCS(req, res);
 				CompileSASSFile(filepath, {
 					...render_data,
 					...render_data_cs,
@@ -80,7 +99,27 @@ module.exports=((ATA)=>{
 					res.setHeader("Content-Type", "text/css; charset=UTF-8");
 					res.status(200).end(data);
 				}).catch((err)=>{
-					//next(err);
+					next(err);
+				});
+			});
+		});
+	});
+	
+	ATA.Setups.push(()=>{
+		const dir = ATA.Path.join(ATA.CWD, "./View/EJS/HTML/");
+		ATA.FS.readdirSync(dir).map((filename)=>{
+			const filepath = ATA.Path.join(dir, filename);
+			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
+			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".html", (req, res, next)=>{
+				const render_data = GenerateData(req, res);
+				CompileEJSFile(filepath, {
+					...render_data,
+					...render_data_cs,
+				}).then((data)=>{
+					res.setHeader("Content-Type", "text/html; charset=UTF-8");
+					res.status(200).end(data);
+				}).catch((err)=>{
+					next(err);
 				});
 			});
 		});
