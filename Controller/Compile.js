@@ -1,6 +1,6 @@
 ((ATA)=>{
 	const Security = ANA.Library.Security;
-	const Render = ANA.Library.Render;
+	const { CompileTSFile, CompileSASSFile } = ANA.Library.Render;
 	const config = ANA.Configurations.GetConstant("Security");
 	
 	const period = 1000 * 60 * 60 * 24 * 30;
@@ -30,7 +30,7 @@
 			
 			Logger.info("Compile TS/JS File " + nPath);
 			
-			Render.CompileTSFile(filepath, {
+			CompileTSFile(filepath, {
 				...render_data,
 				...render_data_ts,
 			}).then((data)=>{
@@ -59,7 +59,7 @@
 			
 			Logger.info("Compile SASS/CSS File " + nPath);
 			
-			Render.CompileSASSFile(filepath, {
+			CompileSASSFile(filepath, {
 				...render_data,
 				...render_data_ts,
 			}).then((data)=>{
