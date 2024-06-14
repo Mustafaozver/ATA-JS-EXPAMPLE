@@ -37,6 +37,7 @@
 		ATA.Require("./Controller/Logger.js");
 		ATA.Require("./Controller/Configuration.js");
 		ATA.Require("./Controller/DBMS.js");
+		ATA.Require("./Controller/i18n.js");
 		ATA.Require("./Controller/Security.js");
 		ATA.Require("./Controller/Express.js");
 		
