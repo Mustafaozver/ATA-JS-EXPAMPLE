@@ -4,18 +4,51 @@
 	
 	const config = ANA.Configurations.GetConstant("Environment");
 	
+	const GetTime = ()=>{
+		const date = new Date();
+		return date.getTime();
+	};
+	
+	const HeartBeat = ()=>{
+		ATA.Socket.socket.to("MEMBERS").emit("HEARTBEAT", GetTime());
+	};
+	
 	ATA.Setups.push(()=>{
 		const socket = CreateSocket(Server, {
 			path: config.SOCKET,
 		});
 		
-		socket.use((socket, next)=>{
-			//
-			next();
+		ATA.Socket.socket = socket;
+	});
+	
+	ATA.Setups.push(()=>{
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/MiddleWare/");
+		ATA.FS.readdirSync(path).map((filename)=>{
+			const filepath = ATA.Path.join(path, filename);
+			if(ATA.FS.statSync(filepath).isDirectory())return;
+			const path_parse = ATA.Path.parse(filepath);
+			if(path_parse === ".js")return;
+			const mw = ATA.Require(filepath);
+			ATA.Socket.socket.use((socket, next)=>{
+				mw(socket, next);
+			});
+		});
+	});
+	
+	
+	ATA.Setups.push(()=>{
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/Controller/");
+		ATA.FS.readdirSync(path).map((filename)=>{
+			const filepath = ATA.Path.join(path, filename);
+			if(ATA.FS.statSync(filepath).isDirectory())return;
+			const path_parse = ATA.Path.parse(filepath);
+			if(path_parse === ".js")return;
+			const emit = ATA.Require(filepath);
+			emit(ATA.Socket.socket);
 		});
 	});
 	
 	ATA.Socket = {
-		//
+		HeartBeat,
 	};
 })(ATA());
