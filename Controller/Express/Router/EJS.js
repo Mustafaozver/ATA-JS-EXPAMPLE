@@ -111,7 +111,7 @@ module.exports=((ATA)=>{
 		try{
 			const filepath = ATA.Path.join(dir, filename);
 			if (ATA.FS.statSync(filepath).isDirectory() || !(new RegExp(regex)).test(filename))return;
-			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".html", (req, res, next)=>{
+			router.get("/_" + filename.split(".")[0].toUpperCase() + ".html", (req, res, next)=>{
 				const render_data = GenerateData(req, res);
 				CompileEJSFile(filepath, {
 					...render_data,
