@@ -108,13 +108,23 @@ module.exports=((ATA)=>{
 	ATA.Setups.push(()=>{
 		const dir = ATA.Path.join(ATA.CWD, "./View/EJS/HTML/");
 		ATA.FS.readdirSync(dir).map((filename)=>{
+		try{
 			const filepath = ATA.Path.join(dir, filename);
+			console.log("\n\n\n => " + "/_/" + filename.split(".")[0].toUpperCase() + ".html");
+			
+			console.log("isdir => ", ATA.FS.statSync(filepath).isDirectory());
+			console.log("regex => ", regex.test(filename));
+			
+			console.log({
+				regex,
+				filename
+			});
+			
 			if(ATA.FS.statSync(filepath).isDirectory() || !regex.test(filename))return;
 			router.get("/_/" + filename.split(".")[0].toUpperCase() + ".html", (req, res, next)=>{
 				const render_data = GenerateData(req, res);
 				CompileEJSFile(filepath, {
 					...render_data,
-					...render_data_cs,
 				}).then((data)=>{
 					res.setHeader("Content-Type", "text/html; charset=UTF-8");
 					res.status(200).end(data);
@@ -122,6 +132,7 @@ module.exports=((ATA)=>{
 					next(err);
 				});
 			});
+		}catch(e){console.log(e)}
 		});
 	});
 	
