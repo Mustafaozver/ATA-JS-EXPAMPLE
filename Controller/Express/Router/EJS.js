@@ -8,6 +8,11 @@ module.exports=((ATA)=>{
 	const zeroTS = ATA.Path.join(ATA.CWD, "./View/EJS/TS/0.js");
 	const zeroSASS = ATA.Path.join(ATA.CWD, "./View/EJS/SASS/0.css");
 	
+	const render_data  = {};
+	const render_data_ts = {};
+	const render_data_cs = {};
+	
+	
 	router.get("/JS", (req, res, next)=>{
 		CompileTSFile(zeroTS, {
 			...render_data,
