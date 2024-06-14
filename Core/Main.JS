@@ -2,6 +2,7 @@
 	const Logger = ATA.Require("./Library/Logger.js");
 	const Render = ATA.Require("./Library/Render.js");
 	const DBMS = ATA.Require("./Library/DBMS.js");
+	const i18n = ATA.Require("./Library/i18n.js");
 	const HTTP = ATA.Require("./Library/HTTP.js");
 	const Socket = ATA.Require("./Library/Socket.js");
 	const Security = ATA.Require("./Library/Security.js");
@@ -25,6 +26,7 @@
 			Logger,
 			Render,
 			DBMS,
+			i18n,
 			HTTP,
 			Socket,
 			Security,

@@ -1,11 +1,54 @@
-$background-color: black;
-$text-color: white;
+$background-color: white;
+$text-color: black;
 
-body {
+body{
 	background-color: $background-color;
 	color: $text-color;
+}
+
+.fontcode{
+	font-family: "Victor Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	letter-spacing: 1px;
+	line-height: normal;
+}
+
+div.spinnerpanel{
+	display: block;
+	left: 0;
+	top: 0;
+	position: fixed;
+	z-index: 200000;
+	width: 100%;
+	height: 100%;
+	background-color: #353538FF;
 	
-	div {
-		color: green;
+	span.loader1{
+		border: 20px solid #80809050;
+		border-radius: 50%;
+		border-top: 20px solid #F8F9FBB0;
+		border-bottom: 20px solid #F8F9FBB0;
+		width: 150px;
+		height: 150px;
+		-webkit-animation: spin1 1.7s linear infinite;
+		animation: spin1 1.7s linear infinite;
+		position:absolute;
+		left:calc(50% - 75px);
+	}
+	
+	@-webkit-keyframes spin1 {
+		0% {
+			-webkit-transform: rotate(360deg);
+		}
+		100% {
+			-webkit-transform: rotate(0deg);
+		}
+	}
+	@keyframes spin1 {
+		0% {
+			transform: rotate(360deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
 	}
 }

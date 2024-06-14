@@ -1,0 +1,28 @@
+$ws-side-color-l: #FF3040;
+$ws-side-color-r: #0D3EFF;
+
+.bg-danger2 {
+	background-color: $ws-side-color-l;
+	color: white;
+	border-color: #80808000;
+	border-width: 10px;
+	border-radius: 10px;
+	border-style: solid;
+}
+
+.bg-primary2 {
+	background-color: $ws-side-color-r;
+	color: white;
+	border-color: #80808000;
+	border-width: 10px;
+	border-radius: 10px;
+	border-style: solid;
+}
+
+.text-danger2 {
+	color: $ws-side-color-l;
+}
+
+.text-primary2 {
+	color: $ws-side-color-r;
+}
