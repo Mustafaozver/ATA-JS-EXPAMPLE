@@ -3,7 +3,7 @@
 	
 	const http = HTTP.http; // https
 	const app = HTTP.app;
-	const router = HTTP.Router();
+	const Router = HTTP.Router();
 	
 	const config = ANA.Configurations.GetConstant("Environment");
 	
@@ -20,9 +20,39 @@
 		next();
 	});
 	
-	app.use(router);
+	app.use(Router);
 	
 	app.use(ATA.Require("./Controller/Express/Error/404.js"));
+	
+	ATA.Setups.push(()=>{
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Express/MiddleWare/");
+		ATA.FS.readdirSync(path).map((filename)=>{
+			const filepath = ATA.Path.join(path, filename);
+			if(ATA.FS.statSync(filepath).isDirectory())return;
+			const path_parse = ATA.Path.parse(filepath);
+			if(path_parse === ".js")return;
+			const mw = ATA.Require(filepath);
+			Router.use((req, res, next)=>{
+				mw(req, res, next);
+				next();
+			});
+		});
+	});
+	
+	ATA.Setups.push(()=>{
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Express/MiddleWare/");
+		ATA.FS.readdirSync(path).map((filename)=>{
+			const filepath = ATA.Path.join(path, filename);
+			if(ATA.FS.statSync(filepath).isDirectory())return;
+			const path_parse = ATA.Path.parse(filepath);
+			if(path_parse === ".js")return;
+			const router = ATA.Require(filepath);
+			Router.use((req, res, next)=>{
+				router(req, res, next);
+				next();
+			});
+		});
+	});
 	
 	ATA.Setups.push(()=>{
 		const server = http.createServer(app);
@@ -52,4 +82,9 @@
 		});
 		server.listen(config.PORT);
 	});
+	
+	ATA.Express = {
+		Router,
+		//
+	};
 })(ATA());
