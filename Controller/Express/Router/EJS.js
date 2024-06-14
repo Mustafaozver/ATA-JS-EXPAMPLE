@@ -21,7 +21,7 @@ module.exports=((ATA)=>{
 			res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
 			res.status(200).end(data);
 		}).catch((err)=>{
-			next(err);
+			//next(err);
 		});
 	});
 	
@@ -33,7 +33,7 @@ module.exports=((ATA)=>{
 			res.setHeader("Content-Type", "text/css; charset=UTF-8");
 			res.status(200).end(data);
 		}).catch((err)=>{
-			next(err);
+			//next(err);
 		});
 	});
 	
@@ -50,7 +50,7 @@ module.exports=((ATA)=>{
 					res.setHeader("Content-Type", "application/javascript; charset=UTF-8");
 					res.status(200).end(data);
 				}).catch((err)=>{
-					next(err);
+					//next(err);
 				});
 			});
 		});
@@ -69,7 +69,7 @@ module.exports=((ATA)=>{
 					res.setHeader("Content-Type", "text/css; charset=UTF-8");
 					res.status(200).end(data);
 				}).catch((err)=>{
-					next(err);
+					//next(err);
 				});
 			});
 		});
