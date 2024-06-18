@@ -25,8 +25,12 @@
 	};
 	
 	const OnConnect = (socket, io)=>{
-		Object.keys(Routers).map((key)=>{
-			socket.on(key, Routers[key]);
+		socket.on("MSG", (data)=>{
+			if(data.M && Routers[data.M]){
+				return Routers[data.M](socket, data);
+			}
+			
+			console.log("FAIL => ", data);
 		});
 		
 		//

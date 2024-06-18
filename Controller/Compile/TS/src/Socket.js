@@ -20,6 +20,8 @@
 		}, 30000);
 	});
 	
+	//
+	
 	Socket.on("HEARTBEAT", (data)=>{
 		console.log("HEARTBEAT");
 		//SetTime(data);
@@ -43,7 +45,11 @@
 		Socket.emit("SETUP");
 	};
 	
-	ATA.Setups.push(()=>{
+	ATA.Loops.push(()=>{
+		Socket.emit("MSG", {
+			M: "0",
+			Y: "evbfdg"
+		});
 	});
 	
 	return Socket;
