@@ -40,6 +40,9 @@
 			CID: socket.id,
 			ANA: ANA.Me,
 		});
+		
+		socket.emit("APPROVED");
+		socket.join("MEMBERS");
 	};
 	
 	const OnDisConnect = ()=>{
