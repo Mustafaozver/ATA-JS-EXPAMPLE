@@ -3,6 +3,9 @@
 	const BASE_WS = ws_protocol + "//" + hostname + port;
 	const Socket = win.io(BASE_WS, {
 		path: "/SOCKET",
+		autoConnect: false,
+		reconnectionDelayMax: 10000,
+		forceNew: true,
 		/*auth: {
 			token: "",
 			session_id: "",
@@ -12,6 +15,7 @@
 	Socket.on("connect", ()=>{
 		//console.log(ATA.Socket.id);
 		setTimeout(Setup, 10);
+		console.warn("GGGG");
 	});
 	
 	Socket.on("disconnect", ()=>{
@@ -20,7 +24,7 @@
 		}, 30000);
 	});
 	
-	//
+	//////////////////////////////////////////////////////
 	
 	Socket.on("HEARTBEAT", (data)=>{
 		console.log("HEARTBEAT");
@@ -31,9 +35,9 @@
 		setTimeout(data, 1);
 	});
 	
-	Socket.on("SETUP", ()=>{
-		console.log("SETUP");
-		ATA.Socket.emit("LOGIN", {
+	Socket.on("SETUP", (data)=>{
+		console.log("SETUP", data);
+		Socket.emit("LOGIN", {
 			token: "",
 			username: "",
 			password: "",
@@ -50,6 +54,10 @@
 			M: "0",
 			Y: "evbfdg"
 		});
+	});
+	
+	ATA.Setups.push(()=>{
+		Socket.connect();
 	});
 	
 	return Socket;

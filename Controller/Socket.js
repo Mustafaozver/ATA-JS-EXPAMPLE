@@ -21,7 +21,7 @@
 	
 	
 	const HeartBeat = ()=>{
-		ATA.Socket.socket.to("MEMBERS").emit("HEARTBEAT", GetTime());
+		ATA.Socket.IO.to("MEMBERS").emit("HEARTBEAT", GetTime());
 	};
 	
 	const OnConnect = (socket, io)=>{
@@ -37,7 +37,7 @@
 		socket.emit("SETUP", {
 			TIME: GetTime(),
 			SID: ATA.ID.UUID,
-			CID: io.id,
+			CID: socket.id,
 			ANA: ANA.Me,
 		});
 	};
@@ -50,6 +50,7 @@
 		const IO = CreateIO(Server, {
 			path: config.SOCKET,
 		});
+		
 		IO.use((socket, next)=>{
 			//socket.emit("0");
 			next();
@@ -66,6 +67,7 @@
 		ATA.Socket.IO = IO;
 	});
 	
+	
 	const Routers = {};
 	
 	ATA.Setups.push(()=>{
@@ -79,6 +81,7 @@
 			Routers[filename.split(".")[0].toUpperCase()] = responser;
 		});
 	});
+	
 	
 	ATA.Setups.push(()=>{
 		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/MiddleWare/");
