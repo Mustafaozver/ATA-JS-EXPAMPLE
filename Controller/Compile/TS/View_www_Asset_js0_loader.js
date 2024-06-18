@@ -10,7 +10,15 @@
 	const Socket  = <%- include("./src/Socket.js"); %>;
 	
 	
-	
+	console.log({
+		hostname,
+		port,
+		protocol,
+		documentElement,
+		DomElement,
+		Socket,
+		
+	});
 	
 	
 	<%- include("./src/main.js"); %>;

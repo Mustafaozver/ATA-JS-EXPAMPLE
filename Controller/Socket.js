@@ -1,5 +1,5 @@
 ((ATA)=>{
-	const { CreateSocket } = ANA.Library.Socket;
+	const { CreateIO } = ANA.Library.Socket;
 	const Server = ATA.Express.Server;
 	
 	const config = ANA.Configurations.GetConstant("Environment");
@@ -9,16 +9,71 @@
 		return date.getTime();
 	};
 	
+	const LogIn = (socket, data)=>{
+		/*
+		login işlemleri
+		
+		*/
+		console.log({ data });
+		socket.emit("APPROVED");
+		socket.join("MEMBERS");
+	};
+	
+	
 	const HeartBeat = ()=>{
 		ATA.Socket.socket.to("MEMBERS").emit("HEARTBEAT", GetTime());
 	};
 	
-	ATA.Setups.push(()=>{
-		const socket = CreateSocket(Server, {
-			path: config.SOCKET,
+	const OnConnect = (socket, io)=>{
+		Object.keys(Routers).map((key)=>{
+			socket.on(key, Routers[key]);
 		});
 		
-		ATA.Socket.socket = socket;
+		//
+		socket.emit("SETUP", {
+			TIME: GetTime(),
+			SID: ATA.ID.UUID,
+			CID: io.id,
+			ANA: ANA.Me,
+		});
+	};
+	
+	const OnDisConnect = ()=>{
+		console.log("IO users => ", ATA.Socket.IO.sockets.clients().length);
+	};
+	
+	ATA.Setups.push(()=>{
+		const IO = CreateIO(Server, {
+			path: config.SOCKET,
+		});
+		IO.use((socket, next)=>{
+			//socket.emit("0");
+			next();
+		});
+		
+		IO.on("connection", (socket)=>{
+			OnConnect(socket, IO);
+		});
+		
+		IO.on("disconnect", ()=>{
+			OnDisConnect();
+		});
+		
+		ATA.Socket.IO = IO;
+	});
+	
+	const Routers = {};
+	
+	ATA.Setups.push(()=>{
+		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/Router");
+		ATA.FS.readdirSync(path).map((filename)=>{
+			const filepath = ATA.Path.join(path, filename);
+			if(ATA.FS.statSync(filepath).isDirectory())return;
+			const path_parse = ATA.Path.parse(filepath);
+			if(path_parse === ".js")return;
+			const responser = ATA.Require(filepath);
+			Routers[filename.split(".")[0].toUpperCase()] = responser;
+		});
 	});
 	
 	ATA.Setups.push(()=>{
@@ -29,27 +84,15 @@
 			const path_parse = ATA.Path.parse(filepath);
 			if(path_parse === ".js")return;
 			const mw = ATA.Require(filepath);
-			ATA.Socket.socket.use((socket, next)=>{
+			ATA.Socket.IO.use((socket, next)=>{
 				mw(socket, next);
+				next();
 			});
 		});
 	});
 	
-	
-	ATA.Setups.push(()=>{
-		const path = ATA.Path.join(ATA.CWD, "./Controller/Socket/Router/");
-		ATA.FS.readdirSync(path).map((filename)=>{
-			const filepath = ATA.Path.join(path, filename);
-			if(ATA.FS.statSync(filepath).isDirectory())return;
-			const path_parse = ATA.Path.parse(filepath);
-			if(path_parse === ".js")return;
-			const group = ATA.Require(filepath);
-			ATA.Socket.socket.use((socket, next)=>{
-				socket.on(filename.split(".")[0].toUpperCase(), (data)=>{
-					group(socket, data);
-				});
-			});
-		});
+	ATA.Loops.push(()=>{
+		HeartBeat();
 	});
 	
 	ATA.Socket = {

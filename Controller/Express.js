@@ -9,10 +9,12 @@
 	
 	app.use((req, res, next)=>{
 		const remoteAddress = "" + req.connection.remoteAddress;
-		//const userAgent = "" + req.headers["user-agent"];
+		const userAgent = "" + req.headers["user-agent"];
 		
-		//res.setHeader("Access-Control-Allow-Origin", "http://" + ATA.config.DOMAIN + ":" + port + "/");
-		//res.setHeader("Access-Control-Allow-Origin", domain);
+		return next();
+		
+		res.setHeader("Access-Control-Allow-Origin", "http://" + config.DOMAIN + ":" + config.PORT + "/");
+		res.setHeader("Access-Control-Allow-Origin", config.DOMAIN);
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
 		//res.setHeader("Allow", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
 		res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
@@ -53,7 +55,7 @@
 	ATA.Setups.push(()=>{
 		const server = http.createServer(app);
 		server.on("error", (error)=>{
-			switch (error.code) {
+			switch(error.code){
 				case "EACCES":
 					Logger.error("Hata : Sunucu ek izinlere ihtiyaç duyuyor.");
 				break;
@@ -74,7 +76,7 @@
 		server.on("listening", ()=>{
 			const ddr = server.address();
 			Logger.info("HTTP server on " + ddr.address + ":" + ddr.port);
-			Logger.error("System works with non secure mood");
+			//Logger.error("System works with non secure mood");
 		});
 		server.listen(config.PORT);
 		ATA.Express.Server = server;

@@ -10,14 +10,14 @@
 	});
 	
 	Socket.on("connect", ()=>{
-		console.log(ATA.Socket.id); // x8WIv7-mJelg7on_ALbx
-		Setup();
+		//console.log(ATA.Socket.id);
+		setTimeout(Setup, 10);
 	});
 	
 	Socket.on("disconnect", ()=>{
 		setTimeout(()=>{
 			win.location.reload();
-		}, 5000);
+		}, 30000);
 	});
 	
 	Socket.on("HEARTBEAT", (data)=>{
@@ -44,9 +44,6 @@
 	};
 	
 	ATA.Setups.push(()=>{
-		setTimeout(()=>{
-			Setup();
-		}, 5000);
 	});
 	
 	return Socket;

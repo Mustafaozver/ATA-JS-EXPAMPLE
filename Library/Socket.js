@@ -1,31 +1,8 @@
 module.exports=((ATA)=>{
-	const Socket = ATA.Require("socket.io");
+	const IO = ATA.Require("socket.io");
 	
-	const OnConnect = (socket)=>{
-		socket.on("SETUP", ()=>{
-			OnSetup(socket);
-		});
-	};
-	
-	const OnDisConnect = (socket)=>{
-		console.log("Socket users => ", socket.sockets.clients().length);
-	};
-	
-	const OnSetup = (socket)=>{
-		socket.emit("SETUP", {
-			//TIME: GetTime(),
-			SID: ATA.ID.UUID,
-			CID: socket.id,
-			ANA: ANA.Me,
-		});
-		
-		socket.on("LOGIN", (data)=>{
-			LogIn(socket, data);
-		});
-	};
-	
-	const CreateSocket = (server, options)=>{
-		const socket = new Socket.Server(server, Object.assign({
+	const CreateIO = (server, options)=>{
+		const io = new IO.Server(server, Object.assign({
 			cors: true,
 			origins: [],
 			path: "/",
@@ -36,19 +13,11 @@ module.exports=((ATA)=>{
 			maxHttpBufferSize: 1e7,
 		}, { ...options }));
 		
-		socket.on("connection", (socket)=>{
-			OnConnect(socket);
-		});
-		
-		socket.on("disconnect", ()=>{
-			OnDisConnect(socket);
-		});
-		
-		return socket;
+		return io;
 	};
 	
 	return{
-		CreateSocket,
+		CreateIO,
 		
 	};
 })(ATA());
