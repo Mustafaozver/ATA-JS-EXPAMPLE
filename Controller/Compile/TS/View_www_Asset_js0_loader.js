@@ -6,15 +6,25 @@
 	const protocol = win.location.protocol;
 	const documentElement = doc.documentElement;
 	
+	const Helper = <%- include("./src/Helper.js"); %>;
+	const Module  = <%- include("./src/Module.js"); %>;
 	const DomElement  = <%- include("./src/DomElement.js"); %>;
 	const Socket  = <%- include("./src/Socket.js"); %>;
 	
 	
+	
+	
+	
+	
 	console.log({
+		//
 		hostname,
 		port,
 		protocol,
 		documentElement,
+		//
+		Helper,
+		Module,
 		DomElement,
 		Socket,
 		
