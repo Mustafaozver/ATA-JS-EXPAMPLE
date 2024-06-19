@@ -6,6 +6,7 @@
 		autoConnect: false,
 		reconnectionDelayMax: 10000,
 		forceNew: true,
+		transports: ["websocket", "polling"],
 		/*auth: {
 			token: "",
 			session_id: "",
@@ -57,6 +58,7 @@
 	});
 	
 	ATA.Setups.push(()=>{
+		Socket.io.open();
 		Socket.connect();
 	});
 	
