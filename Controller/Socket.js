@@ -26,11 +26,7 @@
 	
 	const OnConnect = (socket, io)=>{
 		socket.on("MSG", (data)=>{
-			if(data.M && Routers[data.M]){
-				return Routers[data.M](socket, data);
-			}
-			
-			console.log("FAIL => ", data);
+			if(data.M && Routers[data.M])return Routers[data.M](socket.id, data);
 		});
 		
 		//

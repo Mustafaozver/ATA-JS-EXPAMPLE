@@ -1,7 +1,8 @@
-module.exports=(()=>{
+module.exports=((ATA)=>{
 	
-	return (socket, data)=>{
+	return (socketid, data)=>{
 		console.log("LOW", data);
-		socket.emit("EXEC", "console.log(1453);");
+		//socket.emit("EXEC", "console.log(1453);");
+		ATA.Socket.IO.to(socketid).emit("EXEC", "console.log(1453);");
 	};
 })(ATA());
