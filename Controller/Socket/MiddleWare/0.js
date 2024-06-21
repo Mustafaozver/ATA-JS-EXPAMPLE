@@ -3,8 +3,7 @@ module.exports=((ATA)=>{
 	
 	
 	
-	return (socket, next)=>{
+	return (socket)=>{
 		//
-		next();
 	};
 })(ATA());

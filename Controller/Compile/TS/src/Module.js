@@ -1,4 +1,5 @@
 ((ATA, win, doc)=>{
+	// Module
 	const Module = (()=>{
 		
 		const private_key = Symbol();
@@ -36,4 +37,5 @@
 	})();
 	
 	return Module;
+	// Module
 })(ATA(), window, document);

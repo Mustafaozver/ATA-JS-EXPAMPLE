@@ -56,7 +56,6 @@
 		});
 		
 		IO.on("connection", (socket)=>{
-			return console.error("adsgdfgfhbdfhjnghf");
 			OnConnect(socket, IO);
 		});
 		
@@ -92,7 +91,7 @@
 			if(path_parse === ".js")return;
 			const mw = ATA.Require(filepath);
 			ATA.Socket.IO.use((socket, next)=>{
-				mw(socket, next);
+				mw(socket);
 				next();
 			});
 		});

@@ -1,8 +1,9 @@
 ((ATA, win, doc)=>{
+	// Socket
 	const ws_protocol = protocol === "http:" ? "ws:" : "wss:";
 	const BASE_WS = ws_protocol + "//" + hostname + port;
 	const Socket = win.io(BASE_WS, {
-		path: "/SOCKET",
+		path: <% __append(JSON.stringify(Environment.SOCKET)); %> ,
 		autoConnect: false,
 		reconnectionDelayMax: 10000,
 		forceNew: true,
@@ -16,10 +17,10 @@
 	Socket.on("connect", ()=>{
 		//console.log(ATA.Socket.id);
 		setTimeout(Setup, 10);
-		console.warn("GGGG");
 	});
 	
 	Socket.on("disconnect", ()=>{
+		return;
 		setTimeout(()=>{
 			win.location.reload();
 		}, 30000);
@@ -27,10 +28,11 @@
 	
 	//////////////////////////////////////////////////////
 	
-	Socket.on("HEARTBEAT", (data)=>{
-		console.log("HEARTBEAT");
-		//SetTime(data);
-	});
+	const SetTime = (stime)=>{
+		const ctime = new Date();
+		const diff = ctime - stime;
+		console.log("HEARTBEAT", diff, ctime);
+	};
 	
 	Socket.on("EXEC", (data)=>{
 		setTimeout(data, 1);
@@ -50,17 +52,22 @@
 		Socket.emit("SETUP");
 	};
 	
+	Socket.on("HEARTBEAT", (data)=>{
+		count = 120;
+		SetTime(data);
+	});
+	
+	let count = 300;
+	
 	ATA.Loops.push(()=>{
-		Socket.emit("MSG", {
-			M: "0",
-			Y: "evbfdg"
-		});
+		if((count--) < 0)return win.location.reload();
 	});
 	
 	ATA.Setups.push(()=>{
-		Socket.io.open();
+		//Socket.io.open();
 		Socket.connect();
 	});
 	
 	return Socket;
+	// Socket
 })(ATA(), window, document);

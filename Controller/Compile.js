@@ -2,6 +2,7 @@
 	const Security = ANA.Library.Security;
 	const { CompileTSFile, CompileSASSFile } = ANA.Library.Render;
 	const config = ANA.Configurations.GetConstant("Security");
+	const Environment = ANA.Configurations.GetConstant("Environment");
 	
 	const period = 1000 * 60 * 60 * 24 * 30;
 	const cycled_key = (Math.floor((new Date()).getTime() / period) * 168297) % 1000;
@@ -15,6 +16,7 @@
 		msg: "BETA",
 		version: "Beta-1.0.0.0-1",
 		prefix: "Z0ZjVWZEJLs6lpqI",
+		Environment,
 	};
 	
 	const render_data_ts = {};

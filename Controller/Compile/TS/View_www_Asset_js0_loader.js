@@ -9,27 +9,10 @@
 	const Helper = <%- include("./src/Helper.js"); %>;
 	const Module  = <%- include("./src/Module.js"); %>;
 	const DomElement  = <%- include("./src/DomElement.js"); %>;
+	const Connection = <%- include("./src/Connection.js"); %>;
 	const Socket  = <%- include("./src/Socket.js"); %>;
 	
-	
-	
-	
-	
-	
-	console.log({
-		//
-		hostname,
-		port,
-		protocol,
-		documentElement,
-		//
-		Helper,
-		Module,
-		DomElement,
-		Socket,
-		
-	});
-	
+	<%- include("./src/Development.js"); %>;
 	
 	<%- include("./src/main.js"); %>;
 })(window, document);

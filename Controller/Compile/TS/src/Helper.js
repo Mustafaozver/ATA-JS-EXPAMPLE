@@ -1,5 +1,5 @@
 ((ATA, win, doc)=>{
-	
+	// Helper
 	const ToggleFullScreen = ()=>{
 		if (doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement){
 			if(doc.exitFullscreen)doc.exitFullscreen();
@@ -19,4 +19,5 @@
 	return{
 		ToggleFullScreen,
 	};
+	// Helper
 })(ATA(), window, document);

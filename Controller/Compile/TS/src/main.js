@@ -1,4 +1,5 @@
 ((ATA, win, doc)=>{
+	// MAIN
 	const ws_protocol = protocol === "http:" ? "ws:" : "wss:";
 	
 	const BASE = protocol + "//" + hostname + port;
@@ -17,5 +18,5 @@
 	ATA.Setups.push(()=>{
 		
 	});
-	
+	// MAIN
 })(ATA(), window, document);

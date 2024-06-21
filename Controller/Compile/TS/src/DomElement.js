@@ -1,4 +1,5 @@
 ((ATA, win, doc)=>{
+	// DomElement
 	const DomElement = (()=>{
 		
 		const private_key = Symbol();
@@ -64,6 +65,9 @@
 			get $(){
 				return Get$(this);
 			};
+			get O(){
+				return GetO(this);
+			};
 			Text(text){
 				SetText(this, text);
 				return this;
@@ -106,11 +110,14 @@
 			ele.setAttribute(key, value);
 		};
 		
-		const Get$ = (ins)=>{
+		const GetO = (ins)=>{
 			const ID = ins[private_key];
 			const ele = hidden_stack[ID].ele;
-			
-			return $(ele);
+			return ele;
+		};
+		
+		const Get$ = (ins)=>{
+			return $(ins.O);
 		}; 
 		
 		const SetText = (ins, text)=>{
@@ -124,4 +131,5 @@
 	})();
 	
 	return DomElement;
+	// Dom Element
 })(ATA(), window, document);
