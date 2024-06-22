@@ -64,7 +64,7 @@
 			
 			CompileSASSFile(filepath, {
 				...render_data,
-				...render_data_ts,
+				...render_data_cs,
 			}).then((data)=>{
 				ATA.FS.writeFile(ATA.Path.join(ATA.CWD, nPath), data, {
 					flag: "w",
