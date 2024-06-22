@@ -1,6 +1,7 @@
 ((ATA)=>{
 	const Logger = ATA.Require("./Library/Logger.js");
 	const Render = ATA.Require("./Library/Render.js");
+	const Mail = ATA.Require("./Library/Mail.js");
 	const DBMS = ATA.Require("./Library/DBMS.js");
 	const i18n = ATA.Require("./Library/i18n.js");
 	const HTTP = ATA.Require("./Library/HTTP.js");
@@ -25,6 +26,7 @@
 		Library: {
 			Logger,
 			Render,
+			Mail,
 			DBMS,
 			i18n,
 			HTTP,
@@ -34,13 +36,20 @@
 	};
 	
 	ATA.Setups.push(()=>{
-		ATA.Require("./Controller/Logger.js");
+		// Gerekli ayarlamaların uygulanması
 		ATA.Require("./Controller/Configuration.js");
+		
+		// Gerekli Denetimlerin Etkinleştirilmesi
+		ATA.Require("./Controller/Logger.js");
+		ATA.Require("./Controller/Mail.js");
 		ATA.Require("./Controller/DBMS.js");
 		ATA.Require("./Controller/i18n.js");
 		ATA.Require("./Controller/Security.js");
 		ATA.Require("./Controller/Express.js");
 		
+		// Gerekli Servislerin Ayaklandırılması
+		
+		// Sistem yapılanması
 		ATA.Require("./Service/Scenario.JS");
 	});
 })(ATA());
