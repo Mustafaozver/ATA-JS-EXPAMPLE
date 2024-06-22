@@ -1,5 +1,6 @@
 module.exports=((ATA)=>{
 	const { Router, static, app } = ANA.Library.HTTP;
+	const { C } = ANA.Library.i18n;
 	const { CompileEJSFile, CompileTSFile, CompileSASSFile } = ANA.Library.Render;
 	
 	const router = Router();
@@ -17,6 +18,7 @@ module.exports=((ATA)=>{
 		
 		return{
 			time: GetTime(),
+			C,
 		};
 	};
 	

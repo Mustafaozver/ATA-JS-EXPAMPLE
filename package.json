@@ -39,6 +39,7 @@
 		"express": "^4.19.2",
 		"express-useragent": "^1.0.15",
 		"helmet": "^7.1.0",
+		"i18n": "^0.15.1",
 		"morgan": "^1.10.0",
 		"pg": "^8.11.5",
 		"pg-hstore": "^2.3.4",

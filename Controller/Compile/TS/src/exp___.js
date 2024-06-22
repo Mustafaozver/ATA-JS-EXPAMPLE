@@ -14,7 +14,7 @@
 			}, { ...config });
 		};
 		
-		const register = (ins, tagname, area, config={})=>{
+		const register = (ins, config={})=>{
 			const ID = Symbol();
 			ins[private_key] = ID;
 			
@@ -27,7 +27,7 @@
 		
 		const Class = class{
 			[private_key] = null;
-			constructor(tagname="DIV", config){
+			constructor(config){
 				register(this, config);
 			};
 		};

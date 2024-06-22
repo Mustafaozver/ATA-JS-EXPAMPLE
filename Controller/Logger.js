@@ -16,30 +16,30 @@
 		console.log = function(){
 			const args = [...arguments];
 			console_log.apply(console, args);
-			ATA.GLOBAL.Logger.log("info", args.join(" "));
+			//ATA.GLOBAL.Logger.debug("info", args.join(" "));
 		};
 		
 		console.info = function(){
 			const args = [...arguments];
-			console_info.apply(console, args);
-			ATA.GLOBAL.Logger.log("info", args.join(" "));
+			//console_info.apply(console, args);
+			ATA.GLOBAL.Logger.info(args.join(" "));
 		};
 		
 		console.warn = function(){
 			const args = [...arguments];
-			console_warn.apply(console, args);
-			ATA.GLOBAL.Logger.log("warn", args.join(" "));
+			//console_warn.apply(console, args);
+			ATA.GLOBAL.Logger.warn(args.join(" "));
 		};
 		
 		console.error = function(){
 			const args = [...arguments];
-			console_error.apply(console, args);
+			//console_error.apply(console, args);
 			ATA.GLOBAL.Logger.log("error", args.join(" "));
 		};
 		
 		console.debug = function(){
 			const args = [...arguments];
-			console_debug.apply(console, args);
+			//console_debug.apply(console, args);
 			ATA.GLOBAL.Logger.log("debug", args.join(" "));
 		};
 	});

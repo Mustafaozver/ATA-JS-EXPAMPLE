@@ -104,7 +104,9 @@
 	};
 	
 	setTimeout(()=>{
-		CallAPI("/fvefverfbv", {y:5,h:8}, {g:7,e:1453});
+		CallAPI("/MY_API_V3", {y:5,h:8}, {g:7,e:1453}).then((data)=>{
+			console.log({data});
+		});
 	}, 5000);
 	
 	return{

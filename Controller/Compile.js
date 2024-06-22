@@ -1,5 +1,6 @@
 ((ATA)=>{
 	const Security = ANA.Library.Security;
+	const { C } = ANA.Library.i18n;
 	const { CompileTSFile, CompileSASSFile } = ANA.Library.Render;
 	const config = ANA.Configurations.GetConstant("Security");
 	const Environment = ANA.Configurations.GetConstant("Environment");
@@ -17,6 +18,7 @@
 		version: "Beta-1.0.0.0-1",
 		prefix: "Z0ZjVWZEJLs6lpqI",
 		Environment,
+		C,
 	};
 	
 	const render_data_ts = {};

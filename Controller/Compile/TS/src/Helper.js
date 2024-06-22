@@ -50,8 +50,6 @@
 			
 		};
 		
-		console.log({Date});
-		
 		
 		
 		
@@ -444,15 +442,11 @@
 	const Qmedia = win.matchMedia("(prefers-color-scheme: " + "dark" + ")");
 	const checkThemeColor = () => {
 		ATA.ThemeColor = Qmedia.matches ? "DARK" : "LIGHT";
+		console.log("Theme => ", ATA.ThemeColor);
 	};
 	Qmedia.addEventListener("change", checkThemeColor);
 	checkThemeColor();
 	
-	
-	ATA.Setups.push(()=>{
-		const color = new Color(1025,11,222,52);
-		console.log({color});
-	});
 	
 	return{
 		ToggleFullScreen,
