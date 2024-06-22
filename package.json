@@ -54,11 +54,11 @@
 		"winston-daily-rotate-file": "^5.0.0"
 	},
 	"devDependencies": {
+		"electron": "^31.0.2",
 		"mocha": "^10.2.0",
 		"nodemon": "^2.0.21"
 	},
 	"engines": {
-		"electron": "^31.0.2",
 		"node": ">=18.0.0",
 		"npm": ">=8.0.0"
 	}
