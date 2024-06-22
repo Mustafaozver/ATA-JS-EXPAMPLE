@@ -9,15 +9,19 @@ module.exports=((ATA)=>{
 			objectNotation: true,
 			updateFiles: false,
 			logDebugFn: (msg)=>{
-				Logger.debug(msg)
+				Logger.debug(msg);
 			},
 			// setting of log level WARN - default to require('debug')('i18n:warn')
 			logWarnFn: (msg)=>{
-				Logger.warn(msg)
+				Logger.warn(msg);
 			},
 			// setting of log level ERROR - default to require('debug')('i18n:error')
 			logErrorFn: (msg)=>{
-				Logger.error(msg)
+				Logger.error(msg);
+			},
+			missingKeyFn: (locale, value)=>{
+				Logger.error("Missing Lang Key [" + locale + "] => \"" + value + "\"");
+				return value;
 			}
 		}, {...option}));
 	};
