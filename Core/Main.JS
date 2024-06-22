@@ -48,8 +48,5 @@
 		ATA.Require("./Controller/Express.js");
 		
 		// Gerekli Servislerin Ayaklandırılması
-		
-		// Sistem yapılanması
-		ATA.Require("./Service/Scenario.JS");
 	});
 })(ATA());

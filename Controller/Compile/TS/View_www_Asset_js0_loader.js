@@ -20,6 +20,7 @@
 	const Connection = <%- include("./src/Connection.js"); %>;
 	const WebRTC = <%- include("./src/WebRTC.js"); %>;
 	const Socket  = <%- include("./src/Socket.js"); %>;
+	const Device = <%- include("./src/Device.js"); %>;
 	
 	<%- include("./src/Development.js"); %>;
 	
