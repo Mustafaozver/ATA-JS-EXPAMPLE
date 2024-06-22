@@ -8,10 +8,9 @@
 		reconnectionDelayMax: 10000,
 		forceNew: true,
 		transports: ["websocket", "polling"],
-		/*auth: {
-			token: "",
-			session_id: "",
-		},*/
+		auth: {
+			//token: "Bearer " + GetLocalToken(),
+		},
 	});
 	
 	Socket.on("connect", ()=>{
@@ -41,10 +40,7 @@
 	Socket.on("SETUP", (data)=>{
 		console.log("SETUP", data);
 		Socket.emit("LOGIN", {
-			token: "",
-			username: "",
-			password: "",
-			mode: ATA.MODE,
+			token: "Bearer " + GetLocalToken(),
 		});
 	});
 	
@@ -65,7 +61,7 @@
 	
 	ATA.Setups.push(()=>{
 		//Socket.io.open();
-		Socket.connect();
+		//Socket.connect();
 	});
 	
 	return Socket;

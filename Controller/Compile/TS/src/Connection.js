@@ -28,7 +28,7 @@
 		return Object.assign({
 			"Accept": "text/plain",
 			"Content-Type": "text/plain",
-			"Authorization": "Bearer " + GetSessionToken(),
+			"Authorization": "Bearer " + GetLocalToken(),
 		}, {...option});
 	};
 	

@@ -1,7 +1,8 @@
 // Development
 
 const LoaderPromises = [];
-const SESSION = new Storage("session", { default : ""});
+const SESSION = new Storage("session", { default: "" });
+const auth_token_regex = /^(?<token>[^ ]+\.[^ ]+\.[^ ]+)$/;
 
 const GeneratePromise = ()=>{
 	const resp = {};
@@ -57,13 +58,23 @@ const OptionCompleter = (defauls={}, opts={})=>{
 	return Object.assign({}, { ...defauls }, { ...opts });
 };
 
+const GetLocalToken = ()=>{
+	const auth = SESSION.toString();
+	if(!auth_token_regex.test(auth))return false;
+	try{
+		return auth_token_regex.exec(auth).groups.token;
+	}catch(e){
+		//
+		return false;
+	}
+};
+
 const GetSessionToken = ()=>{
-	return SESSION.Value;
+	return SESSION.toString();
 };
 
 
 (()=>{
-	//
 	try{
 		SESSION.Restore();
 	}catch(e){
@@ -79,10 +90,12 @@ const GetSessionToken = ()=>{
 ((ATA)=>{
 	//
 	ATA.Setups.push(()=>{
-		console.log({
-			SESSION,
-			SS: SESSION + ""
-		});
+		
+	});
+	
+	ATA.Setups.push(() => {
+		//Socket.io.open();
+		Socket.connect();
 	});
 })(ATA());
 
