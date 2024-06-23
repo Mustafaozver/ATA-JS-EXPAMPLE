@@ -91,12 +91,6 @@ const GetSessionToken = ()=>{
 
 ((ATA)=>{
 	//
-	ATA.Setups.push(()=>{
-		$("div#spinnerpanel").css({
-			visibility: "hidden",
-			display: "none"
-		});
-	});
 	
 	ATA.Setups.push(()=>{
 		//Socket.io.open();

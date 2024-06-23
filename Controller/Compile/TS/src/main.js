@@ -23,5 +23,12 @@
 	ATA.Setups.push(()=>{
 		
 	});
+	
+	ATA.Setups.push(()=>{
+		$("div#spinnerpanel").css({
+			visibility: "hidden",
+			display: "none"
+		});
+	});
 	// MAIN
 })(ATA(), window, document);

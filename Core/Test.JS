@@ -5,5 +5,6 @@
 	
 	ATA.Setups.push(()=>{
 		ATA.Require("./Service/Scenario.JS");
+		ATA.Require("./Test/Scenario0.JS");
 	});
 })(ATA());

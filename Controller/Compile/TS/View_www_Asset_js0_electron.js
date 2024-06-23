@@ -21,7 +21,7 @@
 	
 	<%- include("./src/Development.js"); %>;
 	
-	<%- include("./src/main.js"); %>;
+	<%- include("./src/electron.js"); %>;
 	
 	
 	Function("with(this)console.log({ATA});").apply({

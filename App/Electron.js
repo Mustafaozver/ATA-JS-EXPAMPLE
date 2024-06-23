@@ -34,20 +34,20 @@
 		});
 		
 		Top.hide();
-		Win.hide();
-		//Win.show();
+		//Win.hide();
+		Win.show();
 		
 		Win.loadFile(path);
 		//Win.loadURL("http://localhost:1683/");
 		
-		//Win.webContents.openDevTools(true);
+		Win.webContents.openDevTools(true);
 		//Win.maximize();
 		
 		//Win.setAlwaysOnTop(true);
 		//Win.setFullScreen(true);
 		//Win.setProgressBar(50);
 		//Win.setOpacity(50);
-		//Win.setIcon("");
+		Win.setIcon(ATA.Path.join(ATA.CWD, "./View/www/favicon.ico"));
 		Win.setMenuBarVisibility(true);
 		Win.setMovable(true);
 		Win.setClosable(true);

@@ -54,6 +54,8 @@
 		"winston-daily-rotate-file": "^5.0.0"
 	},
 	"devDependencies": {
+		"express-explorer": "^0.4.1",
+		"serve-index": "^1.9.1",
 		"electron": "^31.0.2",
 		"mocha": "^10.2.0",
 		"nodemon": "^2.0.21"
