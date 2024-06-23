@@ -11,6 +11,11 @@ body{
 	letter-spacing: 1px;
 	line-height: normal;
 }
+.vibration {
+	animation: shake 0.8s linear infinite;
+	-webkit-animation: shake 0.8s linear infinite;
+	display: inline-block;
+}
 
 @keyframes shake{
 	0%{
@@ -47,7 +52,6 @@ body{
 		transform: translate(2px, -3px) rotate(-2deg);
 	}
 }
-
 @-webkit-keyframes shake{
 	0%{
 		-webkit-transform: translate(2px, 2px) rotate(0deg);
@@ -82,12 +86,6 @@ body{
 	100%{
 		-webkit-transform: translate(2px, -3px) rotate(-2deg);
 	}
-}
-
-.vibration {
-	animation: shake 0.8s linear infinite;
-	-webkit-animation: shake 0.8s linear infinite;
-	display: inline-block;
 }
 
 div.spinnerpanel{

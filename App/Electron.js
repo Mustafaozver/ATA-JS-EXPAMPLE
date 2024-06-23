@@ -14,7 +14,7 @@
 	};
 	
 	Electron.app.whenReady().then(()=>{
-		const path = ATA.Path.join(ATA.CWD, "./App/Electron/View/index.html");
+		const path = ATA.Path.join(ATA.CWD, "./View/www/Electron.html");
 		const preload = ATA.Path.join(ATA.CWD, "./App/Electron/preload.js");
 		
 		const Top = new Electron.BrowserWindow();
