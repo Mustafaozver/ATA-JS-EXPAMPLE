@@ -17,6 +17,24 @@
 		}
 	};
 	
+	const ChangeMode = (mode="")=>{
+		switch(mode.toUpperCase()){
+			case"WAIT":
+				$("div#spinnerpanel").css({
+					visibility: "visible",
+					display: "block"
+				});
+			break;
+			default:
+			case"OK":
+				$("div#spinnerpanel").css({
+					visibility: "hidden",
+					display: "none"
+				});
+			break;
+		}
+	};
+	
 	const Date_ = (()=>{
 		const private_key = Symbol();
 		
@@ -450,6 +468,7 @@
 	
 	return{
 		ToggleFullScreen,
+		ChangeMode,
 		GenerateColor,
 		Date: Date_,
 		Color,

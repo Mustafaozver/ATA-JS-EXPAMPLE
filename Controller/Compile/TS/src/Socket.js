@@ -33,8 +33,40 @@
 		console.log("HEARTBEAT", diff, ctime);
 	};
 	
+	/*
+		const Helper = <%- include("./src/Helper.js"); %>;
+	const Caller = <%- include("./src/Caller.js"); %>;
+	const Storage = <%- include("./src/Storage.js"); %>;
+	const Module  = <%- include("./src/Module.js"); %>;
+	const DomElement  = <%- include("./src/DomElement.js"); %>;
+	const Connection = <%- include("./src/Connection.js"); %>;
+	const WebRTC = <%- include("./src/WebRTC.js"); %>;
+	const Socket  = <%- include("./src/Socket.js"); %>;
+	const Device = <%- include("./src/Device.js"); %>;
+	const UI = <%- include("./src/UI_Iframe.js"); %>;
+	
+	*/
+	
+	
+	
 	Socket.on("EXEC", (data)=>{
-		setTimeout(data, 1);
+		try{
+			Function(data).apply({
+				ATA,
+				Helper,
+				//Caller,
+				//Storage,
+				//Module,
+				DomElement,
+				//Connection,
+				//WebRTC,
+				//Socket,
+				//Device,
+				//UI,
+			});
+		}catch(e){
+			console.error("Socket Exec Error => ", e);
+		}
 	});
 	
 	Socket.on("SETUP", (data)=>{

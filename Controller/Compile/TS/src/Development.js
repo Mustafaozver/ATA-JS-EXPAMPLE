@@ -4,6 +4,8 @@ const LoaderPromises = [];
 const SESSION = new Storage("session", { default: "" });
 const auth_token_regex = /^(?<token>[^ ]+\.[^ ]+\.[^ ]+)$/;
 
+const isExport = true;
+
 const GeneratePromise = ()=>{
 	const resp = {};
 	resp.promise = new Promise((resolve, reject)=>{
@@ -90,12 +92,15 @@ const GetSessionToken = ()=>{
 ((ATA)=>{
 	//
 	ATA.Setups.push(()=>{
-		
+		$("div#spinnerpanel").css({
+			visibility: "hidden",
+			display: "none"
+		});
 	});
 	
-	ATA.Setups.push(() => {
+	ATA.Setups.push(()=>{
 		//Socket.io.open();
-		Socket.connect();
+		//Socket.connect();
 	});
 })(ATA());
 

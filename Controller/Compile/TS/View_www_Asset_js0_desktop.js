@@ -21,8 +21,16 @@
 	const WebRTC = <%- include("./src/WebRTC.js"); %>;
 	const Socket  = <%- include("./src/Socket.js"); %>;
 	const Device = <%- include("./src/Device.js"); %>;
+	const UI = <%- include("./src/UI_Iframe.js"); %>;
 	
 	<%- include("./src/Development.js"); %>;
 	
 	<%- include("./src/main.js"); %>;
+	
+	
+	Function("with(this)console.log({ATA});").apply({
+		ATA,
+		
+	});
+	
 })(window, document);

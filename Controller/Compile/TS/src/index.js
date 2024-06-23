@@ -302,12 +302,6 @@ if(typeof ATA === "undefined")(function(GLOBAL){
 		DoFinalize,
 		FormatTime,
 		DecodeObject,
-		// Addons
-		Helpers: {},
-		Communication: {},
-		Screen: {},
-		Module: {},
-		Dom: {},
 	});
 	
 })(GLOBAL);

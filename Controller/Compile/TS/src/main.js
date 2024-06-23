@@ -15,6 +15,11 @@
 		console.log(diff);
 	};
 	
+	ATA.Setups.push(() => {
+		//Socket.io.open();
+		Socket.connect();
+	});
+	
 	ATA.Setups.push(()=>{
 		
 	});
