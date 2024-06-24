@@ -13,4 +13,6 @@ echo "$_ST                                                    $_FN"
 echo "$_ST Test Ediliyor                                      $_FN"
 echo "$_ST                                                    $_FN"
 
+kscreen-doctor output.2.rotation.left
+
 npm run test
