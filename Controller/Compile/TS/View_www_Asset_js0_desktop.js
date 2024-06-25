@@ -28,9 +28,5 @@
 	<%- include("./src/main.js"); %>;
 	
 	
-	Function("with(this)console.log({ATA});").apply({
-		ATA,
-		
-	});
 	
 })(window, document);

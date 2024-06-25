@@ -71,9 +71,23 @@
 		});
 		return CheckAPIResponse(await req.json());
 	};
+	const GetScript = async(path, obj={}, body=false, query=false)=>{
+		return await GetScript_(path, obj, body, query);
+	};
+	const GetScript_ = async(script="", obj={}, body=false, query=false)=>{
+		const resp = await CallAPI("/SCRIPT", {}, { script });
+		try{
+			return Function("with(this){" + resp.SCRIPT + "}").apply({
+				...obj,
+				h: 1453,
+			}, [ATA]);
+		}catch(e){
+			return e;
+		}
+	};
 	
 	const Upload = (path, form, callback=()=>{})=>{
-		Upload_(path, form, callback);
+		return Upload_(path, form, callback);
 	};
 	const Upload_ = (path, form, callback)=>{
 		const xhr = new(GetXHR())();
@@ -101,10 +115,14 @@
 		
 		xhr.open("POST", API + path, true);
 		xhr.send(new FormData(form));
+		return xhr;
 	};
 	
 	setTimeout(()=>{
-		CallAPI("/MY_API_V3", {y:5,h:8}, {g:7,e:1453}).then((data)=>{
+		CallAPI("/TRY", {y:5,h:8}, {g:7,e:1453}).then((data)=>{
+			console.log({data});
+		});
+		GetScript("0", {l:1071}).then((data)=>{
 			console.log({data});
 		});
 	}, 5000);
@@ -113,6 +131,7 @@
 		Request,
 		Upload,
 		CallAPI,
+		GetScript,
 	};
 	// Connection
 })(ATA(), window, document);

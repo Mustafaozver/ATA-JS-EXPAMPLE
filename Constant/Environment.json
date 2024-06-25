@@ -4,5 +4,5 @@
 	"DOMAIN": "localhost",
 	"SOCKET": "/SOCKET",
 	"UPLOAD": "./Temp/",
-	"API_V3": "/API/v3/"
+	"API_V3": "/API/JSON/v3/"
 }

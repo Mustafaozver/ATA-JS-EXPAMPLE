@@ -6,6 +6,10 @@ const auth_token_regex = /^(?<token>[^ ]+\.[^ ]+\.[^ ]+)$/;
 
 const isExport = true;
 
+/*const console = {
+	log: ()=>{}
+};*/
+
 const GeneratePromise = ()=>{
 	const resp = {};
 	resp.promise = new Promise((resolve, reject)=>{
