@@ -41,7 +41,11 @@
 		Setup();
 	});
 	
+	const GetModel = (name="")=>{
+		return Stack[name] || false;
+	};
+	
 	ANA.DBMS.SQLite = {
-		
+		GetModel,
 	};
 })(ATA());

@@ -6,8 +6,6 @@
 		GenerateConfig,
 		Connect,
 		LoadModel,
-		//ConvertColumns,
-		//Column,
 	} = PostgreSQL;
 	
 	const Stack = {};
@@ -37,17 +35,17 @@
 	const Setup = ()=>{
 		ANA.DBMS.PostgreSQL.Connection = Connect(GenerateConfig(config));
 		ScanModels(ANA.DBMS.PostgreSQL.Connection, config.SCHEMA);
-		
-		setTimeout(()=>{
-			//ANA.DBMS.PostgreSQL.Connection.sync({force: true});
-		}, 5000)
 	};
 	
 	ATA.Setups.push(()=>{
 		Setup();
 	});
 	
+	const GetModel = (name="")=>{
+		return Stack[name] || false;
+	};
+	
 	ANA.DBMS.PostgreSQL = {
-		
+		GetModel,
 	};
 })(ATA());

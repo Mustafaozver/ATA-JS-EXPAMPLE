@@ -39,6 +39,7 @@
 		const answer = await Question("PostgreSQL modelleri kurulacak. ");
 		if(answer){
 			await ANA.DBMS.PostgreSQL.Connection.sync({ force: true });
+			ATA.Require("./Core/Install/User.Register.js");
 		}
 	};
 	

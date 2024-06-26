@@ -1,12 +1,27 @@
 ((ATA, win, doc)=>{
 	
+	let Animation = async()=>{};
+	let SetWin = ()=>{};
+	let SetTitle = ()=>{};
+	let SetPlatform = ()=>{};
+	let SetRoundNo = ()=>{};
+	let SetName = ()=>{};
+	let SetSubInfo = ()=>{};
+	let SetPoint = ()=>{};
+	let SetIHTAR = ()=>{};
+	let SetIKAZ = ()=>{};
+	let SetCIKIS = ()=>{};
+	let SetZSAYMA = ()=>{};
+	let SetRoundTime = ()=>{};
+	
+	let RTime = 0;
+	let diffTime = 0;
+	
 	const WaitAsync = async(f)=>{
 		return await new Promise((resolve, reject)=>{
 			f(resolve, reject);
 		});
 	};
-	
-	let Title = null;
 	
 	const Setup = ()=>{
 		const height_ = 1080;//Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); // 1080
@@ -22,7 +37,7 @@
 		
 		const Title_Height = Math.max(80, height * 0.08);
 		
-		Title = Panel.AddElement("DIV");
+		const Title = Panel.AddElement("DIV");
 		
 		Title.SetClass("").SetStyle("position:absolute;text-align:center;padding-left:1em;padding-right:1em;left:" + Margin + "px;right:" + Margin + "px;top:" + Margin + "px;height:" + Title_Height + "px;font-size:" + (Title_Height * 0.70 - 5) + "px;font-weight:900;");
 		//Title.Text("ERKEK BÜYÜKLER LIGHT SANDA 48 KG");
@@ -51,7 +66,7 @@
 		const Info_Table_Top = height - Margin - Title_Height * 2;
 		const Info_Table_Bottom = Margin;
 		const Count_Top = Margin * 0.7;
-		const Point_FontSize = Math.min(width, height) * 0.42;
+		const Point_FontSize = Math.min(width, height) * 0.45;
 		const Count_FontSize = Math.min(Side_Width, Side_Height) * 0.6;
 		const Info_Width = Side_Width - 2 * Margin;
 		
@@ -216,35 +231,48 @@
 		const Winner = new DomElement("DIV");
 		Winner.SetClass("card text-light").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
 		
-		//////
+		const LoginButton = new DomElement.Button();
+		LoginButton.SetClass("loginbutton btn-success").SetStyle("position:absolute;left:0;top:0;").AddComponent("Icon", "sign-in");
 		
-		let second = 0;
-		let isCount = false;
-		const SetCount = (sec=60)=>{
-			second = sec;
-			isCount = true;
-		};
+		const LoginPanel = new DomElement("DIV");
+		LoginPanel.SetClass("card bg-dark text-light loginpanel").SetStyle("position:absolute;left:2em;top:2em;padding:1em;display:none;");
 		
-		ATA.Loops.push(()=>{
-			if(isCount && second <= 0){
-				isCount = false;
-				Round_CountDown.Text("-");
-				SetWin("L", "ABDULHAK HAMİT ÖZTÜRKOĞLU", "Kahramanmaraş");
-				return;
-			}else if(isCount){
-				second--;
-				const min = Math.floor(second / 60);
-				const sec = second % 60;
-				//const sep = "<span style=\"color:#" + ((second % 2 === 0) ? "000000" : "BBBBBB") + ";\">:</span>";
-				const sep = "<span style=\"color:#BBBBBB;\">:</span>";
-				Round_CountDown.Text("0" + min + sep + (sec < 10 ? "0" : "") + "" + sec);
-				setTimeout(()=>{
-					Round_CountDown.Text("0" + min + ":" + (sec < 10 ? "0" : "") + "" + sec);
-				}, 500);
-			}
+		LoginPanel.AddElement("SPAN").Text("Platform");
+		
+		LoginButton.Click(()=>{
+			LoginPanel.$.toggle();
 		});
 		
-		const SetWin = (side="N", name, city)=>{
+		const input1 = LoginPanel.AddComponent("SelectInput");
+		
+		input1.SetOption([
+			"Platform A",
+			"Platform B",
+		]);
+		
+		//////
+		
+		SetRoundTime = (endTime=0, sNow=0)=>{
+			const cNow = (new Date()).getTime();
+			diffTime = cNow - sNow;
+			if(Math.abs(diffTime) < 1000)RTime = Math.min(endTime - cNow, endTime - sNow);
+			else RTime = endTime - cNow;
+			if(RTime < 300){
+				Round_CountDown.Text("00:00");
+				return true;
+			}
+			const sec_ = Math.floor(RTime / 1000);
+			const sep = "<span style=\"color:#BBBBBB;\">:</span>";
+			const sec = sec_ % 60;
+			const min = Math.floor(sec_ / 60) % 60;
+			Round_CountDown.Text((min < 10 ? "0" : "") + min + sep + (sec < 10 ? "0" : "") + "" + sec);
+			setTimeout(()=>{
+				Round_CountDown.Text("0" + min + ":" + (sec < 10 ? "0" : "") + "" + sec);
+			}, 370);
+			return false;
+		};
+		
+		SetWin = (side="N", name, city)=>{
 			const colorClass = {
 				L: "bg-danger2",
 				R: "bg-primary2",
@@ -257,29 +285,29 @@
 			Winner.$.addClass(colorClass[side]);
 		};
 		
-		const SetTitle = (title="")=>{
+		SetTitle = (title="")=>{
 			Title.Text(title + "");
 		};
 		
-		const SetRoundGroup = (text="")=>{
+		SetPlatform = (text="")=>{
 			Round_Group.Text(text + "");
 		};
 		
-		const SetRoundNo = (text="")=>{
+		SetRoundNo = (text="")=>{
 			Round_No.Text(text + "");
 		};
 		
-		const SetName = (side, name="")=>{
+		SetName = (side, name="")=>{
 			if(side === "L")L_Name.Text(name);
 			else if(side === "R")R_Name.Text(name);
 		};
 		
-		const SetSubInfo = (side, name="")=>{
+		SetSubInfo = (side, name="")=>{
 			if(side === "L")L_City.Text(name);
 			else if(side === "R")R_City.Text(name);
 		};
 		
-		const SetIHTAR = (side, n=0)=>{
+		SetIHTAR = (side, n=0)=>{
 			let text = "";
 			for(let i=0;i<n;i++)text += "<i class=\"fa fa-circle\"></i>";
 			// fa-dot-circle-o , fa-circle , fa-square
@@ -296,7 +324,7 @@
 			}
 		};
 		
-		const SetIKAZ = (side, n=0)=>{
+		SetIKAZ = (side, n=0)=>{
 			let text = "";
 			for(let i=0;i<n;i++)text += "<i class=\"fa fa-circle\"></i>";
 			// fa-dot-circle-o , fa-circle , fa-square
@@ -313,7 +341,7 @@
 			}
 		};
 		
-		const SetCIKIS = (side, n=0)=>{
+		SetCIKIS = (side, n=0)=>{
 			let text = "";
 			for(let i=0;i<n;i++)text += "<i class=\"fa fa-circle\"></i>";
 			// fa-dot-circle-o , fa-circle , fa-square
@@ -330,7 +358,7 @@
 			}
 		};
 		
-		const SetZSAYMA = (side, n=0)=>{
+		SetZSAYMA = (side, n=0)=>{
 			let text = "";
 			for(let i=0;i<n;i++)text += "<i class=\"fa fa-circle\"></i>";
 			// fa-dot-circle-o , fa-circle , fa-square
@@ -365,7 +393,7 @@
 			Round_Table_TR_5_TD_R,
 		];
 		
-		const SetPoint = (side, judge=0, point=0, border=false)=>{
+		SetPoint = (side, judge=0, point=0, border=false)=>{
 			const color = "#10FF42";
 			if(side === "L"){
 				Point_Elements_L[judge].Text(point + "");
@@ -381,7 +409,7 @@
 			}
 		};
 		
-		const Animation0_step0 = async()=>{
+		Animation = async()=>{
 			await WaitAsync((resolve)=>{
 				Title.$.show().css({
 					left: 0,
@@ -552,46 +580,11 @@
 			R_Side.$.show();
 			Round_area.$.show();
 			
-			SetTitle("ERKEK BÜYÜKLER LIGHT SANDA 48 KG");
-			
-			SetRoundGroup("A");
-			SetRoundNo("ROUND 1");
-			
-			SetName("L", "ABDULHAK HAMİT ÖZTÜRKOĞLU");
-			SetName("R", "MUSTAFA ÖZVER");
-			
-			SetSubInfo("L", "KAHRAMANMARAŞ");
-			SetSubInfo("R", "BURSA");
-			
-			SetCount(2 * 10);
-			
-			SetPoint("L", 0, 2, true);
-			SetPoint("R", 0, 1, false);
-			
-			SetPoint("L", 2, 1);
-			SetPoint("R", 2, 1);
-			
-			SetPoint("R", 5, 2, true);
-			SetPoint("L", 4, 2, true);
-			
-			SetIHTAR("L", 3);
-			SetIKAZ("L", 9);
-			//SetCIKIS("L", 2);
-			SetZSAYMA("L", 3);
-			
-			SetIHTAR("R", 3);
-			//SetIKAZ("R", 9);
-			SetCIKIS("R", 2);
-			SetZSAYMA("R", 3);
-			
-			return;
-			Animation0_step0();
-		}, 10);
-		
-		$("div#spinnerpanel").css({
-			visibility: "hidden",
-			display: "none"
-		});
+			$("div#spinnerpanel").css({
+				visibility: "hidden",
+				display: "none"
+			});
+		}, 500);
 	};
 	
 	
@@ -600,5 +593,50 @@
 		Socket.connect();
 		Setup();
 	});
+	
+	setTimeout(()=>{
+		
+		SetTitle("ERKEK BÜYÜKLER LIGHT SANDA 48 KG");
+		
+		SetPlatform("PLATFORM A");
+		SetRoundNo("ROUND 1");
+		
+		SetName("L", "ABDULHAK HAMİT ÖZTÜRKOĞLU");
+		SetName("R", "MUSTAFA ÖZVER");
+		
+		SetSubInfo("L", "KAHRAMANMARAŞ");
+		SetSubInfo("R", "BURSA");
+		
+		SetPoint("L", 0, 2, true);
+		SetPoint("R", 0, 1, false);
+		
+		SetPoint("L", 2, 1);
+		SetPoint("R", 2, 1);
+		
+		SetPoint("R", 5, 2, true);
+		SetPoint("L", 4, 2, true);
+		
+		SetIHTAR("L", 3);
+		SetIKAZ("L", 9);
+		//SetCIKIS("L", 2);
+		SetZSAYMA("L", 3);
+		
+		SetIHTAR("R", 3);
+		//SetIKAZ("R", 9);
+		//SetCIKIS("R", 2);
+		//SetZSAYMA("R", 3);
+		
+		let endTime = (new Date()).getTime() + 30 * 1000;
+		setInterval(()=>{
+			const sNow = (new Date()).getTime();
+			SetRoundTime(endTime, sNow);
+		}, 1000);
+		
+		setTimeout(()=>{
+			endTime = (new Date()).getTime() + 30 * 1000;
+		}, 15 * 1000);
+		
+	}, 5000);
+	
 	// WUSHU SCREEN
 })(ATA(), window, document);

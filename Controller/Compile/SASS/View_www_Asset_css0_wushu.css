@@ -27,7 +27,19 @@ $ws-side-color-r: #0D3EFF;
 	color: $ws-side-color-r;
 }
 
+.loginbutton{
+	z-index: 200000;
+	opacity: 0;
+}
 
+
+.loginbutton:hover{
+	opacity: 1;
+}
+
+.loginpanel{
+	z-index: 200000;
+}
 
 
 

@@ -36,14 +36,18 @@
 		ANA.DBMS.Cache.Connection = Connect(GenerateConfig(config));
 		ScanModels(ANA.DBMS.Cache.Connection, config.SCHEMA);
 		
-		ANA.DBMS.Cache.Connection.sync({force: true});
+		//ANA.DBMS.Cache.Connection.sync({force: true});
 	};
 	
 	ATA.Setups.push(()=>{
 		Setup();
 	});
 	
+	const GetModel = (name="")=>{
+		return Stack[name] || false;
+	};
+	
 	ANA.DBMS.Cache = {
-		
+		GetModel,
 	};
 })(ATA());

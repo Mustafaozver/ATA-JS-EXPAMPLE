@@ -30,25 +30,26 @@ module.exports=((ATA)=>{
 	};
 	
 	const ExtendedModel = class extends Model{
-		async Create(data){
+		static async Create(data){
 			return await this.create(data);
 		};
-		async Read(where, order=false){
-			const entry = { where };
+		static async Read(where, option={}, order=false){
+			const entry = { where, ...option };
 			if(order)entry.order = order;
 			return await this.findAll(entry);
 		};
-		async ReadByID(ID){
+		static async ReadByID(ID, option={}){
 			return await this.findOne({
 				where: {
 					ID
-				}
+				},
+				...option
 			});
 		};
-		async Delete(where){
+		static async Delete(where){
 			return await this.destroy({ where, force: true });
 		};
-		async Update(data, where){
+		static async Update(data, where){
 			return await this.update(data, { where });
 		};
 	};
@@ -77,10 +78,35 @@ module.exports=((ATA)=>{
 	const LoadModel = (name, modelObject, schema="public", sequelize)=>{ // sequelize : conn
 		const Class = class extends ExtendedModel{
 			static Associate(models){
-				if(modelObject.Associate)return modelObject.Associate(models, Class);
-				return false;
+				if(modelObject.Associate)modelObject.Associate(models, Class);
+				Object.keys(linkObj).map((key)=>{
+					const modelDef = linkObj[key];
+					Class.hasOne(models[modelDef.references.model], {
+						as: key + "_object",
+						sourceKey: key,
+						foreignKey: "ID",
+						constraints: false,
+					});
+				});
 			};
 		};
+		
+		const links = modelObject.Link ? modelObject.Link() : {};
+		const linkObj = {};
+		
+		Object.keys(links).map((item, index)=>{
+			const key = "Link_" + item;
+			const model = links[item];
+			linkObj[key] = {
+				type: DataTypes.UUID,
+				allowNull: false,
+				references: {
+					model,
+					key: "ID"
+				},
+			};
+		});
+		
 		Class.init(Object.assign(modelObject.Definition(DataTypes), BindingModel()), {
 			sequelize,
 			schema,
