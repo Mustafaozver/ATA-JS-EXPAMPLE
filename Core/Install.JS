@@ -36,6 +36,9 @@
 	//
 	
 	const Question_PostgreSQL = async()=>{
+		const ID = ANA.Configurations.GetAdminUUID();
+		const isCheck = await ANA.DBMS.PostgreSQL.GetModel("User").ReadByID(ID);
+		if(isCheck)console.error("\n\n\n ==> PostgreSQL Yapılanması Bulundu!!!\n ==> Devam ederseniz veri kaybı yaşayabilirsiniz!!! \n\n\n");
 		const answer = await Question("PostgreSQL modelleri kurulacak. ");
 		if(answer){
 			await ANA.DBMS.PostgreSQL.Connection.sync({ force: true });

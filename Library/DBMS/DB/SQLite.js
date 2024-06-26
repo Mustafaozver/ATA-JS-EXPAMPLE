@@ -18,7 +18,7 @@ module.exports=((ATA)=>{
 				maxUses: Infinity
 			},
 			logging: (log) => {
-				Logger.info(log);
+				//Logger.info(log);
 			},
 			define: {
 				charset: "utf8",
@@ -107,7 +107,7 @@ module.exports=((ATA)=>{
 			};
 		});
 		
-		Class.init(Object.assign(modelObject.Definition(DataTypes), BindingModel()), {
+		Class.init(Object.assign(BindingModel(), modelObject.Definition(DataTypes), linkObj), {
 			sequelize,
 			schema,
 			modelName: name,

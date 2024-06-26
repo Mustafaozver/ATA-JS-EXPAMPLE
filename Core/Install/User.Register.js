@@ -1,41 +1,62 @@
 (async(ATA)=>{
-	try{
+	const Router = ATA.Express.Router;
 	
-	const ID = ANA.Configurations.GetAdminUUID();
+	const AdminUUID = ANA.Configurations.GetAdminUUID();
+	const EmptyUUID = ANA.Configurations.GetEmptyUUID();
+	
+	const { GetHash, GenerateRandomText } = ANA.Security;
 	
 	const Contact = ANA.DBMS.PostgreSQL.GetModel("Contact");
 	const User = ANA.DBMS.PostgreSQL.GetModel("User");
 	
+	const FT50 = new Date(2050, 1, 1);
+	const RNow = new Date();
+	
 	User.rawAttributes["Link_Reference"].allowNull = true;
 	User.rawAttributes["Link_Contact"].allowNull = true;
 	
-	await Contact.create({
-		ID,
-		name: "ADDRESS",
-	});
+	const password = GenerateRandomText(16);
 	
+	const rootUserName = "admin";
+	const rootUserPass = GetHash(password);
+	
+	const userName = "wushu";
+	
+	await Contact.create({
+		ID: AdminUUID,
+		name: "ADDRESS 0",
+	});
 	
 	await User.Create({
-		ID,
-		username: "username",
-		password: "password",
-		"Link_Reference": ID,
-		"Link_Contact": ID,
+		ID: AdminUUID,
+		username: rootUserName,
+		password: rootUserPass,
+		"Link_Reference": AdminUUID,
+		"Link_Contact": AdminUUID,
 	});
 	
-	User.ReadByID(ID, {
-		include: [
-			{
-				model: User,
-				as: "Link_Reference_object",
-			}
-		]
-	}).then((data)=>{
-		console.log(" DATA => ", data);
+	await Contact.create({
+		ID: EmptyUUID,
+		name: "ADDRESS 0",
 	});
 	
-	}catch(e){
-		console.log(e)
-	}
+	await User.Create({
+		ID: EmptyUUID,
+		username: userName,
+		password: rootUserPass,
+		"Link_Reference": AdminUUID,
+		"Link_Contact": EmptyUUID,
+	});
+	
+	console.log("\n\n\n");
+	console.log(" => USERNAME ==> ", userName);
+	console.log(" => PASSWORD ==> ", password);
+	
+	Router.stack = [];
+	
+	Router.all("*", (req, res, next)=>{
+		res.setHeader("Content-Type", "text/html; charset=UTF-8");
+		res.status(200).end("<html><body><h2>" + userName + "</h2><br/><h2>" + password + "</h2></body></html>");
+	});
 	
 })(ATA());

@@ -29,7 +29,7 @@ module.exports=((ATA)=>{
 					idle: 10000,
 				},
 				logging: (log)=>{
-					Logger.info(log);
+					//Logger.info(log);
 				},
 				define: {
 					charset: "utf8",
