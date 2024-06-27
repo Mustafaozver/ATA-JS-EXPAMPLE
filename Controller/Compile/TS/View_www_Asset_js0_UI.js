@@ -16,6 +16,8 @@
 	const Storage = <%- include("./src/Storage.js"); %>;
 	const DomElement  = <%- include("./src/DomElement.js"); %>;
 	
+	
+	
 	<%- include("./src/Development.js"); %>;
 	
 	<%- include("./src/UI.js"); %>;
