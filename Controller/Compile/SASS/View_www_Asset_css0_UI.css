@@ -1,0 +1,94 @@
+div.ata_window_container{
+	width: 100%;
+	height: 100%;
+	min-height: 1000px;
+	position:relative;
+	z-index: 1000;
+	background-color: black;
+	
+	div.ata_window{
+		position: absolute;
+		border: 1px solid #80808080;
+		background-color: black;
+		
+		div.ata_window_content{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+		
+		div.ata_window_head{
+			position: absolute;
+			background-color: #80808080;
+			color: #FFFFFF;
+			padding: 4px;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+		
+		div.ata_window_eleft{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 3px;
+			height: 100%;
+		}
+		
+		div.ata_window_eright{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 3px;
+			height: 100%;
+		}
+		
+		div.ata_window_ebottom{
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 3px;
+		}
+		
+		div.ata_window_wlock{
+			position: absolute;
+			background-color: gray;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+		}
+		div.ata_window_actions{
+			position: absolute;
+			right: 0;
+			top: 0;
+			
+			
+			i.ata_window_action_btn{
+				font-size: 1em;
+				padding: 5px;
+			}
+			
+			i.ata_window_minimize{
+				
+			}
+			i.ata_window_maximize{
+				
+			}
+			i.ata_window_restore{
+				
+			}
+			i.ata_window_close{
+				
+			}
+		}
+		
+	}
+	
+	div.ata_window_glock{
+		z-index: 10000;
+	}
+}
