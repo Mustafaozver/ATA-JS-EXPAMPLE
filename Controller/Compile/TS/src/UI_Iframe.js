@@ -60,7 +60,7 @@
 		
 		const GetDom = (ins)=>{
 			const ID = ins[private_key];
-			const iframe = hidden_stack[ID].iframe;
+			const iframe = hidden_stack[ID].iframe.O;
 			
 			return iframe;
 		};

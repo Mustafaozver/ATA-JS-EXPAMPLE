@@ -181,6 +181,10 @@
 				return this;
 			};
 			
+			LoadFrame(){
+				return LoadFrame(this);
+			};
+			
 			set Title(title){
 				SetTitle(this, title);
 			};
@@ -294,15 +298,7 @@
 				}
 			});
 			
-			/*
-			
-			*/
-			
-			const iframe = new UI(dom_content.O);
-			
-			hidden_stack[ID].dom_content = iframe.O;
-			
-			
+			hidden_stack[ID].dom_content = dom_content;
 			
 			hidden_stack[ID].dom_head = dom_head;
 			hidden_stack[ID].dom_lock = dom_lock;
@@ -395,6 +391,14 @@
 			};
 		};
 		
+		const LoadFrame = (ins)=>{
+			const ID = ins[private_key];
+			const dom_content = hidden_stack[ID].dom_content;
+			const iframe = new UI(dom_content.O);
+			hidden_stack[ID].dom_content = iframe.O;
+			return iframe;
+		};
+		
 		const SetSize = (ins, W, H)=>{
 			const ID = ins[private_key];
 			const win_dom = hidden_stack[ID].win_dom;
@@ -465,9 +469,10 @@
 		
 		console.log({win});
 		
+		const frame = win.LoadFrame();
 		
 		win.Content.O.addEventListener("load", ()=>{
-			console.log({ b: win.Content.document.body });
+			console.log({ b: win.Content });
 		});
 		
 	});
