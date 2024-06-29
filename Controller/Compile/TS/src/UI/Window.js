@@ -189,6 +189,7 @@
 				return GetContent(this);
 			};
 			
+			//
 			get Size(){
 				return GetSize(this);
 			};
@@ -196,6 +197,7 @@
 				SetSize(this, size.W, size.H);
 			};
 			
+			//
 			get Position(){
 				return GetPosition(this);
 			};
@@ -292,7 +294,16 @@
 				}
 			});
 			
-			hidden_stack[ID].dom_content = dom_content;
+			/*
+			
+			*/
+			
+			const iframe = new UI(dom_content.O);
+			
+			hidden_stack[ID].dom_content = iframe.O;
+			
+			
+			
 			hidden_stack[ID].dom_head = dom_head;
 			hidden_stack[ID].dom_lock = dom_lock;
 			
@@ -366,7 +377,9 @@
 		
 		const GetContent = (ins)=>{
 			const ID = ins[private_key];
+			const dom_content = hidden_stack[ID].dom_content;
 			
+			return dom_content;
 		};
 		
 		const GetSize = (ins)=>{
@@ -448,9 +461,15 @@
 		Window.SetContainer(doc.body);
 		
 		var win = new Window("sry");
-		
 		win.Show();
-		console.log({win});
+		
+		return console.log({win});
+		
+		
+		win.Content.addEventListener("load", ()=>{
+			console.log({ b: win.Content.document.body });
+		});
+		
 	});
 	
 	return Window;

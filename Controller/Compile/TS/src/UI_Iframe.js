@@ -45,6 +45,9 @@
 			InjectJS(code=""){
 				InjectJS(this, code);
 			};
+			get O(){
+				return GetDom(this);
+			};
 		};
 		
 		const InjectJS = (ins, ocde)=>{
@@ -53,6 +56,13 @@
 			const iframe = hidden_stack[ID].iframe;
 			
 			iframe.contentWindow.postMessage(code);
+		};
+		
+		const GetDom = (ins)=>{
+			const ID = ins[private_key];
+			const iframe = hidden_stack[ID].iframe;
+			
+			return iframe;
 		};
 		
 		return Class;

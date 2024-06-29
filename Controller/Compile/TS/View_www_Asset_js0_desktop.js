@@ -22,7 +22,7 @@
 	const Socket  = <%- include("./src/Socket.js"); %>;
 	const Device = <%- include("./src/Device.js"); %>;
 	const UI = <%- include("./src/UI_Iframe.js"); %>;
-	const Window  = <%- include("./UI/Window.js"); %>;
+	const Window  = <%- include("./src/UI/Window.js"); %>;
 	
 	<%- include("./src/Development.js"); %>;
 	

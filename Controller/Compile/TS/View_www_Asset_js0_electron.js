@@ -18,16 +18,12 @@
 	const Module  = <%- include("./src/Module.js"); %>;
 	const DomElement  = <%- include("./src/DomElement.js"); %>;
 	const UI = <%- include("./src/UI.js"); %>;
-	const Window  = <%- include("./UI/Window.js"); %>;
+	const Window  = <%- include("./src/UI/Window.js"); %>;
 	
 	<%- include("./src/Development.js"); %>;
 	
 	<%- include("./src/electron.js"); %>;
 	
 	
-	Function("with(this)console.log({ATA});").apply({
-		ATA,
-		
-	});
 	
 })(window, document);
