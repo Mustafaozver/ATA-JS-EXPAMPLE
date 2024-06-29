@@ -597,41 +597,33 @@
 	ATA.Setups.push(()=>{
 		Socket.connect();
 		Setup();
+		ReSetRoundTime("00:00");
+		Socket.on("SCREEN", (data)=>{
+			Helper.InjectJS(data.CODE, {
+				SetTitle,
+				SetPlatform,
+				SetRoundNo,
+				SetName,
+				SetSubInfo,
+				SetPoint,
+				SetIHTAR,
+				SetIKAZ,
+				SetCIKIS,
+				SetZSAYMA,
+				ReSetRoundTime,
+				SetRoundTime,
+				Animation,
+				SetWin,
+			}, [...(data.ARGS)]);
+		});
+		
+		Socket.emit("MSG", {
+			M: "SCREEN"
+		});
 	});
 	
 	setTimeout(()=>{
 		
-		SetTitle("ERKEK BÜYÜKLER LIGHT SANDA 48 KG");
-		
-		SetPlatform("PLATFORM A");
-		SetRoundNo("ROUND 1");
-		
-		SetName("L", "ABDULHAK HAMİT ÖZTÜRKOĞLU");
-		SetName("R", "MUSTAFA ÖZVER");
-		
-		SetSubInfo("L", "KAHRAMANMARAŞ");
-		SetSubInfo("R", "BURSA");
-		
-		SetPoint("L", 0, 2, true);
-		SetPoint("R", 0, 1, false);
-		
-		SetPoint("L", 2, 1);
-		SetPoint("R", 2, 1);
-		
-		SetPoint("R", 5, 2, true);
-		SetPoint("L", 4, 2, true);
-		
-		SetIHTAR("L", 3);
-		SetIKAZ("L", 9);
-		//SetCIKIS("L", 2);
-		SetZSAYMA("L", 3);
-		
-		SetIHTAR("R", 3);
-		//SetIKAZ("R", 9);
-		//SetCIKIS("R", 2);
-		//SetZSAYMA("R", 3);
-		
-		ReSetRoundTime("02:00");
 		
 		let endTime = (new Date()).getTime() + 120 * 1000;
 		setInterval(()=>{
@@ -643,7 +635,7 @@
 			endTime = (new Date()).getTime() + 120 * 1000;
 		}, 15 * 1000);
 		
-	}, 5000);
+	}, 100);
 	
 	// WUSHU SCREEN
 })(ATA(), window, document);

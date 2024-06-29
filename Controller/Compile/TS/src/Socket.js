@@ -27,12 +27,6 @@
 	
 	//////////////////////////////////////////////////////
 	
-	const SetTime = (stime)=>{
-		const ctime = new Date();
-		const diff = ctime - stime;
-		console.log("HEARTBEAT", diff, ctime);
-	};
-	
 	Socket.on("EXEC", (data)=>{
 		try{
 			return Helper.InjectJS(data, {
@@ -66,7 +60,6 @@
 	
 	Socket.on("HEARTBEAT", (data)=>{
 		count = 120;
-		SetTime(data);
 	});
 	
 	let count = 300;
