@@ -463,10 +463,10 @@
 		var win = new Window("sry");
 		win.Show();
 		
-		return console.log({win});
+		console.log({win});
 		
 		
-		win.Content.addEventListener("load", ()=>{
+		win.Content.O.addEventListener("load", ()=>{
 			console.log({ b: win.Content.document.body });
 		});
 		
