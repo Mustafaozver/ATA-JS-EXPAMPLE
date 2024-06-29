@@ -471,7 +471,7 @@
 		
 		const frame = win.LoadFrame();
 		
-		win.Content.O.addEventListener("load", ()=>{
+		win.Content.addEventListener("load", ()=>{
 			console.log({ b: win.Content });
 		});
 		

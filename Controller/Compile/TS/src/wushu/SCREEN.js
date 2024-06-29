@@ -11,8 +11,9 @@
 	let SetIHTAR = ()=>{};
 	let SetIKAZ = ()=>{};
 	let SetCIKIS = ()=>{};
-	let SetZSAYMA = ()=>{};
-	let SetRoundTime = ()=>{};
+	let SetZSAYMA = () => { };
+	let SetRoundTime = () => { };
+	let ReSetRoundTime = ()=>{};
 	
 	let RTime = 0;
 	let diffTime = 0;
@@ -270,6 +271,10 @@
 				Round_CountDown.Text("0" + min + ":" + (sec < 10 ? "0" : "") + "" + sec);
 			}, 370);
 			return false;
+		};
+		
+		ReSetRoundTime = (text="00:00")=>{
+			Round_CountDown.Text(text + "");
 		};
 		
 		SetWin = (side="N", name, city)=>{
@@ -626,14 +631,16 @@
 		//SetCIKIS("R", 2);
 		//SetZSAYMA("R", 3);
 		
-		let endTime = (new Date()).getTime() + 30 * 1000;
+		ReSetRoundTime("02:00");
+		
+		let endTime = (new Date()).getTime() + 120 * 1000;
 		setInterval(()=>{
 			const sNow = (new Date()).getTime();
 			SetRoundTime(endTime, sNow);
 		}, 1000);
 		
 		setTimeout(()=>{
-			endTime = (new Date()).getTime() + 30 * 1000;
+			endTime = (new Date()).getTime() + 120 * 1000;
 		}, 15 * 1000);
 		
 	}, 5000);
