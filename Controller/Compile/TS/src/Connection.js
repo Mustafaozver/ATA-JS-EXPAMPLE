@@ -77,9 +77,8 @@
 	const GetScript_ = async(script="", obj={}, body=false, query=false)=>{
 		const resp = await CallAPI("/SCRIPT", {}, { script });
 		try{
-			return Function("with(this){" + resp.SCRIPT + "}").apply({
-				...obj,
-				h: 1453,
+			return Helper.InjectJS(resp.SCRIPT, {
+				
 			}, [ATA]);
 		}catch(e){
 			return e;

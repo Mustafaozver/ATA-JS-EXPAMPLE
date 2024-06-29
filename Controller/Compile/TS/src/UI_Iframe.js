@@ -42,13 +42,24 @@
 			constructor(Area, config){
 				register(this, Area, config);
 			};
+			InjectJS(code=""){
+				InjectJS(this, code);
+			};
+		};
+		
+		const InjectJS = (ins, ocde)=>{
+			//contentWindow
+			const ID = ins[private_key];
+			const iframe = hidden_stack[ID].iframe;
+			
+			iframe.contentWindow.postMessage(code);
 		};
 		
 		return Class;
 	})();
 	
 	ATA.Setups.push(()=>{
-		//const iframe = new UI(doc.body);
+		const iframe = new UI(doc.body);
 	});
 	
 	return UI;

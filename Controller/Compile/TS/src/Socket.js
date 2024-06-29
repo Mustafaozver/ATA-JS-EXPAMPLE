@@ -35,7 +35,7 @@
 	
 	Socket.on("EXEC", (data)=>{
 		try{
-			Function(data).apply({
+			return Helper.InjectJS(data, {
 				ATA,
 				Helper,
 				//Caller,
@@ -47,7 +47,7 @@
 				//Socket,
 				//Device,
 				//UI,
-			});
+			}, [ATA]);
 		}catch(e){
 			console.error("Socket Exec Error => ", e);
 		}

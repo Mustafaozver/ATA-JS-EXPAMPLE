@@ -454,6 +454,12 @@
 		return await promise;
 	};
 	
+	const InjectJS = (code="", obj={}, args=[])=>{
+		return Function("with(this){" + code + "}").apply({
+			ATA,
+			...obj,
+		}, [...args]);
+	};
 	
 	
 	ATA.ThemeColor = "LIGHT";
@@ -476,6 +482,7 @@
 		GetCameraStream,
 		GetScreenStream,
 		CreateService,
+		InjectJS,
 		
 	};
 	// Helper

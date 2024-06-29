@@ -18,6 +18,7 @@
 	const Module  = <%- include("./src/Module.js"); %>;
 	const DomElement  = <%- include("./src/DomElement.js"); %>;
 	const UI = <%- include("./src/UI.js"); %>;
+	const Window  = <%- include("./UI/Window.js"); %>;
 	
 	<%- include("./src/Development.js"); %>;
 	
