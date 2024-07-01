@@ -1,13 +1,36 @@
 $background-color: white;
 $text-color: black;
 
+::-webkit-scrollbar {
+	background: #444444;
+	width: 7px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #808080;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #444444;
+}
+
+::-webkit-scrollbar-corner {
+	background: #44444400;
+}
+
 body{
 	background-color: $background-color;
 	color: $text-color;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .fontcode{
 	font-family: "Victor Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	/*font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;*/
 	letter-spacing: 1px;
 	line-height: normal;
 }
@@ -135,3 +158,27 @@ iframe.UI_iframe{
 	border: none;
 	
 }
+
+
+
+.modal {
+	z-index: 1000000 !important;
+	backdrop-filter: blur(10px);
+}
+
+.modal-footer {
+	justify-content: center !important;
+}
+
+.modal-header {
+	border-bottom: none;
+}
+
+.btn-check:checked+.tabbutton {
+	background-color: #3a3d3e !important;
+	border-color: #3a3d3e !important;
+}
+
+
+
+

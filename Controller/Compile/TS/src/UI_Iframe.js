@@ -45,6 +45,9 @@
 			InjectJS(code=""){
 				InjectJS(this, code);
 			};
+			get Body(){
+				return GetBody(this);
+			};
 			get O(){
 				return GetDom(this);
 			};
@@ -65,12 +68,15 @@
 			return iframe;
 		};
 		
+		const GetBody = (ins)=>{
+			const ID = ins[private_key];
+			const iframe = hidden_stack[ID].iframe;
+			
+			return iframe.O.contentWindow;
+		};
+		
 		return Class;
 	})();
-	
-	ATA.Setups.push(()=>{
-		const iframe = new UI(doc.body);
-	});
 	
 	return UI;
 })(ATA(), window, document);

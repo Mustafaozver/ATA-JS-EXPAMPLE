@@ -1,7 +1,5 @@
 ((win, doc)=>{
 	
-	
-	
 	const OnMessage = (event)=>{
 		try{
 			const data = event.data;

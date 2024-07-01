@@ -13,8 +13,10 @@ div.ata_window_container{
 		
 		div.ata_window_content{
 			position: absolute;
+			width: 100%;
 			left: 0;
 			bottom: 0;
+			overflow: hidden;
 		}
 		
 		div.ata_window_head{
@@ -29,26 +31,32 @@ div.ata_window_container{
 		
 		div.ata_window_eleft{
 			position: absolute;
+			border-left: 1px solid #808080;
 			left: 0;
 			top: 0;
-			width: 3px;
+			width: 5px;
 			height: 100%;
+			cursor: e-resize;
 		}
 		
 		div.ata_window_eright{
 			position: absolute;
+			border-right: 1px solid #808080;
 			right: 0;
 			top: 0;
-			width: 3px;
+			width: 5px;
 			height: 100%;
+			cursor: e-resize;
 		}
 		
 		div.ata_window_ebottom{
 			position: absolute;
+			border-bottom: 1px solid #808080;
 			right: 0;
 			bottom: 0;
 			width: 100%;
-			height: 3px;
+			height: 5px;
+			cursor: n-resize;
 		}
 		
 		div.ata_window_wlock{
@@ -66,29 +74,109 @@ div.ata_window_container{
 			right: 0;
 			top: 0;
 			
-			
 			i.ata_window_action_btn{
 				font-size: 1em;
 				padding: 5px;
+				margin-left: 2px;
+				opacity: 0.68;
+			}
+			
+			i.ata_window_action_btn:hover{
+				opacity: 1;
 			}
 			
 			i.ata_window_minimize{
-				
+				border: none;
 			}
 			i.ata_window_maximize{
-				
+				border: none;
 			}
 			i.ata_window_restore{
-				
+				border: none;
 			}
 			i.ata_window_close{
-				
+				border: none;
 			}
 		}
 		
 	}
 	
 	div.ata_window_glock{
-		z-index: 10000;
+		z-index: 50000 !important;
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #80808080;
+	}
+	
+	div.ata_window_flu{
+		z-index: 60000;
+		//opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #80408080;
+		backdrop-filter: blur(10px);
+	}
+}
+
+div.ata_popup_container{
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+	overflow: hidden;
+	
+	div.ata_popup_shell{
+		position: relative;
+		display: flex;
+		justify-content: center;
+		-ms-align-items: center;
+		align-items: center;
+		width: 40%;
+		height: 40%;
+		display: flex;
+		border-radius: 10px;
+		overflow: hidden;
+		z-index: 2;
+		
+		div.body{
+			position: absolute; 
+			inset: 5px;
+			z-index: 100;
+		}
+	}
+	
+	div.ata_popup_shell::before{
+		content: "";
+		position: absolute;
+		width: 250px;
+		height: 250%;
+		background-color: white;
+		border-left: 50px solid black;
+		border-top: 20px solid red;
+		border-bottom: 10px solid green;
+		border-right: 40px solid yellow;
+		animation: rotate 3s linear infinite;
+		z-index: 0;
+	}
+	
+	div.ata_popup_shell::after{
+		content: "";
+		position: absolute;
+		background-color: black;
+		inset: 5px;
+		border-radius: 5px;
+		z-index: 1;
+	}
+	
+	@keyframes rotate {
+		from{
+			transform: rotate(360deg);
+		}
+		to{
+			transform: rotate(0deg);
+		}
 	}
 }

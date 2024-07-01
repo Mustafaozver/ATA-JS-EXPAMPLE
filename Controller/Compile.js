@@ -47,7 +47,7 @@
 						Logger.error("Compiling File Write Error " + nPath);
 						return;
 					}
-					Logger.info("Compiling File is DONE " + nPath);
+					Logger.info("Compiling TS/JS File is DONE " + nPath);
 				});
 			});
 		});
@@ -76,7 +76,7 @@
 						Logger.error("Compiling File Write Error " + nPath);
 						return;
 					}
-					Logger.info("Compiling File is DONE " + nPath);
+					Logger.info("Compiling SASS/CSS File is DONE " + nPath);
 				});
 			});
 		});

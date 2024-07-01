@@ -7,14 +7,11 @@
 	let Action = false;
 	let Container = null;
 	let Lock = null;
+	let Flu = null;
 	
 	const MOVE = 0;
 	const RESIZE = 1;
 	
-	const ContentAccess = (statu=true)=>{
-		if(statu)$(".Lock").hide();
-		else $(".Lock").show();
-	};
 	
 	const GenerateWinDom = ()=>{
 		const dom = new DomElement("DIV", Container.O);
@@ -44,7 +41,7 @@
 		const documentMouseUp = (event)=>{
 			Action = false;
 			ActiveWindow = false;
-			ContentAccess(true);
+			ContentAccess(null, true);
 		};
 		
 		const documentMove = (event)=>{
@@ -59,54 +56,53 @@
 			let newW = false;
 			let newH = false;
 			
-			
 			switch(Action){
-				case MOVE:
-					newX = event.pageX - _r.X;
-					newY = event.pageY - _r.Y;
-					
-					const edgeX = newX + _r.W;
-					const edgeY = newY + _r.H;
-					
-					win.Position = {
-						X: newX,
-						Y: newY,
-					};
-					
+				case MOVE:{
+						newX = event.pageX - _r.X;
+						newY = event.pageY - _r.Y;
+						
+						const edgeX = newX + _r.W;
+						const edgeY = newY + _r.H;
+						
+						win.Position = {
+							X: newX,
+							Y: newY,
+						};
+					}
 				break;
-				case RESIZE:
-					const Position = win.Position;
-					
-					newX = false;
-					newY = false;
-					newW = false;
-					newH = false;
-					
-					if(_r.REX)newW = Number(event.pageX) - Position.X + 1;
-					if(_r.REY)newH = Number(event.pageY) - Position.Y + 1;
-					
-					if(_r.RFX){
-						const EWX = _r.EWX;
-						newX = Number(event.pageX);
-						newW = EWX - newX;
+				case RESIZE:{
+						const Position = win.Position;
+						
+						newX = false;
+						newY = false;
+						newW = false;
+						newH = false;
+						
+						if(_r.REX)newW = Number(event.pageX) - Position.X + 2;
+						if(_r.REY)newH = Number(event.pageY) - Position.Y + 2;
+						
+						if(_r.RFX){
+							const EWX = _r.EWX;
+							newX = Number(event.pageX);
+							newW = EWX - newX;
+						}
+						
+						if(_r.RFY){
+							const EHY = _r.EHY;
+							newY = Number(event.pageY);
+							newH = EHY - newY;
+						}
+						
+						win.Position = {
+							X: newX,
+							Y: newY,
+						};
+						
+						win.Size = {
+							W: newW,
+							H: newH,
+						};
 					}
-					
-					if(_r.RFY){
-						const EHY = _r.EHY;
-						newY = Number(event.pageY);
-						newH = EHY - newY;
-					}
-					
-					win.Position = {
-						X: newX,
-						Y: newY,
-					};
-					
-					win.Size = {
-						W: newW,
-						H: newH,
-					};
-					
 				break;
 			}
 		};
@@ -181,8 +177,8 @@
 				return this;
 			};
 			
-			LoadFrame(){
-				return LoadFrame(this);
+			ContentAccess(statu=true){
+				ContentAccess(this, statu);
 			};
 			
 			set Title(title){
@@ -234,13 +230,46 @@
 			
 			dom_actions.SetClass("ata_window_actions").SetStyle("height:" + HeadHeight + "px;");
 			
-			const minimize_btn = dom_actions.AddElement("I").SetClass("ata_window_minimize ata_window_action_btn btn btn-outline-light fa fa-window-minimize").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
+			const minimize_btn = dom_actions.AddElement("I").SetClass("ata_window_minimize ata_window_action_btn btn btn-outline-warning fa fa-window-minimize").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
 			
-			const maximize_btn = dom_actions.AddElement("I").SetClass("ata_window_maximize ata_window_action_btn btn btn-outline-light fa fa-window-maximize").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
+			const maximize_btn = dom_actions.AddElement("I").SetClass("ata_window_maximize ata_window_action_btn btn btn-outline-primary fa fa-window-maximize").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
 			
-			const restore_btn = dom_actions.AddElement("I").SetClass("ata_window_restore ata_window_action_btn btn btn-outline-light fa fa-window-restore").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
+			const restore_btn = dom_actions.AddElement("I").SetClass("ata_window_restore ata_window_action_btn btn btn-outline-success fa fa-window-restore").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
 			
-			const close_btn = dom_actions.AddElement("I").SetClass("ata_window_close ata_window_action_btn btn btn-outline-light fa fa-times").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
+			const close_btn = dom_actions.AddElement("I").SetClass("ata_window_close ata_window_action_btn btn btn-outline-danger fa fa-times").SetStyle("height:" + HeadHeight + "px;width:" + HeadHeight + "px;");
+			
+			minimize_btn.$.mousedown((event)=>{
+				console.log({ ins });
+				ins.Minimize();
+				ContentAccess(ins, false);
+				event.pre();
+			});
+			
+			maximize_btn.$.mousedown((event)=>{
+				console.log({ ins });
+				ins.Maximize();
+				ContentAccess(ins, false);
+				event.stopPropagation();
+			});
+			
+			restore_btn.$.mousedown((event)=>{
+				console.log({ ins });
+				ins.ReStore();
+				ContentAccess(ins, false);
+				event.stopPropagation();
+			});
+			
+			close_btn.$.mousedown((event)=>{
+				console.log({ ins });
+				ins.Close();
+				ContentAccess(ins, false);
+				event.stopPropagation();
+			});
+			
+			minimize_btn.$.hide();
+			maximize_btn.$.hide();
+			restore_btn.$.hide();
+			//close_btn.$.hide();
 			
 			dom_head.$.mousedown((event)=>{
 				const Position = ins.Position;
@@ -255,11 +284,12 @@
 				
 				ActiveWindow = ins;
 				Action = MOVE;
-				
 				ins.Focus();
-				//ins.ContentAccess(false);
+				
+				ContentAccess(ins, false);
 			}).mouseup(()=>{
 				Action = false;
+				//ContentAccess(ins, true);
 			});
 			
 			win_dom.$.click(()=>{
@@ -283,7 +313,7 @@
 				if(REX || REY || RFX || RFY){
 					ActiveWindow = ins;
 					Action = RESIZE;
-					//ContentAccess(false);
+					ContentAccess(ins, false);
 					
 					hidden_stack[ID].__R = {
 						REX,
@@ -295,6 +325,7 @@
 					};
 				}else if(moveble){
 					Container.$.mousemove();
+					ContentAccess(ins, false);
 				}
 			});
 			
@@ -325,14 +356,14 @@
 			win_dom.$.show();
 		};
 		
-		const Hide = ()=>{
+		const Hide = (ins)=>{
 			const ID = ins[private_key];
 			const win_dom = hidden_stack[ID].win_dom;
 			
 			win_dom.$.hide();
 		};
 		
-		const Close = ()=>{
+		const Close = (ins)=>{
 			const ID = ins[private_key];
 			const win_dom = hidden_stack[ID].win_dom;
 			const id = hidden_stack[ID].id;
@@ -340,6 +371,8 @@
 			win_dom.$.hide();
 			win_dom.$.remove();
 			
+			delete hidden_stack[id];
+			delete config_stack[id];
 			delete id_stack[id];
 		};
 		
@@ -378,6 +411,13 @@
 			return dom_content;
 		};
 		
+		const GetContent2 = (ins)=>{
+			const ID = ins[private_key];
+			const dom_window = hidden_stack[ID].dom_window;
+			
+			return dom_window.contentDocument.body;
+		};
+		
 		const GetSize = (ins)=>{
 			const ID = ins[private_key];
 			const win_dom = hidden_stack[ID].win_dom;
@@ -395,8 +435,22 @@
 			const ID = ins[private_key];
 			const dom_content = hidden_stack[ID].dom_content;
 			const iframe = new UI(dom_content.O);
-			hidden_stack[ID].dom_content = iframe.O;
+			hidden_stack[ID].dom_window = iframe.O;
 			return iframe;
+		};
+		
+		const GetFrame = (ins)=>{
+			const ID = ins[private_key];
+			const dom_window = hidden_stack[ID].dom_window;
+			
+			return dom_window;
+		};
+		
+		const GetInner = (ins)=>{
+			const ID = ins[private_key];
+			const dom_window = hidden_stack[ID].dom_window;
+			
+			return dom_window.contentWindow;
 		};
 		
 		const SetSize = (ins, W, H)=>{
@@ -404,8 +458,8 @@
 			const win_dom = hidden_stack[ID].win_dom;
 			
 			const entry = {};
-			if(W)entry.width = W + "px";
-			if(H)entry.height = H + "px";
+			if(W)entry.width = Math.max(W, 120) + "px";
+			if(H)entry.height = Math.max(H, 120) + "px";
 			win_dom.$.css(entry);
 		};
 		
@@ -426,16 +480,19 @@
 			const win_dom = hidden_stack[ID].win_dom;
 			
 			const entry = {};
-			if(X)entry.left = X + "px";
-			if(Y)entry.top = Y + "px";
+			if(X)entry.left = Math.min(Math.max(0, X), 2000) + "px";
+			if(Y)entry.top = Math.min(Math.max(0, Y), 2000) + "px";
 			win_dom.$.css(entry);
 		};
 		
-		const ContentAccess = (ins)=>{
-			const ID = ins[private_key];
+		const ContentAccess = (ins, statu=true)=>{
+			Lock.SetStyle((statu ? "display:none;" : "") + "");
 			
+			return;
+			
+			const ID = ins[private_key];
+			const win_dom = hidden_stack[ID].win_dom;
 		};
-		
 		
 		Class.GetWindows = ()=>{
 			return GetWindows();
@@ -448,33 +505,83 @@
 		Class.SetContainer = (con)=>{
 			Container = new DomElement("DIV", con);
 			Lock = Container.AddElement("DIV");
-			Container.SetClass("ata_window_container").SetStyle("");
-			Lock.SetClass("ata_window_glock").SetStyle("");
+			Flu = Container.AddElement("DIV");
+			
+			Container.SetClass("ata_window_container");
+			Lock.SetClass("ata_window_glock").SetStyle("display:none");
+			Flu.SetClass("ata_window_flu ata_popup_container").SetStyle("visibility:hidden;");
 			
 			$(con).on("mousemove", documentMove);
 			$(con).on("mouseup", documentMouseUp);
 			$(con).on("focusout", documentMouseUp);
 		};
 		
+		Class.Frame = class extends Class{
+			constructor(title=""){
+				super(title);
+				LoadFrame(this);
+			};
+			get Content(){
+				return GetContent2(this);
+			};
+			get Frame(){
+				return GetFrame(this);
+			};
+			get Inner(){
+				return GetInner(this);
+			};
+		};
+		
+		Class.Popup = (title=false)=>{
+			if(!title){
+				Flu.$.css({
+					visibility: "visible"
+				});
+				
+				const div = Flu.AddElement("DIV").SetClass("ata_popup_shell bg-danger text-light card");
+				const body = div.AddElement("DIV").SetClass("card-body body");
+				
+				body.Text("dfhgf");
+			}else{
+				
+			}
+		};
+		
 		return Class;
 	})();
+	
+	//const 
 	
 	
 	ATA.Setups.push(()=>{
 		
 		Window.SetContainer(doc.body);
 		
-		var win = new Window("sry");
-		win.Show();
+		var win = new Window.Frame("Window");
+		//win.Show();
 		
-		console.log({win});
-		
-		const frame = win.LoadFrame();
-		
-		win.Content.addEventListener("load", ()=>{
-			console.log({ b: win.Content });
+		win.Frame.addEventListener("load", ()=>{
+			
+			win.Inner.$("div#spinnerpanel").css({
+				visibility: "hidden",
+				display: "none"
+			});
+			
+			const div = new DomElement("DIV", win.Content);
+			div.Text("div1");
+			
+			
+			div.$.click(()=>{
+				Window.Popup();
+				var win2 = new Window.Frame("Window");
+				win2.Show();
+			});
+			
+			win.Show();
 		});
 		
+		
+		console.log({win});
 	});
 	
 	return Window;
