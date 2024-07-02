@@ -154,10 +154,10 @@ div.ata_popup_container{
 		width: 250px;
 		height: 250%;
 		background-color: white;
-		border-left: 50px solid black;
-		border-top: 20px solid red;
-		border-bottom: 10px solid green;
-		border-right: 40px solid yellow;
+		border-left: 30px solid black;
+		border-top: 30px solid black;
+		border-bottom: 30px solid black;
+		border-right: 30px solid black;
 		animation: rotate 3s linear infinite;
 		z-index: 0;
 	}

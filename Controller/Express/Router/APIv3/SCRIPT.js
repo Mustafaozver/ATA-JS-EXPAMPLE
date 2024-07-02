@@ -15,6 +15,7 @@ module.exports=((ATA)=>{
 		return{
 			time: GetTime(),
 			C,
+			req, res,
 		};
 	};
 	

@@ -532,19 +532,18 @@
 			};
 		};
 		
-		Class.Popup = (title=false)=>{
-			if(!title){
-				Flu.$.css({
-					visibility: "visible"
-				});
-				
-				const div = Flu.AddElement("DIV").SetClass("ata_popup_shell bg-danger text-light card");
-				const body = div.AddElement("DIV").SetClass("card-body body");
-				
-				body.Text("dfhgf");
-			}else{
-				
-			}
+		Class.Popup = (class_="")=>{
+			Flu.$.find("*").remove();
+			Flu.$.css({
+				visibility: "visible"
+			});
+			
+			const div = Flu.AddElement("DIV").SetClass("ata_popup_shell card " + class_);
+			const body = div.AddElement("DIV").SetClass("card-body body");
+			
+			//body.Text("dfhgf");
+			
+			return body;
 		};
 		
 		return Class;
@@ -554,7 +553,7 @@
 	
 	
 	ATA.Setups.push(()=>{
-		
+		return;
 		Window.SetContainer(doc.body);
 		
 		var win = new Window.Frame("Window");
@@ -572,7 +571,10 @@
 			
 			
 			div.$.click(()=>{
-				Window.Popup();
+				const popup = Window.Popup("bg-warning text-dark");
+				const title = popup.AddElement("H4").SetClass("card-title text-light");
+				title.Text("dfhgfhj");
+				
 				var win2 = new Window.Frame("Window");
 				win2.Show();
 			});

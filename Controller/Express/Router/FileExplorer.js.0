@@ -1,0 +1,7 @@
+module.exports=((ATA)=>{
+	const { Router, static, app } = ANA.Library.HTTP;
+	
+	const router = Router();
+	
+	return router;
+})(ATA());

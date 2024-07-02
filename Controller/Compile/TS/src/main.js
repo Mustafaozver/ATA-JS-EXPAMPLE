@@ -21,7 +21,20 @@
 	});
 	
 	ATA.Setups.push(()=>{
-		
+		Connection.GetScript("LOGIN", {
+			Window,
+			UI,
+			Helper,
+			secret_key,
+			DomElement,
+			WebRTC,
+			Socket,
+			Device,
+			SESSION,
+			
+		}).then((data)=>{
+			console.log({ data });
+		});
 	});
 	
 	ATA.Setups.push(()=>{

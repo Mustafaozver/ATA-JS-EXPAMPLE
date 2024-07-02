@@ -78,7 +78,7 @@
 		const resp = await CallAPI("/SCRIPT", {}, { script });
 		try{
 			return Helper.InjectJS(resp.SCRIPT, {
-				
+				...obj
 			}, [ATA]);
 		}catch(e){
 			return e;
