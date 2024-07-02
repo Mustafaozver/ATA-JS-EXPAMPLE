@@ -236,7 +236,7 @@
 		};
 		return Class;
 	})();
-		
+	
 	const PasswordInput = (()=>{
 		const Class = class extends Input{
 			constructor(ele=doc.body){
@@ -246,6 +246,21 @@
 		return Class;
 	})();
 	
+	const CheckBoxInput = (()=>{
+		const Class = class extends Input{
+			constructor(ele=doc.body){
+				super(ele, "CHECKBOX");
+				this.Value = false;
+			};
+			get Value(){
+				return this.O.checked ? true : false;
+			};
+			set Value(val=false){
+				this.O.checked = val ? true : false;
+			};
+		};
+		return Class;
+	})();
 	
 	
 	
@@ -256,6 +271,7 @@
 		SelectInput,
 		TextInput,
 		PasswordInput,
+		CheckBoxInput,
 	};
 	
 	Object.assign(DomElement, { ...Stack });
