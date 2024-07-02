@@ -21,6 +21,10 @@
 	};
 	
 	const GetHash = (text)=>{
+		console.log({
+			text,
+			privateKey
+		});
 		return Security.GetHash(text, privateKey);
 	};
 	

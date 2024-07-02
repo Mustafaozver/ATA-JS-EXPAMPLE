@@ -45,6 +45,7 @@
 		ATA.Require("./Controller/DBMS.js");
 		ATA.Require("./Controller/i18n.js");
 		ATA.Require("./Controller/Security.js");
+		ATA.Require("./Controller/Session.js");
 		ATA.Require("./Controller/Express.js");
 		
 		// Gerekli Servislerin Ayaklandırılması

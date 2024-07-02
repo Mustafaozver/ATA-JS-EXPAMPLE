@@ -64,6 +64,10 @@
 	};
 	
 	ATA.Setups.push(()=>{
+		const g = GetHash("g");
+		
+		console.log("\n\n\n\n", {g});
+		
 		LogIn();
 	});
 	
