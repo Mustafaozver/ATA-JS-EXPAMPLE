@@ -30,7 +30,13 @@
 			WebRTC,
 			Socket,
 			Device,
+			Storage,
 			SESSION,
+			Connection,
+			
+			hostname,
+			port,
+			protocol,
 			
 		}).then((data)=>{
 			console.log({ data });

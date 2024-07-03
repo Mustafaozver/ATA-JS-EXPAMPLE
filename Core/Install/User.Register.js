@@ -15,7 +15,7 @@
 	User.rawAttributes["Link_Reference"].allowNull = true;
 	User.rawAttributes["Link_Contact"].allowNull = true;
 	
-	const password = GenerateRandomText(16);
+	const password = "wushu";//GenerateRandomText(16);
 	
 	const rootUserName = "admin";
 	const rootUserPass = GetHash(password);
@@ -33,6 +33,9 @@
 		password: rootUserPass,
 		"Link_Reference": AdminUUID,
 		"Link_Contact": AdminUUID,
+		ADDATA: {
+			role: "ROOT"
+		}
 	});
 	
 	await Contact.create({
@@ -46,7 +49,38 @@
 		password: rootUserPass,
 		"Link_Reference": AdminUUID,
 		"Link_Contact": EmptyUUID,
+		ADDATA: {
+			role: "ROOT"
+		}
 	});
+	
+	await(async()=>{
+		const arr = [];
+		
+		for(let i=0;i<3;i++)arr.push(User.Create({
+			username: userName + "_bhakem_" + i,
+			password: rootUserPass,
+			"Link_Reference": EmptyUUID,
+			"Link_Contact": EmptyUUID,
+			ADDATA: {
+				role: "HAKEM",
+				desk: 0,
+			}
+		}));
+		
+		for(let i=0;i<15;i++)arr.push(User.Create({
+			username: userName + "_hakem_" + i,
+			password: rootUserPass,
+			"Link_Reference": EmptyUUID,
+			"Link_Contact": EmptyUUID,
+			ADDATA: {
+				role: "HAKEM",
+				desk: Math.floor(i / 5 + 1),
+			}
+		}));
+		
+		await Promise.all(arr);
+	})();
 	
 	console.log("\n\n\n");
 	console.log(" => USERNAME ==> ", userName);

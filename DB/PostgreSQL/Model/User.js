@@ -3,7 +3,16 @@ module.exports=((ATA)=>{
 	const Definition = (DataTypes)=>{
 		return{
 			username:{
-				type: DataTypes.STRING(128)
+				type: DataTypes.STRING(128),
+				allowNull: false,
+			},
+			firstname: {
+				type: DataTypes.STRING(128),
+				defaultValue: "",
+			},
+			lastname: {
+				type: DataTypes.STRING(128),
+				defaultValue: "",
 			},
 			password: {
 					type: DataTypes.STRING,

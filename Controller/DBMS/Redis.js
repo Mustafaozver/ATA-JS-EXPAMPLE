@@ -45,10 +45,6 @@
 	
 	ATA.Setups.push(()=>{
 		Setup();
-		
-		setTimeout(()=>{
-			Set("altrfhi", "veli");
-		}, 5000);
 	});
 	
 	ANA.DBMS.Redis = {

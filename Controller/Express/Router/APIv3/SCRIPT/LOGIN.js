@@ -1,7 +1,8 @@
 (()=>{
-	console.log("LOGIN => ", <% __append(JSON.stringify(req.Session));%>);
+	console.log("LOGIN => ", "<% __append(req.Session ? "EVET" : "HAYIR");%>");
 	
 	const exports = {};
+	
 	const GetExports = ()=>{
 		return exports;
 	};
@@ -12,17 +13,105 @@
 	
 	const Setup = ()=>{
 		console.log("SESSION => EVET");
+		const shell = new DomElement("DIV").SetClass("layout_panel").SetStyle("position:absolute;width:100%;height:100%;left:0;top:0;background-color:#00FFFF;");
 		
+		const panel = shell.AddElement("DIV").SetClass("layout_panel").SetStyle("position:absolute;width:100%;height:100%;");
+		const hpanel = shell.AddElement("DIV").SetClass("layout_panel").SetStyle("position:absolute");
 		
+		const table = panel.AddElement("TABLE").SetStyle("width:100%;height:100%;");
 		
+		const tr_header = table.AddElement("TR");
+		const tr_content = table.AddElement("TR");
+		const tr_footer = table.AddElement("TR");
 		
+		tr_header.SetStyle("height:4em;min-height:4em;max-height:4em;");
+		tr_footer.SetStyle("height:4em;min-height:4em;max-height:4em;");
 		
-		exports.L = 1071;
+		const td_header = tr_header.AddElement("TD");
+		const td_content = tr_content.AddElement("TD");
+		const td_footer = tr_footer.AddElement("TD");
+		
+		const Header = BuildHeader(td_header, hpanel);
+		const Footer = BuildFooter(td_footer, hpanel);
 	};
+	
+	const BuildHeader = (area, hpanel)=>{
+		const header = area.AddElement("HEADER")
+			.SetStyle("border-bottom:2px solid red;position:relative;")
+			.SetClass("d-flex justify-content-between");
+		
+		const LeftSide = header.AddElement("DIV");
+		const RightSide = header.AddElement("DIV");
+		
+		const header_size = 3 * 16; // 1em = 16px
+		
+		LogoRenderer(LeftSide, header_size);
+		HomeButtonRenderer(LeftSide, header_size);
+		MenuBarRenderer(LeftSide, header_size);
+		
+		ButtonSetRenderer(RightSide, header_size);
+	};
+	
+	const BuildFooter = (area, hpanel)=>{
+		const footer = area.AddElement("FOOTER");
+		footer.SetStyle("border-top:2px solid red;position:relative;");
+		
+		
+	};
+	
+	////////////////
+	
+	const LogoRenderer = (area, size)=>{
+		const img = area.AddElement("IMG");
+		img.SetStyle("width:" + size + "px;height:" + size + "px;");
+		img.SetAttribute("width", size);
+		img.SetAttribute("height", size);
+		img.SetAttribute("src", "./Asset/image/logo.png");
+	};
+	
+	const HomeButtonRenderer = (area, size)=>{
+		const btn = area.AddComponent("Button")
+			.SetClass("dashboard_button")
+			.SetStyle("height:" + size + "px;font-size:" + (size / 2) + "px;");
+		btn.AddComponent("Icon", "home");
+		
+		btn.Click(()=>{
+			alert("HOME");
+		});
+		
+	};
+	
+	const MenuBarRenderer = (area, size)=>{
+		
+	};
+	
+	const ButtonSetRenderer = (area, size)=>{
+		const profile_btn = area.AddComponent("Button")
+			.SetClass("dashboard_button")
+			.SetStyle("height:" + size + "px;font-size:" + (size / 2) + "px;");
+		profile_btn.AddComponent("Icon", "home");
+		
+		const notification_btn = area.AddComponent("Button")
+			.SetClass("dashboard_button")
+			.SetStyle("height:" + size + "px;font-size:" + (size / 2) + "px;");
+		notification_btn.AddComponent("Icon", "bell");
+		
+		const setting_btn = area.AddComponent("Button")
+			.SetClass("dashboard_button")
+			.SetStyle("height:" + size + "px;font-size:" + (size / 2) + "px;");
+		setting_btn.AddComponent("Icon", "gear");
+	};
+	
 	
 	<%
 	}else{
 	%>
+	
+	const BASE = protocol + "//" + hostname + port;
+	
+	const username_storage = new Storage("un_", { default: "" });
+	const password_storage = new Storage("pw_", { default: "" });
+	const remember_storage = new Storage("rm_", { default: "H" });
 	
 	const Setup = ()=>{ // login panel
 		console.log("SESSION => HAYIR");
@@ -85,17 +174,56 @@
 		btn_login.Click(()=>{
 			const username = username_input.Value;
 			const password = password_input.Value;
-			if(input_remember.Value){
-				
-			}else{
-				
-			}
-			console.log({
+			Connection.Request(BASE + "/session/login", {
 				username,
 				password,
+			}, false, "POST", {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			}).then(async(req)=>{
+				const json = await req.json();
+				if (json.S && !json.E) return Login(json.MSG);
+				alert("Kullanıcı adı veya şifre hatalı!");
 			});
+			
 		});
 		
+		const Login = (token)=>{
+			SESSION.Value = token;
+			SESSION.Save();
+			
+			console.log({
+				token
+			});
+			
+			if(input_remember.Value){
+				remember_storage.Value = "E";
+				username_storage.Value = username_input.Value;
+				password_storage.Value = password_input.Value;
+			}else{
+				remember_storage.Value = "H";
+				username_storage.Value = "";
+				password_storage.Value = "";
+			}
+			remember_storage.Save();
+			username_storage.Save();
+			password_storage.Save();
+			
+			setTimeout(()=>{
+				window.location.reload();
+			}, 100);
+		};
+		
+		(()=>{ // remember
+			remember_storage.Restore();
+			if(remember_storage.Value === "E"){
+				username_storage.Restore();
+				password_storage.Restore();
+				username_input.Value = username_storage.Value;
+				password_input.Value = password_storage.Value;
+				input_remember.Value = true;
+			}
+		})();
 		
 		exports.L = 1453;
 	};
@@ -107,4 +235,4 @@
 	setTimeout(Setup, 1);
 	
 	return GetExports;
-})();
+})()

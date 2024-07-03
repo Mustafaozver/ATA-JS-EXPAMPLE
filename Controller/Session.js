@@ -33,6 +33,7 @@
 		const { profile_photo, interlocutor_firstname, interlocutor_lastname } = user.dataValues.Link_Contact_object.dataValues;
 		
 		const client_data = {
+			...(ADDATA ? ADDATA : {}),
 			...extras,
 			session_id,
 			ID,
@@ -44,6 +45,7 @@
 		
 		const cache_data = {
 			...extras,
+			session_id, //
 			ID,
 			profile_photo,
 			interlocutor_firstname,
@@ -55,7 +57,7 @@
 		return Data2Token(client_data);
 	};
 	
-	const Register = (username="", password="", data={})=>{
+	const Register = async(username="", password="", data={})=>{
 		
 		const passwordhash = GetHash(password);
 		
@@ -71,6 +73,12 @@
 	const LogIn = async(username="", password="", extras={})=>{
 		const passwordhash = GetHash(password);
 		const user_model = User();
+		
+		console.log({
+			username,
+			password
+		});
+		
 		//const contact_model = Contact();
 		const user = await user_model.findOne({
 			where: {
@@ -90,24 +98,24 @@
 		return session_token;
 	};
 	
+	const LogOut = ()=>{
+		return "OK";
+	};
+	
 	const GetSession = async(token)=>{
 		const session_data = Token2Data(token);
-		console.log({ session_data });
 		const session_cache = await Get("" + session_data.session_id);
-		console.log({ session_data });
 		return session_cache;
 	};
 	
 	ATA.Setups.push(()=>{
-		setTimeout(()=>{
-			LogIn("wushu", "bnxzzF1YbD1loS5i", {sdfggfd:4});
-		}, 5000)
 		
 	});
 	
 	ANA.Session = {
 		Register,
 		LogIn,
+		LogOut,
 		GetSession,
 	};
 })(ATA());
