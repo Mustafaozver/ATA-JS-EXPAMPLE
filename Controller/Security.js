@@ -3,7 +3,7 @@
 	
 	const config = ANA.Configurations.GetConstant("Security");
 	
-	const privateKey = config.privatekey;
+	const privateKey = config.privatekey + "";
 	
 	const credentials = {};
 	
@@ -21,10 +21,6 @@
 	};
 	
 	const GetHash = (text)=>{
-		console.log({
-			text,
-			privateKey
-		});
 		return Security.GetHash(text, privateKey);
 	};
 	
@@ -34,19 +30,6 @@
 	
 	const Token2Data = (token)=>{
 		return Security.Token2Data(token, privateKey);
-	};
-	
-	const GenerateSessionData = (name, password) => {
-		name = name + "";
-		password = Security.GetHash(password + "", privateKey);
-		const id = Security.GenerateUUIDV4();
-		const session = {
-			id,
-			name,
-			password
-		};
-		const token = Security.Data2Token(session, privateKey);
-		return [token, session, session2];
 	};
 	
 	const GenerateUUIDV4 = ()=>{
@@ -61,7 +44,6 @@
 	};
 	
 	ANA.Security = {
-		GenerateSessionData,
 		GetCredentials,
 		GetHash,
 		GenerateUUIDV4,
