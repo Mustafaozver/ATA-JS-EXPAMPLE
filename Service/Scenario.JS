@@ -78,6 +78,22 @@
 		});
 	});
 	
+	const TEMP = async()=>{
+		const Category_ID = (await GetCategoryList())[0].dataValues.ID;
+		console.log("Category_ID => ", Category_ID);
+		
+		const Members = (await GetMemberList(Category_ID)).map((item)=>{
+			return{
+				...(item.dataValues),
+				...(item.dataValues.ADDATA)
+			};
+		});
+		
+		console.log("MEMBERS [5] => ", Members[5]);
+		
+		
+	};
+	
 	ATA.Setups.push(()=>{
 		console.log("\n\n\n\n");
 		Logger.info("Sistem Başlatılıyor...");
@@ -86,7 +102,7 @@
 		Setup();
 		
 		setTimeout(()=>{
-			GetCategoryList().then(console.log)
+			TEMP();
 		}, 5000);
 	});
 })(ATA());
