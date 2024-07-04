@@ -2,20 +2,8 @@ module.exports=((ATA)=>{
 	
 	const Definition = (DataTypes)=>{
 		return{
-			sid: {
-				type: DataTypes.STRING,
-				primaryKey: true,
-				unique: true,
-			},
-			expires: {
-				type: DataTypes.DATE,
-			},
-			data: {
-				type: DataTypes.STRING(65536),
-			},
-			// Relationships
-			user_id: {
-				type: DataTypes.UUID,
+			name: {
+				type: DataTypes.STRING(128),
 				allowNull: false,
 			},
 		};

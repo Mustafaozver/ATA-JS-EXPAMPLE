@@ -39,7 +39,7 @@
 	const GenerateRandomText = (len=16)=>{
 		const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 		let text = "";
-		for(let i=0;i<len;i++)text += chars.charAt(Math.floor(chars.length*Math.random()));
+		for(let i=0;i<len;i++)text += chars.charAt(Math.floor(chars.length * Math.random()));
 		return text;
 	};
 	

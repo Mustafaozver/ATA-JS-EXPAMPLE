@@ -1,7 +1,5 @@
 module.exports=((ATA)=>{
 	
-	const userprofile = "";
-	
 	const Definition = (DataTypes)=>{
 		return{
 			name: {
@@ -22,7 +20,7 @@ module.exports=((ATA)=>{
 			},
 			profile_photo: {
 				type: DataTypes.STRING(65536),
-				defaultValue: userprofile,
+				defaultValue: "",
 			},
 			portalcode: {
 				type: DataTypes.STRING(6),

@@ -45,7 +45,10 @@
 		}
 		const answer = await Question("PostgreSQL modelleri kurulacak. ");
 		if(answer){
-			await ANA.DBMS.PostgreSQL.Connection.sync({ force: true });
+			await ANA.DBMS.PostgreSQL.Connection.sync({
+				force: true,
+				alter: true
+			});
 			ATA.Require("./Core/Install/User.Register.js");
 		}
 	};
@@ -53,7 +56,10 @@
 	const Question_SQLite = async()=>{
 		const answer = await Question("SQLite modelleri kurulacak. ");
 		if(answer){
-			await ANA.DBMS.SQLite.Connection.sync({ force: true });
+			await ANA.DBMS.SQLite.Connection.sync({
+				force: true,
+				alter: true
+			});
 		}
 	};
 	

@@ -121,6 +121,7 @@ module.exports=((ATA)=>{
 		return Class;
 	};
 	return{
+		Sequelize, // FIX
 		DataTypes,
 		Op,
 		Model,

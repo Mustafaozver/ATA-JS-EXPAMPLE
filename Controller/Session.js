@@ -29,24 +29,25 @@
 	
 	const GenerateSessionData = (user, extras)=>{
 		const session_id = GenerateUUIDV4();
-		const { ID, ADDATA, username, last_login, createdAt} = user.dataValues;
+		const { ID, ADDATA, username, firstname, lastname, last_login, createdAt} = user.dataValues;
 		const { profile_photo, interlocutor_firstname, interlocutor_lastname } = user.dataValues.Link_Contact_object.dataValues;
 		
 		const client_data = {
-			...(ADDATA ? ADDATA : {}),
 			...extras,
 			session_id,
 			ID,
-			profile_photo,
-			interlocutor_firstname,
-			interlocutor_lastname,
+			username,
 			//expire
 		};
 		
 		const cache_data = {
 			...extras,
+			...ADDATA,
 			session_id, //
 			ID,
+			username,
+			firstname,
+			lastname,
 			profile_photo,
 			interlocutor_firstname,
 			interlocutor_lastname,
