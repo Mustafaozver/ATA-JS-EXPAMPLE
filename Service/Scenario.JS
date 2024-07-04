@@ -81,14 +81,14 @@ const { Logger } = require("sass");
 	});
 	
 	ATA.Setups.push(()=>{
-		//console.log("\n\n\n\n");
-		//Logger.info("Sistem Başlatılıyor...");
+		console.log("\n\n\n\n");
+		Logger.info("Sistem Başlatılıyor...");
 		ATA.Require("./Controller/Compile.js");
 		
 		Setup();
 		
 		setTimeout(()=>{
 			GetCategoryList().then(console.log)
-		}, 2000);
+		}, 5000);
 	});
 })(ATA());
