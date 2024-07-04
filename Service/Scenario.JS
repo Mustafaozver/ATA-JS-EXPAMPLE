@@ -47,6 +47,7 @@
 	
 	const Setup_Platform = (model)=>{
 		Platforms = {};
+		return;
 		model.findAll({
 			where:{
 				Link_Category: ACTIVE_CATEGORY_ID,
