@@ -27,23 +27,23 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		username: {
+		UserName: {
 			type: DataTypes.STRING(128),
 			allowNull: false,
 		},
-		firstname: {
+		FirstName: {
 			type: DataTypes.STRING(128),
 			defaultValue: "",
 		},
-		lastname: {
+		LastName: {
 			type: DataTypes.STRING(128),
 			defaultValue: "",
 		},
-		password: {
+		PassWord: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		last_login: {
+		LastLogin: {
 			type: DataTypes.DATE,
 		},
 		

@@ -1,17 +1,17 @@
 
 module.exports = ({ sequelize, DataTypes, Model })=>{
-	class Member extends Model{
+	class Round extends Model{
 		static associate(models){
-			Member.hasOne(models.User, {
-				as: "Link_Reference_object",
-				sourceKey: "Link_Reference",
+			Round.hasOne(models.Category, {
+				as: "Link_Category_object",
+				sourceKey: "Link_Category",
 				foreignKey: "ID",
 				constraints: false,
 			});
 		};
 	};
 	
-	const MemberModel = {
+	const RoundModel = {
 		ID:{
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -21,36 +21,33 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		FirstName: {
-			type: DataTypes.STRING(128),
-			defaultValue: "",
-		},
-		LastName: {
-			type: DataTypes.STRING(128),
-			defaultValue: "",
-		},
-		KG: {
-			type: DataTypes.FLOAT,
+		NO: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
-			defaultValue: 0,
+			defaultValue: 1,
+		},
+		Status: {
+			type: DataTypes.ENUM,
+			values: ["NONE", "IDEA", "PENDING", "INPROGRESS", "DONE", "FAILED"],
+			defaultValue: "NONE",
 		},
 		
 		// Relations
-		Link_Reference:{
+		Link_Category:{
 			type: DataTypes.UUID,
 			//allowNull: false,
 			references: {
-				model: "User",
+				model: "Category",
 				key: "ID"
 			},
 		},
 	};
 	
-	Member.init(MemberModel, {
+	Round.init(RoundModel, {
 		sequelize,
-		modelName: "Member",
+		modelName: "Round",
 		freezeTableName: true,
-		tableName: 'Member',
+		tableName: 'Round',
 	});
-	return Member;
+	return Round;
 };

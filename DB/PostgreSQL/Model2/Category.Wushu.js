@@ -15,7 +15,7 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		name: {
+		Name: {
 			type: DataTypes.STRING(128),
 			allowNull: false,
 		},

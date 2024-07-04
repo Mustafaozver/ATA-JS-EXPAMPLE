@@ -1,17 +1,17 @@
 
 module.exports = ({ sequelize, DataTypes, Model })=>{
-	class Member extends Model{
+	class Result extends Model{
 		static associate(models){
-			Member.hasOne(models.User, {
-				as: "Link_Reference_object",
-				sourceKey: "Link_Reference",
+			Result.hasOne(models.Category, {
+				as: "Link_Category_object",
+				sourceKey: "Link_Category",
 				foreignKey: "ID",
 				constraints: false,
 			});
 		};
 	};
 	
-	const MemberModel = {
+	const ResultModel = {
 		ID:{
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -21,36 +21,27 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		FirstName: {
+		Name: {
 			type: DataTypes.STRING(128),
 			defaultValue: "",
-		},
-		LastName: {
-			type: DataTypes.STRING(128),
-			defaultValue: "",
-		},
-		KG: {
-			type: DataTypes.FLOAT,
-			allowNull: false,
-			defaultValue: 0,
 		},
 		
 		// Relations
-		Link_Reference:{
+		Link_Category:{
 			type: DataTypes.UUID,
 			//allowNull: false,
 			references: {
-				model: "User",
+				model: "Category",
 				key: "ID"
 			},
 		},
 	};
 	
-	Member.init(MemberModel, {
+	Result.init(ResultModel, {
 		sequelize,
-		modelName: "Member",
+		modelName: "Result",
 		freezeTableName: true,
-		tableName: 'Member',
+		tableName: 'Result',
 	});
-	return Member;
+	return Result;
 };

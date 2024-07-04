@@ -14,52 +14,46 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		name: {
+		Name: {
 			type: DataTypes.STRING(64),
 			allowNull: false,
 			defaultValue: "",
 		},
-		description: {
+		Description: {
 			type: DataTypes.STRING(128),
 			allowNull: false,
 			defaultValue: "",
 		},
-		interlocutor_firstname: {
-			type: DataTypes.STRING(128),
-		},
-		interlocutor_lastname: {
-			type: DataTypes.STRING(128),
-		},
-		profile_photo: {
+		ProfilePhoto: {
 			type: DataTypes.STRING(65536),
 			defaultValue: "",
 		},
-		portalcode: {
+		PortalCode: {
 			type: DataTypes.STRING(6),
 		},
 		// Address
-		streetname: {
+		StreetName: {
 			type: DataTypes.STRING(128),
 		},
-		cityname: {
+		CityName: {
 			type: DataTypes.STRING(128),
 		},
-		statename: {
+		StateName: {
 			type: DataTypes.STRING(128),
 		},
-		countryname: {
+		CountryName: {
 			type: DataTypes.STRING(128),
 		},
-		latitude: {
+		Latitude: {
 			type: DataTypes.FLOAT,
 		},
-		longitude: {
+		Longitude: {
 			type: DataTypes.FLOAT,
 		},
-		utcoffset: {
+		UTCOffset: {
 			type: DataTypes.STRING(5),
 		},
-		language: {
+		Language: {
 			type: DataTypes.STRING(16),
 		},
 		

@@ -24,17 +24,17 @@
 	
 	await Contact.create({
 		ID: AdminUUID,
-		name: "ADDRESS 0",
+		Name: "ADDRESS 0",
 	});
 	
 	await User.Create({
 		ID: AdminUUID,
-		username: rootUserName,
-		password: rootUserPass,
+		UserName: rootUserName,
+		PassWord: rootUserPass,
 		"Link_Reference": AdminUUID,
 		"Link_Contact": AdminUUID,
 		ADDATA: {
-			role: "ROOT"
+			Role: "ROOT"
 		}
 	});
 	
@@ -45,12 +45,12 @@
 	
 	await User.Create({
 		ID: EmptyUUID,
-		username: userName,
-		password: rootUserPass,
+		UserName: userName,
+		PassWord: rootUserPass,
 		"Link_Reference": AdminUUID,
 		"Link_Contact": EmptyUUID,
 		ADDATA: {
-			role: "ROOT"
+			Role: "ROOT"
 		}
 	});
 	
@@ -58,19 +58,19 @@
 		const arr = [];
 		
 		for(let i=0;i<3;i++)arr.push(User.Create({
-			username: userName + "_bhakem_" + i,
-			password: rootUserPass,
+			UserName: userName + "_bhakem_" + i,
+			PassWord: rootUserPass,
 			"Link_Reference": EmptyUUID,
 			"Link_Contact": EmptyUUID,
 			ADDATA: {
-				role: "HAKEM",
-				desk: 0,
+				Role: "HAKEM",
+				Desk: 0,
 			}
 		}));
 		
 		for(let i=0;i<15;i++)arr.push(User.Create({
-			username: userName + "_hakem_" + i,
-			password: rootUserPass,
+			UserName: userName + "_hakem_" + i,
+			PassWord: rootUserPass,
 			"Link_Reference": EmptyUUID,
 			"Link_Contact": EmptyUUID,
 			ADDATA: {

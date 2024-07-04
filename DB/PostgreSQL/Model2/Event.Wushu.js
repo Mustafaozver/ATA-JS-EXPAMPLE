@@ -27,15 +27,15 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		ADDATA: {
 			type: DataTypes.JSON,
 		},
-		firstname: {
+		FirstName: {
 			type: DataTypes.STRING(128),
 			defaultValue: "",
 		},
-		lastname: {
+		LastName: {
 			type: DataTypes.STRING(128),
 			defaultValue: "",
 		},
-		kg: {
+		KG: {
 			type: DataTypes.FLOAT,
 			allowNull: false,
 			defaultValue: 0,
