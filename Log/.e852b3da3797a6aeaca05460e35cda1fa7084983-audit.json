@@ -5,21 +5,6 @@
     },
     "auditLog": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/.e852b3da3797a6aeaca05460e35cda1fa7084983-audit.json",
     "files": [
-        {
-            "date": 1719872452265,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-02.log",
-            "hash": "a0011ba9cd5c23c66a497db4cd88962999ba3084aba2102d36f67525a0919839"
-        },
-        {
-            "date": 1719954124411,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-03.log",
-            "hash": "deabe0e8fd2426fd5ecec66d38ab430001ebeeed98ad069adc46ad563678bbbe"
-        },
-        {
-            "date": 1720040615877,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-04.log",
-            "hash": "811242f1c1440d192799422ce158e4215393803c5c74c1956818f27005a2c18b"
-        }
     ],
     "hashType": "sha256"
 }
