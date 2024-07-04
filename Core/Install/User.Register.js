@@ -9,6 +9,11 @@
 	const Contact = ANA.DBMS.PostgreSQL.GetModel("Contact");
 	const User = ANA.DBMS.PostgreSQL.GetModel("User");
 	
+	const Tournament = ANA.DBMS.PostgreSQL.GetModel("Tournament");
+	const Platform = ANA.DBMS.PostgreSQL.GetModel("Platform");
+	const Category = ANA.DBMS.PostgreSQL.GetModel("Category");
+	const Member = ANA.DBMS.PostgreSQL.GetModel("Member");
+	
 	const FT50 = new Date(2050, 1, 1);
 	const RNow = new Date();
 	
@@ -54,6 +59,33 @@
 		}
 	});
 	
+	////////////
+	
+	console.log("\n\n\n");
+	console.log(" => USERNAME ==> ", userName);
+	console.log(" => PASSWORD ==> ", password);
+	
+	const Kisiler = ATA.Require("./Core/Install/Kisiler.js");
+	
+	
+	
+	
+	await Tournament.Create({
+		Name: "17 Temmuz 2024",
+		ID: EmptyUUID,
+	});
+	
+	const cat_ = await Category.Create({
+		Name: "17 Temmuz 2024",
+		Link_Tournament: EmptyUUID,
+		ADDATA:{
+			Cinsiyet: "E",
+			MinAge: 15,
+			MaxAge: 17,
+			
+		}
+	});
+	
 	await(async()=>{
 		const arr = [];
 		
@@ -74,17 +106,33 @@
 			"Link_Reference": EmptyUUID,
 			"Link_Contact": EmptyUUID,
 			ADDATA: {
-				role: "HAKEM",
-				desk: Math.floor(i / 5 + 1),
+				Role: "HAKEM",
+				Desk: Math.floor(i / 5 + 1),
 			}
 		}));
+		
+		const harf = ["A", "B", "C", "D", "E", "F"];
+		
+		for(let i=0;i<harf.length;i++)arr.push(Platform.Create({
+			Name: "Platform " + harf[i],
+			
+		}));
+		
+		Kisiler.map((kisi, index)=>{
+			arr.push(Member.Create({
+				...kisi,
+				Link_Category: cat_.dataValues.ID,
+				Link_Reference: EmptyUUID,
+				ADDATA:{
+					Il: index % 81
+				},
+			}));
+		});
 		
 		await Promise.all(arr);
 	})();
 	
-	console.log("\n\n\n");
-	console.log(" => USERNAME ==> ", userName);
-	console.log(" => PASSWORD ==> ", password);
+	
 	
 	Router.stack = [];
 	

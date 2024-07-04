@@ -2,6 +2,12 @@
 module.exports = ({ sequelize, DataTypes, Model })=>{
 	class Category extends Model{
 		static associate(models){
+			Category.hasOne(models.Tournament, {
+				as: "Link_Tournament_object",
+				sourceKey: "Link_Tournament",
+				foreignKey: "ID",
+				constraints: false,
+			});
 		};
 	};
 	
@@ -18,6 +24,16 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 		Name: {
 			type: DataTypes.STRING(128),
 			allowNull: false,
+		},
+		
+		// Relations
+		Link_Tournament:{
+			type: DataTypes.UUID,
+			//allowNull: false,
+			references: {
+				model: "Tournament",
+				key: "ID"
+			},
 		},
 	};
 	

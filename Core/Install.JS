@@ -45,6 +45,8 @@
 		}
 		const answer = await Question("PostgreSQL modelleri kurulacak. ");
 		if(answer){
+			const config = ANA.Configurations.GetConstant("PostgreSQL");
+			await ANA.DBMS.PostgreSQL.Connection.query("DROP SCHEMA " + config.SCHEMA + " CASCADE;CREATE SCHEMA " + config.SCHEMA + ";");
 			await ANA.DBMS.PostgreSQL.Connection.sync({
 				force: true,
 				alter: true
@@ -56,6 +58,10 @@
 	const Question_SQLite = async()=>{
 		const answer = await Question("SQLite modelleri kurulacak. ");
 		if(answer){
+			const config = ANA.Configurations.GetConstant("SQLite");
+			try{
+				ATA.FS.unlinkSync(ATA.Path.join(ATA.CWD, config.MEMORY));
+			}catch(e){}
 			await ANA.DBMS.SQLite.Connection.sync({
 				force: true,
 				alter: true
