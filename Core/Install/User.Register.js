@@ -124,7 +124,8 @@
 				Link_Category: cat_.dataValues.ID,
 				Link_Reference: EmptyUUID,
 				ADDATA:{
-					Il: index % 81
+					Il: index % 81,
+					DD: index % 5,
 				},
 			}));
 		});

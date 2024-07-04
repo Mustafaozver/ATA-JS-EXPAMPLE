@@ -5,7 +5,7 @@ module.exports=((ATA)=>{
 	const Shuffle = (arr)=>{
 		const length = [...arr].length;
 		const order = Array.from({length}).map((x,i)=>{return i}).sort(()=>{return(Math.random() > 0.5 ? 1 : -1)});
-		const keys = ["a", "b"];
+		const keys = ["Il", "DD"];
 		for(let i=0;i<5;i++){
 			for(let j=0;j<keys.length;j++){
 				for(let k=1;k<(length - 1);k++){

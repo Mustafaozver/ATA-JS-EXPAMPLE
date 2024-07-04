@@ -79,6 +79,7 @@
 	});
 	
 	const TEMP = async()=>{
+		console.log("\n\n\n\n\n");
 		const Category_ID = (await GetCategoryList())[0].dataValues.ID;
 		console.log("Category_ID => ", Category_ID);
 		
@@ -89,7 +90,7 @@
 			};
 		});
 		
-		console.log("MEMBERS [5] => ", Members[5]);
+		console.log("MEMBERS [5] => ", Helper.Shuffle(Members));
 		
 		
 	};
