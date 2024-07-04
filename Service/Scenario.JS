@@ -81,8 +81,8 @@ const { Logger } = require("sass");
 	});
 	
 	ATA.Setups.push(()=>{
-		console.log("\n\n\n\n");
-		//Logger.info("Sistem Başlatılıyor...");
+		//console.log("\n\n\n\n");
+		Logger.info("Sistem Başlatılıyor...");
 		ATA.Require("./Controller/Compile.js");
 		
 		Setup();
