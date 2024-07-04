@@ -5,7 +5,7 @@
 		GenerateUUIDV4,
 		Data2Token,
 		Token2Data,
-		GenerateRandomText
+		GenerateRandomText,
 	} = ANA.Security;
 	
 	const { Get, Set } = ANA.DBMS.Redis;
@@ -29,14 +29,14 @@
 	
 	const GenerateSessionData = (user, extras)=>{
 		const session_id = GenerateUUIDV4();
-		const { ID, ADDATA, username, firstname, lastname, last_login, createdAt} = user.dataValues;
-		const { profile_photo, interlocutor_firstname, interlocutor_lastname } = user.dataValues.Link_Contact_object.dataValues;
+		const { ID, ADDATA, UserName, FirstName, LastName, LastLogin, createdAt} = user.dataValues;
+		const { ProfilePhoto } = user.dataValues.Link_Contact_object.dataValues;
 		
 		const client_data = {
 			...extras,
 			session_id,
 			ID,
-			username,
+			UserName,
 			//expire
 		};
 		
@@ -45,12 +45,10 @@
 			...ADDATA,
 			session_id, //
 			ID,
-			username,
-			firstname,
-			lastname,
-			profile_photo,
-			interlocutor_firstname,
-			interlocutor_lastname,
+			UserName,
+			FirstName,
+			LastName,
+			ProfilePhoto,
 		};
 		
 		Set(session_id, JSON.stringify(cache_data));
@@ -58,37 +56,37 @@
 		return Data2Token(client_data);
 	};
 	
-	const Register = async(username="", password="", data={})=>{
+	const Register = async(UserName="", PassWord="", data={})=>{
 		
-		const passwordhash = GetHash(password);
+		const PassWordHash = GetHash(PassWord);
 		
 		User().Create({
 			//ID: AdminUUID, // unique
-			username,
-			password: passwordhash,
+			UserName,
+			PassWord: PassWordHash,
 			"Link_Reference": AdminUUID,
 			"Link_Contact": AdminUUID,
 		});
 	};
 	
-	const LogIn = async(username="", password="", extras={})=>{
-		const passwordhash = GetHash(password);
+	const LogIn = async(UserName="", PassWord="", extras={})=>{
+		const PassWordHash = GetHash(PassWord);
 		const user_model = User();
 		
 		console.log({
-			username,
-			password
+			UserName,
+			PassWord
 		});
 		
 		//const contact_model = Contact();
 		const user = await user_model.findOne({
 			where: {
-				username,
-				password: passwordhash,
+				UserName,
+				PassWord: PassWordHash,
 			},
 			include: ["Link_Contact_object"],
 			attributes: {
-				exclude: ["password"],
+				exclude: ["PassWord"],
 			},
 		});
 		
