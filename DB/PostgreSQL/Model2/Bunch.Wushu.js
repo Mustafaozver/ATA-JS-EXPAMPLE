@@ -1,17 +1,17 @@
 
 module.exports = ({ sequelize, DataTypes, Model })=>{
-	class Platform extends Model{
+	class Bunch extends Model{
 		static associate(models){
-			Platform.hasOne(models.Tournament, {
-				as: "Link_Tournament_object",
-				sourceKey: "Link_Tournament",
+			Bunch.hasOne(models.Platform, {
+				as: "Link_Platform_object",
+				sourceKey: "Link_Platform",
 				foreignKey: "ID",
 				constraints: false,
 			});
 		};
 	};
 	
-	const PlatformModel = {
+	const BunchModel = {
 		ID:{
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -25,23 +25,28 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 			type: DataTypes.STRING(128),
 			defaultValue: "",
 		},
+		Status: {
+			type: DataTypes.ENUM,
+			values: ["PENDING", "INPROGRESS", "DONE"],
+			defaultValue: "PENDING",
+		},
 		
 		// Relations
-		Link_Tournament:{
+		Link_Platform: {
 			type: DataTypes.UUID,
 			//allowNull: false,
 			references: {
-				model: "Tournament",
+				model: "Platform",
 				key: "ID"
 			},
 		},
 	};
 	
-	Platform.init(PlatformModel, {
+	Bunch.init(BunchModel, {
 		sequelize,
-		modelName: "Platform",
+		modelName: "Bunch",
 		freezeTableName: true,
-		tableName: 'Platform',
+		tableName: 'Bunch',
 	});
-	return Platform;
+	return Bunch;
 };

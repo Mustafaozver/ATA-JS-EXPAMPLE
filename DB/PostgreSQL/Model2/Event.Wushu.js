@@ -14,6 +14,12 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 				foreignKey: "ID",
 				constraints: false,
 			});
+			Event.hasOne(models.Match, {
+				as: "Link_Match_object",
+				sourceKey: "Link_Match",
+				foreignKey: "ID",
+				constraints: false,
+			});
 		};
 	};
 	
@@ -55,6 +61,14 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 			//allowNull: false,
 			references: {
 				model: "Member",
+				key: "ID"
+			},
+		},
+		Link_Match: {
+			type: DataTypes.UUID,
+			//allowNull: false,
+			references: {
+				model: "Match",
 				key: "ID"
 			},
 		},

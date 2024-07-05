@@ -20,6 +20,12 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 				foreignKey: "ID",
 				constraints: false,
 			});
+			Match.hasOne(models.Bunch, {
+				as: "Link_Bunch_object",
+				sourceKey: "Link_Bunch",
+				foreignKey: "ID",
+				constraints: false,
+			});
 		};
 	};
 	
@@ -38,14 +44,15 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 			allowNull: false,
 			defaultValue: 1,
 		},
+		Level: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			defaultValue: 1,
+		},
 		Status: {
 			type: DataTypes.ENUM,
 			values: ["PENDING", "INPROGRESS", "DONE"],
 			defaultValue: "PENDING",
-		},
-		Time: {
-			//allowNull: false,
-			type: DataTypes.DATE
 		},
 		LSide: {
 			type: DataTypes.UUID,
@@ -79,6 +86,14 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 			//allowNull: false,
 			references: {
 				model: "Match",
+				key: "ID"
+			},
+		},
+		Link_Bunch: {
+			type: DataTypes.UUID,
+			//allowNull: false,
+			references: {
+				model: "Bunch",
 				key: "ID"
 			},
 		},
