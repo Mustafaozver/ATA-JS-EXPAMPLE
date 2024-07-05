@@ -115,7 +115,7 @@
 		
 		for(let i=0;i<harf.length;i++)arr.push(Platform.Create({
 			Name: "Platform " + harf[i],
-			
+			Link_Tournament: EmptyUUID,
 		}));
 		
 		Kisiler.map((kisi, index)=>{
