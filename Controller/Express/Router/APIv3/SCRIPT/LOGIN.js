@@ -2,6 +2,9 @@
 	console.log("LOGIN => ", "<% __append(req.Session ? "EVET" : "HAYIR");%>");
 	
 	const exports = {};
+	const BASE = protocol + "//" + hostname + port;
+	
+	const Role = <% __append(JSON.stringify(req.Session.Role)); %>
 	
 	const GetExports = ()=>{
 		return exports;
@@ -11,9 +14,14 @@
 	if(req.Session){
 	%>
 	
+	let LeftSide = null;
+	let RightSide = null;
+	let dashboard = null;
+	let content = null;
+	
 	const Setup = ()=>{
 		console.log("SESSION => EVET");
-		const shell = new DomElement("DIV").SetClass("layout_panel").SetStyle("position:absolute;width:100%;height:100%;left:0;top:0;background-color:#00FFFF;");
+		const shell = new DomElement("DIV").SetClass("layout_panel").SetStyle("position:absolute;width:100%;height:100%;left:0;top:0;background-color:#FFFFFF;");
 		
 		const panel = shell.AddElement("DIV").SetClass("layout_panel").SetStyle("position:absolute;width:100%;height:100%;");
 		const hpanel = shell.AddElement("DIV").SetClass("layout_panel").SetStyle("position:absolute");
@@ -27,12 +35,52 @@
 		tr_header.SetStyle("height:4em;min-height:4em;max-height:4em;");
 		tr_footer.SetStyle("height:4em;min-height:4em;max-height:4em;");
 		
-		const td_header = tr_header.AddElement("TD");
-		const td_content = tr_content.AddElement("TD");
-		const td_footer = tr_footer.AddElement("TD");
+		const td_header = tr_header.AddElement("TD").SetStyle("position:relative;");
+		const td_content = tr_content.AddElement("TD").SetStyle("position:relative;");
+		const td_footer = tr_footer.AddElement("TD").SetStyle("position:relative;");
 		
 		const Header = BuildHeader(td_header, hpanel);
 		const Footer = BuildFooter(td_footer, hpanel);
+		
+		const Content = BuildContent(td_content, hpanel);
+		
+		ATA.Setups.push(()=>{
+			Connection.Request(BASE + "/session/me", {}, false, "POST", {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			}).then(async(req)=>{
+				const json = await req.json();
+				console.log({json});
+			});
+			Connection.GetScript(Role, {
+				Window,
+				UI,
+				Helper,
+				secret_key,
+				DomElement,
+				WebRTC,
+				Socket,
+				Device,
+				Storage,
+				SESSION,
+				Connection,
+				
+				hostname,
+				port,
+				protocol,
+				
+				LeftSide,
+				RightSide,
+				
+				dashboard,
+				content,
+				
+				//td_content,
+				
+			}).then((data)=>{
+				console.log({ data });
+			});
+		});
 	};
 	
 	const BuildHeader = (area, hpanel)=>{
@@ -40,11 +88,12 @@
 			.SetStyle("border-bottom:2px solid red;position:relative;")
 			.SetClass("d-flex justify-content-between");
 		
-		const LeftSide = header.AddElement("DIV");
-		const RightSide = header.AddElement("DIV");
+		LeftSide = header.AddElement("DIV").SetClass("d-flex");
+		RightSide = header.AddElement("DIV").SetClass("d-flex");
 		
 		const header_size = 3 * 16; // 1em = 16px
 		
+		return;
 		LogoRenderer(LeftSide, header_size);
 		HomeButtonRenderer(LeftSide, header_size);
 		MenuBarRenderer(LeftSide, header_size);
@@ -57,6 +106,21 @@
 		footer.SetStyle("border-top:2px solid red;position:relative;");
 		
 		
+	};
+	
+	const BuildContent = (area, hpanel)=>{
+		dashboard = area.AddElement("DIV");
+		content = area.AddElement("DIV");
+		
+		dashboard.SetStyle("position:absolute;left:0;top:0;right:0;bottom:0;");
+		content.SetStyle("position:absolute;left:0;top:0;right:0;bottom:0;");
+		
+		Window.SetContainer(content.O);
+		
+		
+		var win = new Window.Frame("Window");
+		
+		win.Show();
 	};
 	
 	////////////////
@@ -106,8 +170,6 @@
 	<%
 	}else{
 	%>
-	
-	const BASE = protocol + "//" + hostname + port;
 	
 	const username_storage = new Storage("un_", { default: "" });
 	const password_storage = new Storage("pw_", { default: "" });

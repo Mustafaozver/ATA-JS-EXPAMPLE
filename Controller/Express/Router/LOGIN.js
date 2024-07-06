@@ -42,6 +42,7 @@ module.exports=((ATA)=>{
 	};
 	
 	const GetMe = async(data)=>{
+		ANA.Session.Check(data.session_id);
 		return data;
 	};
 	

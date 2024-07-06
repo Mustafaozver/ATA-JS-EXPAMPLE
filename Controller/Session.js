@@ -8,7 +8,7 @@
 		GenerateRandomText,
 	} = ANA.Security;
 	
-	const { Get, Set } = ANA.DBMS.Redis;
+	const { Get, Set, Delete } = ANA.DBMS.Redis;
 	
 	const config = ANA.Configurations.GetConstant("Environment");
 	
@@ -29,8 +29,8 @@
 	
 	const GenerateSessionData = (user, extras)=>{
 		const session_id = GenerateUUIDV4();
-		const { ID, ADDATA, UserName, FirstName, LastName, LastLogin, createdAt} = user.dataValues;
-		const { ProfilePhoto } = user.dataValues.Link_Contact_object.dataValues;
+		const { ID, ADDATA, UserName, FirstName, LastName, LastLogin, createdAt} = user;
+		const { ProfilePhoto } = user.Link_Contact_object.dataValues;
 		
 		const client_data = {
 			...extras,
@@ -73,11 +73,6 @@
 		const PassWordHash = GetHash(PassWord);
 		const user_model = User();
 		
-		console.log({
-			UserName,
-			PassWord
-		});
-		
 		//const contact_model = Contact();
 		const user = await user_model.findOne({
 			where: {
@@ -92,7 +87,7 @@
 		
 		if(user === null)return false;
 		
-		const session_token = GenerateSessionData(user, extras);
+		const session_token = GenerateSessionData(user.dataValues, extras);
 		
 		return session_token;
 	};
@@ -107,6 +102,15 @@
 		return session_cache;
 	};
 	
+	const Check = async(sessionid)=>{
+		const session_cache = JSON.parse(await Get("" + sessionid));
+		const { ID, session_id } = session_cache;
+		if(sessionid !== session_id)return Delete(sessionid);
+		const user = await (User().ReadByID(ID));
+		console.log(user);
+		if(!user.dataValues)return Delete(sessionid);
+	};
+	
 	ATA.Setups.push(()=>{
 		
 	});
@@ -116,5 +120,6 @@
 		LogIn,
 		LogOut,
 		GetSession,
+		Check,
 	};
 })(ATA());

@@ -12,13 +12,29 @@
 		Name = "";
 		Current = null;
 		constructor(config){
-			console.log(config);
 			this.Name = config.Name;
 		};
 		Check(){
 			
 		};
 		
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	const GetPlatforms = ()=>{
+		return Object.keys(Platforms).map((ID)=>{
+			return{
+				ID,
+				Name: Platforms[ID].Name
+			}
+		});
 	};
 	
 	const Setup = ()=>{
@@ -61,6 +77,33 @@
 	
 	const Setup_Router = (Router, Socket)=>{
 		Logger.log("info", "Yayınım sistemler ayağa kaldırılıyor...");
+		
+		Router.post("/sc/platforms", (req, res, next)=>{
+			res.status(200).json(GetPlatforms());
+		});
+		
+		Router.post("/sc/category", (req, res, next)=>{
+			GetCategoryList().then((data)=>{
+				res.status(200).json(data.map((item)=>{
+					return{
+						ID: item.dataValues.ID,
+						Name: item.dataValues.Name
+					}
+				}));
+			});
+		});
+		
+		Router.post("/sc/member", (req, res, next)=>{
+			const category_id = req.body.category_id; 
+			GetMemberList(category_id).then((data)=>{
+				res.status(200).json(data.map((item)=>{
+					return{
+						ID: item.dataValues.ID,
+						Name: item.dataValues.FirstName + " " + item.dataValues.LastName
+					}
+				}));
+			});
+		});
 	};
 	
 	const GetMemberList = async(Category_ID)=>{
@@ -82,7 +125,6 @@
 	};
 	
 	ATA.Loops.push(()=>{
-		return;
 		Object.keys(Platforms).map((key)=>{
 			Platforms[key].Check();
 		});

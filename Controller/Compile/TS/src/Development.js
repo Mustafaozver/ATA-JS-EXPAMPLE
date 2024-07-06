@@ -20,14 +20,14 @@ const GeneratePromise = ()=>{
 };
 
 const GetOffsetPosition = (el=doc.body)=>{
-	let x = 0;
-	let y = 0;
+	let X = 0;
+	let Y = 0;
 	while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)){
-		x += el.offsetLeft - 0 * el.scrollLeft;
-		y += el.offsetTop - 0 * el.scrollTop;
+		X += el.offsetLeft - 0 * el.scrollLeft;
+		Y += el.offsetTop - 0 * el.scrollTop;
 		el = el.offsetParent;
 	}
-	return { x, y };
+	return { X, Y };
 };
 
 const GetWidth = ()=>{

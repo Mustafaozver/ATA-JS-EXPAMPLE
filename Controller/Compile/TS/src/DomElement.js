@@ -186,15 +186,18 @@
 				super("SELECT", ele, config);
 				this.SetClass();
 			};
+			//
 			SetClass(classname=""){
 				return super.SetClass(classname + " form-select");
 			};
 			SetOption(arr=[]){
 				const THAT = this;
-				arr.map((key, index)=>{
+				this.$.children("option").remove();
+				this.Text("<" + "option hidden disabled selected value>Seçiniz...<" + "/option>");
+				arr.map((item, index)=>{
 					const option = THAT.AddElement("OPTION");
-					option.SetAttribute("value", key);
-					option.Text(key);
+					option.SetAttribute("value", item.ID);
+					option.Text(item.Name);
 				});
 			};
 			get Value(){

@@ -43,6 +43,10 @@
 		return ANA.DBMS.Redis.Connection.set(key + "_", value + "", Object.assign({ ...set_config }, config));
 	};
 	
+	const Delete = (key)=>{
+		return ANA.DBMS.Redis.Connection.del(key + "_");
+	};
+	
 	ATA.Setups.push(()=>{
 		Setup();
 	});
@@ -50,5 +54,6 @@
 	ANA.DBMS.Redis = {
 		Set,
 		Get,
+		Delete,
 	};
 })(ATA());

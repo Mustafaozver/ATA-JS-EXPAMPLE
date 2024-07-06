@@ -7,6 +7,11 @@
 	const HTTP = ATA.Require("./Library/HTTP.js");
 	const Socket = ATA.Require("./Library/Socket.js");
 	const Security = ATA.Require("./Library/Security.js");
+	const Form = ATA.Require("./Library/Form.js");
+	const Report = ATA.Require("./Library/Report.js");
+	const FileExplorer = ATA.Require("./Library/FileExplorer.js");
+	const AI = ATA.Require("./Library/AI.js");
+	const Device = ATA.Require("./Library/Device.js");
 	
 	const Package = ATA.Require("./package.json");
 	const Me = ATA.Require("./Service/Me.json");
@@ -32,6 +37,11 @@
 			HTTP,
 			Socket,
 			Security,
+			Form,
+			Report,
+			FileExplorer,
+			AI,
+			Device,
 		}
 	};
 	

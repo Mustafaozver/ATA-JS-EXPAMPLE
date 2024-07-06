@@ -7,7 +7,7 @@ module.exports=((ATA)=>{
 		try{
 			const token = auth_token_regex.exec(auth).groups.token;
 			const data = await ANA.Session.GetSession(token);
-			return data;
+			return JSON.parse(data);
 		}catch(e){
 			console.error(e);
 			return false;

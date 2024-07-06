@@ -1,10 +1,7 @@
 div.ata_window_container{
 	width: 100%;
 	height: 100%;
-	min-height: 1000px;
-	position:relative;
 	z-index: 1000;
-	background-color: black;
 	
 	div.ata_window{
 		position: absolute;

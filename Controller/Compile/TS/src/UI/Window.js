@@ -2,7 +2,10 @@
 	
 	const HeadHeight = 30;
 	let LastZIndex = 15000;
-	var ActiveWindow = false;
+	let ActiveWindow = false;
+	
+	let offsetX = 0;
+	let offsetY = 0;
 	
 	let Action = false;
 	let Container = null;
@@ -78,19 +81,19 @@
 						newW = false;
 						newH = false;
 						
-						if(_r.REX)newW = Number(event.pageX) - Position.X + 2;
-						if(_r.REY)newH = Number(event.pageY) - Position.Y + 2;
+						if(_r.REX)newW = Number(event.pageX) - Position.X + 2 - offsetX;
+						if(_r.REY)newH = Number(event.pageY) - Position.Y + 2 - offsetY;
 						
 						if(_r.RFX){
 							const EWX = _r.EWX;
 							newX = Number(event.pageX);
-							newW = EWX - newX;
+							newW = EWX - newX - offsetX;
 						}
 						
 						if(_r.RFY){
 							const EHY = _r.EHY;
 							newY = Number(event.pageY);
-							newH = EHY - newY;
+							newH = EHY - newY - offsetY;
 						}
 						
 						win.Position = {
@@ -301,14 +304,17 @@
 				var edgeX = Position.X + Size.W;
 				var edgeY = Position.Y + Size.H;
 				
+				const EX = event.pageX - offsetX;
+				const EY = event.pageY - offsetY;
+				
 				const wid = 13;
 				
-				const moveble = edgeX >= Number(event.pageX) && edgeX < (Number(event.pageX) + 20);
+				const moveble = edgeX >= Number(EX) && edgeX < (Number(EX) + 20);
 				
-				const REX = edgeX >= Number(event.pageX) && edgeX < (Number(event.pageX) + wid);
-				const REY = edgeY >= Number(event.pageY) && edgeY < (Number(event.pageY) + wid);
-				const RFX = Position.x < Number(event.pageX) && Position.X > (Number(event.pageX) - wid);
-				const RFY = false;//Position.Y < Number(event.pageY) && Position.Y > (Number(event.pageY)-wid);
+				const REX = edgeX >= Number(EX) && edgeX < (Number(EX) + wid);
+				const REY = edgeY >= Number(EY) && edgeY < (Number(EY) + wid);
+				const RFX = Position.x < Number(EX) && Position.X > (Number(EX) - wid);
+				const RFY = false;//Position.Y < Number(EY) && Position.Y > (Number(EY)-wid);
 				
 				if(REX || REY || RFX || RFY){
 					ActiveWindow = ins;
@@ -320,8 +326,8 @@
 						REY,
 						RFX,
 						RFY,
-						EHY: Size.H + Position.Y,
 						EWX: Size.W + Position.X,
+						EHY: Size.H + Position.Y,
 					};
 				}else if(moveble){
 					Container.$.mousemove();
@@ -510,6 +516,14 @@
 			Container.SetClass("ata_window_container");
 			Lock.SetClass("ata_window_glock").SetStyle("display:none");
 			Flu.SetClass("ata_window_flu ata_popup_container").SetStyle("visibility:hidden;");
+			
+			const pos = GetOffsetPosition(con);
+			offsetX = pos.X;
+			offsetY = pos.Y;
+			
+			console.log({
+				pos
+			});
 			
 			$(con).on("mousemove", documentMove);
 			$(con).on("mouseup", documentMouseUp);
