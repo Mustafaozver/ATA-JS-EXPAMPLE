@@ -31,6 +31,7 @@
 	const Setup = async(rl)=>{
 		await Question_PostgreSQL();
 		await Question_SQLite();
+		await Question_EXIT();
 	};
 	
 	//
@@ -66,6 +67,13 @@
 				force: true,
 				alter: true
 			});
+		}
+	};
+	
+	const Question_EXIT = async()=>{
+		const answer = await Question("İşlemler tamamlandı, Çıkış yapılacak. ");
+		if(answer){
+			process.exit();
 		}
 	};
 	

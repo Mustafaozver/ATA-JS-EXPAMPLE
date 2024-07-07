@@ -75,8 +75,19 @@
 		ID: EmptyUUID,
 	});
 	
+	const cat__ = await Category.Create({
+		Name: "Liste 1",
+		Link_Tournament: EmptyUUID,
+		ADDATA:{
+			Cinsiyet: "E",
+			MinAge: 15,
+			MaxAge: 17,
+			
+		}
+	});
+	
 	const cat_ = await Category.Create({
-		Name: "17 Temmuz 2024",
+		Name: "Liste 2",
 		Link_Tournament: EmptyUUID,
 		ADDATA:{
 			Cinsiyet: "E",
@@ -111,17 +122,29 @@
 			}
 		}));
 		
-		const harf = ["A", "B", "C", "D", "E", "F"];
+		const harf = ["A", "B", "C"];
 		
 		for(let i=0;i<harf.length;i++)arr.push(Platform.Create({
 			Name: "Platform " + harf[i],
 			Link_Tournament: EmptyUUID,
 		}));
 		
-		Kisiler.map((kisi, index)=>{
+		Kisiler.slice(0,100).map((kisi, index)=>{
 			arr.push(Member.Create({
 				...kisi,
 				Link_Category: cat_.dataValues.ID,
+				Link_Reference: EmptyUUID,
+				ADDATA:{
+					Il: index % 81,
+					DD: index % 5,
+				},
+			}));
+		});
+		
+		Kisiler.slice(150, 250).map((kisi, index)=>{
+			arr.push(Member.Create({
+				...kisi,
+				Link_Category: cat__.dataValues.ID,
 				Link_Reference: EmptyUUID,
 				ADDATA:{
 					Il: index % 81,

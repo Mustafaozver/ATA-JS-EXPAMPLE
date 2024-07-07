@@ -4,7 +4,6 @@
 	const exports = {};
 	const BASE = protocol + "//" + hostname + port;
 	
-	const Role = <% __append(JSON.stringify(req.Session.Role)); %>
 	
 	const GetExports = ()=>{
 		return exports;
@@ -13,6 +12,7 @@
 	<%
 	if(req.Session){
 	%>
+	const Role = <% __append(JSON.stringify(req.Session.Role)); %>;
 	
 	let LeftSide = null;
 	let RightSide = null;
@@ -117,10 +117,6 @@
 		
 		Window.SetContainer(content.O);
 		
-		
-		var win = new Window.Frame("Window");
-		
-		win.Show();
 	};
 	
 	////////////////

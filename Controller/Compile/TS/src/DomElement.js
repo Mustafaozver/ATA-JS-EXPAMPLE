@@ -254,6 +254,7 @@
 			constructor(ele=doc.body){
 				super(ele, "CHECKBOX");
 				this.Value = false;
+				this.SetClass("form-check-input");
 			};
 			get Value(){
 				return this.O.checked ? true : false;
@@ -265,16 +266,163 @@
 		return Class;
 	})();
 	
+	const Table = (()=>{
+		
+		const Row = class{
+			Data = null;
+			Over = {};
+			constructor(data){
+				this.Data = {...data};
+			};
+			GetValue(key){
+				return this.Data[key];
+			};
+			SetOver(key, value){
+				this.Over["" + key] = value;
+			};
+			GetOver(key){
+				return this.Over["" + key];
+			};
+		};
+		
+		const Column = class{
+			Renderer = null;
+			Name = "";
+			constructor(name){
+				this.Name = name + "";
+				this.Renderer = ((key)=>{
+					return(data, col, row, table, index)=>{
+						col.Text(data.GetValue(key));
+					};
+				})(name + "");
+			};
+			Build(data, col, row, table, index){
+				this.Renderer(data, col, row, table, index);
+			};
+		};
+		
+		const BuildTable = (table)=>{
+			const rows = table.rows.length;
+			const columns = table.columns.length;
+			
+			
+			for(let j=0;j<columns;j++){
+				const TD = table.thead.AddElement("TD");
+				TD.Text(table.columns[j].Name);
+			}
+			
+			for(let i=0;i<rows;i++){
+				const TR = table.tbody.AddElement("TR");
+				for(let j=0;j<columns;j++){
+					const TD = TR.AddElement("TD");
+					table.columns[j].Build(table.rows[i], TD, TR, table, i);
+				}
+			}
+		};
+		
+		/*
+		.tableFixHead          { overflow: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+		
+		*/
+		
+		const Class = class extends DomElement{
+			columns_obj = {};
+			columns = [];
+			rows = [];
+			
+			thead = null;
+			tbody = null;
+			tfoot = null;
+			constructor(ele=doc.body, config={}){
+				super("DIV", ele, config);
+				const table = new DomElement("TABLE", this.O);
+				table.SetClass("table-borderless table table-hover table-striped");
+				this.SetStyle("overflow: auto;width:100%;height:100%;border:3px solid #808080;");
+				this.thead = table.AddElement("THEAD").AddElement("TR").SetStyle("font-weight:700;position:sticky;top:0;z-index:1;");
+				this.tbody = table.AddElement("TBODY");
+				this.tfoot = table.AddElement("TFOOT").SetStyle("display:;").AddElement("TR").SetStyle("font-weight:700;position:sticky;bottom:0;z-index:1;").AddElement("TD");
+				
+			};
+			Build(){
+				this.Clear();
+				BuildTable(this);
+				this.tfoot.SetAttribute("colspan", this.columns.length);
+			};
+			Clear(){
+				this.tbody.$.children("*").remove();
+			};
+			SetColumns(arr=[]){
+				//this.columns_obj
+				return this.columns = arr.map((data)=>{
+					return new Column(data);
+				});
+			};
+			SetData(arr=[]){
+				return this.rows = arr.map((data)=>{
+					return new Row(data);
+				});
+			};
+		};
+		
+		return Class;
+	})();
 	
+	
+	const Modal = (()=>{
+		
+		const Class = class extends DomElement{
+			shell = null;
+			constructor(title, config={}){
+				super("DIV", doc.body, config);
+				
+				this.SetClass("modal_shell_area");
+				
+				this.win = this.AddElement("DIV").SetClass("modal_window_area card");
+				
+				this.header = ((that)=>{
+					const header = that.win.AddElement("DIV").SetClass("card-header d-flex w-100 justify-content-between");
+					
+					const h_title = header.AddElement("H2").SetClass("card-title mb-1");
+					
+					const close_btn = header.AddComponent("Button").SetClass("btn-secondary mb-1");
+					close_btn.Text("&times;");
+					close_btn.Click(()=>{
+						that.Close();
+					});
+					
+					return h_title;
+				})(this);
+				
+				this.body = this.win.AddElement("DIV").SetClass("card-body");
+				
+				
+				this.footer = ((that)=>{
+					const footer = that.win.AddElement("DIV").SetClass("card-footer d-flex flex-row-reverse");
+					
+					return footer;
+				})(this);
+			};
+			SetTitle(title){
+				this.header.Text(title + "");
+			};
+			Close(){
+				this.$.remove();
+			};
+		};
+		return Class;
+	})();
 	
 	
 	const Stack = {
 		Button,
 		Icon,
+		Table,
 		SelectInput,
 		TextInput,
 		PasswordInput,
 		CheckBoxInput,
+		Modal,
 	};
 	
 	Object.assign(DomElement, { ...Stack });

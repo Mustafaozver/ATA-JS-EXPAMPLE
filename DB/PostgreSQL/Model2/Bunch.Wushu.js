@@ -8,6 +8,12 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 				foreignKey: "ID",
 				constraints: false,
 			});
+			Bunch.hasOne(models.Category, {
+				as: "Link_Category_object",
+				sourceKey: "Link_Category",
+				foreignKey: "ID",
+				constraints: false,
+			});
 		};
 	};
 	
@@ -37,6 +43,14 @@ module.exports = ({ sequelize, DataTypes, Model })=>{
 			//allowNull: false,
 			references: {
 				model: "Platform",
+				key: "ID"
+			},
+		},
+		Link_Category: {
+			type: DataTypes.UUID,
+			//allowNull: false,
+			references: {
+				model: "Category",
 				key: "ID"
 			},
 		},

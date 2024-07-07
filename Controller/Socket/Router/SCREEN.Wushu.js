@@ -13,13 +13,14 @@ module.exports=((ATA)=>{
 		});
 	};
 	
-	return (socketid, data)=>{
+	return (socketid, data, socket)=>{
 		//console.log("LOW", data);
 		//socket.emit("EXEC", "console.log(1453);");
 		
-		console.log({data});
+		ANA.SCENARIO.SetSocket(socket, data);
 		
 		
+		return;
 		SendFunction(() => {
 			SetTitle("ERKEK BÜYÜKLER LIGHT SANDA 48 KG");
 			SetPlatform("PLATFORM A");
@@ -34,6 +35,7 @@ module.exports=((ATA)=>{
 			SetPoint("R", 2, 1);
 			SetPoint("R", 5, 2, true);
 			SetPoint("L", 4, 2, true);
+			
 			SetIHTAR("L", 3);
 			SetIKAZ("L", 9);
 			//SetCIKIS("L", 2);

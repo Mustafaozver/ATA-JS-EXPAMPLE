@@ -107,8 +107,8 @@
 		const { ID, session_id } = session_cache;
 		if(sessionid !== session_id)return Delete(sessionid);
 		const user = await (User().ReadByID(ID));
-		console.log(user);
-		if(!user.dataValues)return Delete(sessionid);
+		//console.log(user);
+		if(!user || !user.dataValues)return Delete(sessionid);
 	};
 	
 	ATA.Setups.push(()=>{

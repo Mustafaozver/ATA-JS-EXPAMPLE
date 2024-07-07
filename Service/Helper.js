@@ -32,7 +32,14 @@ module.exports=((ATA)=>{
 		});
 	};
 	
-	
+	const BuildGroup = (arr, n=20)=>{
+		const length = Math.floor(arr.length / n) + 1;
+		
+		return Array.from({length}).map((i,index)=>{
+			return arr.slice(index * n, (index + 1) * n);
+		});
+		
+	};
 	
 	
 	const Match = class{
@@ -52,10 +59,13 @@ module.exports=((ATA)=>{
 	};
 	
 	const Member = class{
-		Name = "";
+		FirstName = "";
+		LastName = "";
 		ID = 0;
-		constructor({ ID }){
+		constructor({ ID, FirstName, LastName }){
 			this.ID = ID;
+			this.FirstName = FirstName;
+			this.LastName = LastName;
 		};
 		Save(){
 			return this.ID;
@@ -134,6 +144,7 @@ module.exports=((ATA)=>{
 	return{
 		//...
 		Shuffle,
+		BuildGroup,
 		FixTure,
 	}
 })(ATA());

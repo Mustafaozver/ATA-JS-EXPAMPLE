@@ -2,6 +2,7 @@
 	
 	let Animation = async()=>{};
 	let SetWin = ()=>{};
+	let SetShowPanel = ()=>{};
 	let SetTitle = ()=>{};
 	let SetPlatform = ()=>{};
 	let SetRoundNo = ()=>{};
@@ -14,6 +15,8 @@
 	let SetZSAYMA = () => { };
 	let SetRoundTime = () => { };
 	let ReSetRoundTime = ()=>{};
+	
+	const which = new Storage("which", { default: "" });
 	
 	let RTime = 0;
 	let diffTime = 0;
@@ -232,6 +235,9 @@
 		const Winner = new DomElement("DIV");
 		Winner.SetClass("card text-light").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
 		
+		const ShowPanel = new DomElement("DIV");
+		ShowPanel.SetClass("card text-light").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
+		
 		const LoginButton = new DomElement.Button();
 		LoginButton.SetClass("loginbutton btn-success").SetStyle("position:absolute;left:0;top:0;").AddComponent("Icon", "sign-in");
 		
@@ -246,10 +252,20 @@
 		
 		const input1 = LoginPanel.AddComponent("SelectInput");
 		
-		input1.SetOption([
-			"Platform A",
-			"Platform B",
-		]);
+		
+		input1.$.on("change", ()=>{
+			which.Value = input1.Value;
+			which.Save();
+		});
+		
+		Connection.Request("/sc/platforms", false, false, "POST", {
+			"Accept": "application/json",
+			"Content-Type": "application/json",
+		}).then((res)=>{
+			res.json().then((data)=>{
+				input1.SetOption(data);
+			});
+		});
 		
 		//////
 		
@@ -279,15 +295,23 @@
 		
 		SetWin = (side="N", name, city)=>{
 			const colorClass = {
-				L: "bg-danger2",
-				R: "bg-primary2",
-				N: "bg-dark"
+				L: "bg-danger2 card text-light",
+				R: "bg-primary2 card text-light",
+				N: "bg-dark card text-light",
+				F: "d-none"
 			};
-			Winner.Text(<% __append(JSON.stringify(C("Winner"))); %> + "<" + "BR/>" + name + "<" + "BR/>" + city);
+			if(name && city)Winner.Text("<% __append((C("Winner"))); %>" + "<" + "BR/>" + name + "<" + "BR/>" + city);
+			else Winner.Text(name);
 			Winner.$.css({
 				display: "block",
 			});
-			Winner.$.addClass(colorClass[side]);
+			Winner.SetClass(colorClass[side]);
+		};
+		
+		SetShowPanel = (show=false)=>{
+			ShowPanel.$.css({
+				display: show ? "block" : "none",
+			});
 		};
 		
 		SetTitle = (title="")=>{
@@ -589,10 +613,20 @@
 				visibility: "hidden",
 				display: "none"
 			});
-		}, 500);
+		}, 50);
 	};
 	
-	
+	const Update = (data)=>{
+		if(!data.Active){
+			return SetShowPanel(true);
+		}
+		if(!data.Play){
+			return;
+		}
+		Winner.$.css({
+			display: "none",
+		});
+	};
 	
 	ATA.Setups.push(()=>{
 		Socket.connect();
@@ -614,17 +648,32 @@
 				SetRoundTime,
 				Animation,
 				SetWin,
+				SetShowPanel,
+				Update,
 			}, [...(data.ARGS)]);
 		});
 		
+		
+		(()=>{
+			try{
+				which.Restore();
+			}catch(e){
+			}
+			try{
+				which.Save();
+			}catch(e){
+			}
+		})();
+		
 		Socket.emit("MSG", {
-			M: "SCREEN"
+			M: "SCREEN",
+			W: which.Value
 		});
 	});
 	
 	setTimeout(()=>{
 		
-		
+		return;
 		let endTime = (new Date()).getTime() + 120 * 1000;
 		setInterval(()=>{
 			const sNow = (new Date()).getTime();

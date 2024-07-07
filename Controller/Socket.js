@@ -17,7 +17,9 @@
 		console.log({ data });
 		socket.emit("APPROVED");
 		socket.join("MEMBERS");
+		
 	};
+	
 	
 	
 	const HeartBeat = ()=>{
@@ -26,7 +28,7 @@
 	
 	const OnConnect = (socket, io)=>{
 		socket.on("MSG", (data)=>{
-			if(data.M && Routers[data.M])return Routers[data.M](socket.id, data);
+			if(data.M && Routers[data.M])return Routers[data.M](socket.id, data, socket);
 		});
 		
 		//
@@ -39,6 +41,20 @@
 		
 		socket.emit("APPROVED");
 		socket.join("MEMBERS");
+		
+		socket.on("LOGIN", async(data)=>{ // FIX
+			const auth_token_regex = /^Bearer (?<token>([^ ]+\.[^ ]+\.[^ ]+))$/;
+			const auth = "" + data.token;
+			if(!auth_token_regex.test(auth))return false;
+			try{
+				const token = auth_token_regex.exec(auth).groups.token;
+				const data = await ANA.Session.GetSession(token);
+				socket.Session = JSON.parse(data);
+			}catch(e){
+				console.error(e);
+				return false;
+			}
+		});
 	};
 	
 	const OnDisConnect = ()=>{
