@@ -13,6 +13,7 @@
 	let SetIKAZ = ()=>{};
 	let SetCIKIS = ()=>{};
 	let SetZSAYMA = () => { };
+	let SetSession = ()=>{};
 	let SetRoundTime = () => { };
 	let ReSetRoundTime = ()=>{};
 	
@@ -227,7 +228,7 @@
 		
 		const Session_Area = Panel.AddElement("H1");
 		Session_Area.SetClass("").SetStyle("position:absolute;top:" + Session_Area_Top + "px;left:" + (Margin + Side_Width) + "px;width:" + Round_area_Width + "px;text-align:center;font-size:3em;font-weight:900;");
-		Session_Area.Text("09:00 SEANSI - 001");
+		//Session_Area.Text("09:00 SEANSI - 001");
 		
 		const Round_Group = Panel.AddElement("H1");
 		Round_Group.SetStyle("position:absolute;text-align:center;left:" + (Margin + Side_Width) + "px;top:" + Group_Area_Top + "px;width:" + Round_area_Width + "px;font-size:4em;font-weight:700;");
@@ -236,7 +237,7 @@
 		Winner.SetClass("card text-light").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
 		
 		const ShowPanel = new DomElement("DIV");
-		ShowPanel.SetClass("card text-light").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
+		ShowPanel.SetClass("card").SetStyle("display: none;font-family:\"Play\";position:absolute;left:0;top:0;width:" + width_ + "px;height:" + height_ + "px;text-align:center;font-size:" + (Title_Height * 1.25) + "px;font-weight:900;padding:2em;");
 		
 		const LoginButton = new DomElement.Button();
 		LoginButton.SetClass("loginbutton btn-success").SetStyle("position:absolute;left:0;top:0;").AddComponent("Icon", "sign-in");
@@ -268,6 +269,10 @@
 		});
 		
 		//////
+		
+		SetSession = (text="")=>{
+			Session_Area.Text(text);
+		};
 		
 		SetRoundTime = (endTime=0, sNow=0)=>{
 			const cNow = (new Date()).getTime();
@@ -308,10 +313,11 @@
 			Winner.SetClass(colorClass[side]);
 		};
 		
-		SetShowPanel = (show=false)=>{
+		SetShowPanel = (show=false, text="")=>{
 			ShowPanel.$.css({
 				display: show ? "block" : "none",
 			});
+			return ShowPanel;
 		};
 		
 		SetTitle = (title="")=>{
@@ -342,12 +348,12 @@
 			// fa-dot-circle-o , fa-circle , fa-square
 			if(side === "L"){
 				L_Info_Table_TR_1.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				L_Info_Table_IHTAR.Text(text);
 			}else if(side === "R"){
 				R_Info_Table_TR_1.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				R_Info_Table_IHTAR.Text(text);
 			}
@@ -359,12 +365,12 @@
 			// fa-dot-circle-o , fa-circle , fa-square
 			if(side === "L"){
 				L_Info_Table_TR_2.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				L_Info_Table_IKAZ.Text(text);
 			}else if(side === "R"){
 				R_Info_Table_TR_2.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				R_Info_Table_IKAZ.Text(text);
 			}
@@ -376,12 +382,12 @@
 			// fa-dot-circle-o , fa-circle , fa-square
 			if(side === "L"){
 				L_Info_Table_TR_3.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				L_Info_Table_CIKIS.Text(text);
 			}else if(side === "R"){
 				R_Info_Table_TR_3.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				R_Info_Table_CIKIS.Text(text);
 			}
@@ -393,12 +399,12 @@
 			// fa-dot-circle-o , fa-circle , fa-square
 			if(side === "L"){
 				L_Info_Table_TR_4.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				L_Info_Table_ZSAYMA.Text(text);
 			}else if(side === "R"){
 				R_Info_Table_TR_4.$.css({
-					display: "table-row"
+					display: n > 0 ? "table-row" : "none"
 				});
 				R_Info_Table_ZSAYMA.Text(text);
 			}
@@ -609,23 +615,77 @@
 			R_Side.$.show();
 			Round_area.$.show();
 			
-			$("div#spinnerpanel").css({
-				visibility: "hidden",
-				display: "none"
+			Connection.Request("/sc/platform", { platform_id: which.Value }, false, "POST", {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			}).then((res)=>{
+				res.json().then((data)=>{
+					input1.Value = data.ID;
+					
+					Update(data);
+					
+					$("div#spinnerpanel").css({
+						visibility: "hidden",
+						display: "none"
+					});
+				});
 			});
 		}, 50);
 	};
 	
 	const Update = (data)=>{
 		if(!data.Active){
-			return SetShowPanel(true);
+			SetShowPanel(true).Text(data.Name.toUpperCase());
+			return;
 		}
 		if(!data.Play){
 			return;
 		}
-		Winner.$.css({
-			display: "none",
-		});
+		
+		SetShowPanel(false);
+		SetTitle(data.Title);
+		SetPlatform(data.Name.toUpperCase());
+		SetRoundNo("ROUND " + data.Round);
+		SetName("L", data.L_Side_Name);
+		SetName("R", data.R_Side_Name);
+		SetSubInfo("L", data.L_Side_Info);
+		SetSubInfo("R", data.R_Side_Info);
+		
+		SetPoint("L", 0, data.L_Point0, data.L_Point0 > data.R_Point0);
+		SetPoint("R", 0, data.R_Point0, data.L_Point0 < data.R_Point0);
+		
+		SetPoint("L", 1, data.L_Point1, data.L_Point1 > data.R_Point1);
+		SetPoint("R", 1, data.R_Point1, data.L_Point1 < data.R_Point1);
+		
+		SetPoint("L", 2, data.L_Point2, data.L_Point2 > data.R_Point2);
+		SetPoint("R", 2, data.R_Point2, data.L_Point2 < data.R_Point2);
+		
+		SetPoint("L", 3, data.L_Point3, data.L_Point3 > data.R_Point3);
+		SetPoint("R", 3, data.R_Point3, data.L_Point3 < data.R_Point3);
+		
+		SetPoint("L", 4, data.L_Point4, data.L_Point4 > data.R_Point4);
+		SetPoint("R", 4, data.R_Point4, data.L_Point4 < data.R_Point4);
+		
+		SetPoint("L", 5, data.L_Point5, data.L_Point5 > data.R_Point5);
+		SetPoint("R", 5, data.R_Point5, data.L_Point5 < data.R_Point5);
+		
+		SetIHTAR("L", data.L_IHTAR);
+		SetIHTAR("R", data.R_IHTAR);
+		
+		SetIKAZ("L", data.L_IKAZ);
+		SetIKAZ("R", data.R_IKAZ);
+		
+		SetCIKIS("L", data.L_CIKIS);
+		SetCIKIS("R", data.R_CIKIS);
+		
+		SetZSAYMA("L", data.L_ZSAYMA);
+		SetZSAYMA("R", data.R_ZSAYMA);
+		
+		SetSession(data.Session);
+		
+		SetRoundTime(data.EndTime, data.TimeNow);
+		
+		SetWin("F");
 	};
 	
 	ATA.Setups.push(()=>{

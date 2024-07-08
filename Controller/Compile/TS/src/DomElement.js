@@ -402,9 +402,18 @@
 					
 					return footer;
 				})(this);
+				
+				this.SetTitle(title + "");
+				this.Hide();
 			};
 			SetTitle(title){
 				this.header.Text(title + "");
+			};
+			Hide(){
+				this.$.hide();
+			};
+			Show() {
+				this.$.show();
 			};
 			Close(){
 				this.$.remove();

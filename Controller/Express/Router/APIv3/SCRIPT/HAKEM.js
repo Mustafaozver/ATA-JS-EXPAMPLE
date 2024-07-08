@@ -297,7 +297,7 @@
 		const platforms = {};
 		
 		const AddCPanelPlatform = (data, n=0)=>{
-			platforms[data.ID] = (rt_data)=>{
+			const our_update = (rt_data)=>{
 				//Body.Text(new Date() + rt_data.ID);
 				if(rt_data.Active){
 					durum.Text("<span class=\"text-success\">AÇIK</span>");
@@ -318,6 +318,8 @@
 				return;
 			};
 			
+			platforms[data.ID] = our_update;
+			
 			const Container = CPanel.AddElement("DIV").SetClass("card d-inline");
 			
 			Container.SetStyle("min-width:15em;min-height:20em;");
@@ -333,7 +335,7 @@
 			
 			Header.AddElement("SPAN").Text(data.Name);
 			
-			
+			const modal = new DomElement.Modal(data.Name);
 			
 			const table = Body.AddElement("TABLE");
 			
@@ -357,9 +359,75 @@
 				return td1;
 			})();
 			
+			const table0 = modal.body.AddElement("TABLE");
+			
+			const set_btn = modal.footer.AddComponent("Button").SetClass("btn-primary btn-sm");
+			
+			const play_btn = modal.footer.AddComponent("Button").SetClass("btn-success btn-sm");
+			
+			set_btn.Text("Uygula");
+			play_btn.Text("Başlat");
+			
+			const bunches = (()=>{
+				const tr0 = table0.AddElement("TR");
+				const td0 = tr0.AddElement("TD").Text("Seans");
+				const td1 = tr0.AddElement("TD");
+				const input = td1.AddComponent("SelectInput");
+				return input;
+			})();
+			
+			const matches = (()=>{
+				const tr0 = table0.AddElement("TR");
+				const td0 = tr0.AddElement("TD").Text("Maçlar");
+				const td1 = tr0.AddElement("TD");
+				const input = td1.AddComponent("SelectInput");
+				return input;
+			})();
+			
+			const [point0, point1] = (() => {
+				const tr0 = table0.AddElement("TR");
+				const td0 = tr0.AddElement("TD");
+				const td1 = tr0.AddElement("TD");
+				const input0 = td0.AddComponent("TextInput");
+				const input1 = td1.AddComponent("TextInput");
+				return [input0, input1];
+			})();
+			
+			
+			
 			
 			look_btn.Click(()=>{
-				
+				modal.Show();
+			});
+			
+			set_btn.Click(()=>{
+				CallAPI("bunch", { platform_id : data.ID, data: {
+					L_Point0: point0.Value - 0,
+					R_Point0: point1.Value - 0,
+				}}).then((data)=>{
+					our_update(data);
+				});
+			});
+			
+			play_btn.Click(()=>{
+				CallAPI("setplatform", { platform_id : data.ID, data: {
+					
+				}}).then((data)=>{
+					our_update(data);
+				});
+			});
+			
+			const updateMatch = ()=>{
+				CallAPI("match", { bunch_id: bunches.Value }).then((data)=>{
+					matches.SetOption(data);
+				});
+			};
+			
+			CallAPI("bunch", {}).then((data)=>{
+				bunches.SetOption(data);
+				$(bunches.O).on("change", ()=>{
+					updateMatch();
+				});
 			});
 		};
 	};
