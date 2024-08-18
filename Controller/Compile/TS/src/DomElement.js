@@ -372,7 +372,6 @@
 	const Modal = (()=>{
 		
 		const Class = class extends DomElement{
-			shell = null;
 			constructor(title, config={}){
 				super("DIV", doc.body, config);
 				
@@ -422,6 +421,82 @@
 		return Class;
 	})();
 	
+	const Toast = (()=>{
+		
+		const Class = class extends DomElement{
+			constructor(title, config={}){
+				super("DIV", doc.body, config);
+				
+				this.SetClass("toast show");
+				
+				this.header = ((that)=>{
+					const header = that.AddElement("DIV").SetClass("toast-header");
+					
+					const strong = header.AddElement("STRONG").SetClass("me-auto");
+					
+					const btn_close = header.AddElement("BUTTON").SetClass("btn-close");
+					
+					btn_close.SetAttribute("data-bs-dismiss", "toast");
+					
+					return strong;
+				})(this);
+				
+				this.body = ((that)=>{
+					const div = that.AddElement("DIV").SetClass("toast-body");
+					return div;
+				})(this);
+				
+				
+				
+				
+				this.SetTitle(title + "");
+				this.Hide();
+			};
+			SetTitle(title){
+				this.header.Text(title + "");
+			};
+			Hide(){
+				this.$.hide();
+			};
+			Show() {
+				this.$.show();
+			};
+			Close(){
+				this.$.remove();
+			};
+		};
+		return Class;
+	})();
+	
+	const TabPanel = (()=>{
+		let index = 0;
+		const Class = class extends DomElement{
+			constructor(title, config={}){
+				super("DIV", doc.body, config);
+				
+				this.UL = this.AddElement("UL").SetClass("nav nav-tabs");
+				this.body = this.AddElement("DIV").SetClass("tab-content");
+				this.UL.SetAttribute("role", "tablist");
+				
+			};
+			AddTab(title=""){
+				const id = "tab" + (index++);
+				
+				const li = this.UL.AddElement("LI").SetClass("nav-item");
+				const a = li.AddElement("A").SetClass("nav-link");
+				
+				const container = this.body.AddElement("DIV").SetClass("container tab-pane");
+				
+				a.SetAttribute("data-bs-toggle", "tab");
+				a.SetAttribute("href", "#" + id);
+				a.Text(title + "");
+				
+				return container;
+			};
+		};
+		return Class;
+	})();
+	
 	
 	const Stack = {
 		Button,
@@ -432,6 +507,7 @@
 		PasswordInput,
 		CheckBoxInput,
 		Modal,
+		Toast,
 	};
 	
 	Object.assign(DomElement, { ...Stack });
