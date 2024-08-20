@@ -6,29 +6,9 @@
     "auditLog": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/.e852b3da3797a6aeaca05460e35cda1fa7084983-audit.json",
     "files": [
         {
-            "date": 1720134736439,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-05.log",
-            "hash": "8ea9de0dcf5b3e3a5864a66aef3e9069c3a69a541b404b8151dc4e8b9e6ceedd"
-        },
-        {
-            "date": 1720224095309,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-06.log",
-            "hash": "f929d05b17838229cbe809b80b2cb999a1b09d17405d93d5c9faffec7d3025b2"
-        },
-        {
-            "date": 1720302182931,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-07.log",
-            "hash": "bdfad328b85aad5a88c45e8b2c2ca697d5dc6403605b6d5a9eb260318ae0221c"
-        },
-        {
-            "date": 1720389827544,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-08.log",
-            "hash": "2ff07e81f31568fe96bfd3739447d606b04c8e138c5e0e079ad37214357173f0"
-        },
-        {
-            "date": 1720475505910,
-            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-07-09.log",
-            "hash": "1ab1539d6f350249c1c0d4317c20639a7991b3c4e9a4433f0dd66c0c7b8ef187"
+            "date": 1724155576147,
+            "name": "/home/mustafa/Desktop/Projeler/ATA-JS-EXPAMPLE/Log/log-2024-08-20.log",
+            "hash": "5b501b71e58a8851f2700b94777f7d5d5b6ce49d24a5037843beb35108b4f34b"
         }
     ],
     "hashType": "sha256"
