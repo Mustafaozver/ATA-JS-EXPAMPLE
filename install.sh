@@ -34,6 +34,6 @@ echo "$_ST                                                    $_FN"
 echo "$_ST Sistem Kurulumu Yapılıyor                          $_FN"
 echo "$_ST                                                    $_FN"
 sudo node ./App/Install.JS
-sudo sh ./certificate.sh
+## sudo sh ./certificate.sh
 
 echo "$_ST Kişisel Komutlarınız Bekleniyor                    $_FN"

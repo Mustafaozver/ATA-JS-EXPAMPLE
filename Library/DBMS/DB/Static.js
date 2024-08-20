@@ -1,4 +1,5 @@
 module.exports=((ATA)=>{
+try{
 	const Stack = {};
 	
 	const ScanStatics = ()=>{
@@ -19,4 +20,5 @@ module.exports=((ATA)=>{
 		//
 	};
 	
+}catch(e){console.log(e)}
 })(ATA());
