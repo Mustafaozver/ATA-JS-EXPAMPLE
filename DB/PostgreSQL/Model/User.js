@@ -27,7 +27,8 @@ module.exports=((ATA)=>{
 	const Link = ()=>{
 		return{
 			"Contact": "Contact",
-			"Reference": "User"
+			"Reference": "User",
+			"Organization": "Organization",
 		};
 	};
 	

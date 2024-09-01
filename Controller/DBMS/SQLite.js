@@ -25,7 +25,9 @@
 			Stack[name] = model;
 		});
 		
-		Object.keys(Stack).map((key)=>{
+		const keys = Object.keys(Stack);
+		
+		keys.map((key)=>{
 			return Stack[key];
 		}).map((model)=>{
 			model.Associate(Stack);
