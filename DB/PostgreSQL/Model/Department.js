@@ -13,8 +13,8 @@ module.exports=((ATA)=>{
 	const Link = ()=>{
 		return{
 			"Wallet": "Wallet",
-			"Substation": "Substation",
-			//"Organization": "Organization",
+			"SubStation": "SubStation",
+			"Organization": "Organization",
 		};
 	};
 	
