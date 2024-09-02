@@ -1,5 +1,5 @@
 {
-	"PORT": 8050,
+	"PORT": 8080,
 	"SECURE": false,
 	"DOMAIN": "localhost",
 	"SOCKET": "/SOCKET",
