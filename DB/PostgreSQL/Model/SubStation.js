@@ -2,27 +2,25 @@ module.exports=((ATA)=>{
 	
 	const Definition = (DataTypes)=>{
 		return{
-			NickName:{
-				type: DataTypes.STRING(128),
+			Name: {
+				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			PassWord: {
-					type: DataTypes.STRING,
-					allowNull: false,
-			},
-			LastLogin: {
+			FoundingDate: {
 				type: DataTypes.DATE,
+				allowNull: false
+			},
+			Status: {
+				type: DataTypes.ENUM,
+				values: ["NEW", "PASSIVE", "ACTIVE"],
+				defaultValue: "NEW",
 			},
 		};
 	};
 	
 	const Link = ()=>{
-		return {
-			"Contact": "Contact",
-			"Member": "Member",
+		return{
 			"Organization": "Organization",
-			"Reference": "User",
-			"Partner": "User",
 		};
 	};
 	
