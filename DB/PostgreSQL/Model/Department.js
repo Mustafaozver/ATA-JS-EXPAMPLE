@@ -14,7 +14,7 @@ module.exports=((ATA)=>{
 		return{
 			"Wallet": "Wallet",
 			"Substation": "Substation",
-			"Organization": "Organization",
+			//"Organization": "Organization",
 		};
 	};
 	
