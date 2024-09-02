@@ -111,15 +111,17 @@ module.exports=((ATA)=>{
 			};
 		});
 		
-		Class.init(Object.assign(BindingModel(), modelObject.Definition(DataTypes), linkObj), {
+		Class.init({...(BindingModel()), ...(modelObject.Definition(DataTypes)), ...linkObj}, {
 			sequelize,
-			schema,
+			//schema, // relations için devre dışı kalmalı
 			modelName: name,
 			freezeTableName: true,
 			tableName: name,
 		});
+		
 		return Class;
 	};
+	
 	return{
 		Sequelize, // FIX
 		DataTypes,

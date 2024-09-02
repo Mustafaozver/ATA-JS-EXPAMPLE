@@ -32,13 +32,8 @@ module.exports=((ATA)=>{
 		};
 	};
 	
-	const Associate = (Models, ME)=>{
-		//...
-	};
-	
 	return{
 		Definition,
-		Associate,
 		Link,
 	};
 })(ATA());

@@ -2,6 +2,7 @@
 	"USER": "postgres",
 	"PASSWORD": "postgres",
 	"SCHEMA": "public",
+	"PREFIX": "ata_js_oms",
 	"DATABASE": "postgres",
 	"HOST": "localhost",
 	"PORT": 5432
