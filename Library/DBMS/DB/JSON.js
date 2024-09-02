@@ -20,8 +20,6 @@ module.exports=((ATA)=>{
 	};
 	
 	ATA.Setups.push(()=>{
-		//return;
-		Set("count", 1+Get("count"));
 		Push();
 	});
 	
