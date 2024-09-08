@@ -8,3 +8,211 @@ http://localhost:8050/_SCREEN1.html
 wushu
 
 bnxzzF1YbD1loS5i
+
+A:
+
+    Angular
+    Assets
+    Api
+    Auth
+    Adapter
+
+B:
+
+    Bower
+    Backend
+    Build
+    Bin
+    Bootstrap
+
+C:
+
+    Controller
+    Config
+    Components
+    Constants
+    Client
+
+D:
+
+    Docker
+    Database
+    Docs
+    Debug
+    Dist
+
+E:
+
+    Example
+    Env
+    Extensions
+    Errors
+    Export
+
+F:
+
+    Firebase
+    Frontend
+    Functions
+    Features
+    Filters
+
+G:
+
+    Git
+    GraphQL
+    Grunt
+    Gulp
+    Globals
+
+H:
+
+    Helmet
+    Helpers
+    Hooks
+    Http
+    Hash
+
+I:
+
+    Ionic
+    Interfaces
+    Images
+    Input
+    Init
+
+J:
+
+    Jest
+    Json
+    Jobs
+    Jwt
+    Jquery
+
+K:
+
+    Kubernetes
+    Keys
+    Kafka
+    Kernel
+    Knex
+
+L:
+
+    License
+    Logs
+    Lib
+    Layouts
+    Locales
+
+M:
+
+    Middleware
+    Models
+    Migrations
+    Modules
+    Maps
+
+N:
+
+    NodeModules
+    Nginx
+    Network
+    Notifications
+    Namespace
+
+O:
+
+    OpenApi
+    Output
+    Operations
+    Objects
+    Options
+
+P:
+
+    Public
+    Pages
+    Plugins
+    Pipeline
+    Provider
+
+Q:
+
+    Quality
+    Queries
+    Queue
+    QuickStart
+    Quota
+
+R:
+
+    Routes
+    Resources
+    Repo
+    Runtime
+    Reports
+
+S:
+
+    Src
+    Services
+    Scripts
+    Styles
+    Security
+
+T:
+
+    Tests
+    Templates
+    Types
+    Translations
+    Tokens
+
+U:
+
+    Utils
+    Uploads
+    Users
+    Urls
+    Ui
+
+V:
+
+    Verify
+    Views
+    Vendor
+    Validators
+    Variables
+
+W:
+
+    Webpack
+    Workers
+    Widgets
+    Workspace
+    Web
+
+X:
+
+    Xml
+    Xhr
+    Xapi
+    Xterm
+    Xaml
+
+Y:
+
+    Yarn
+    Yaml
+    Yeoman
+    Yargs
+    Yield
+
+Z:
+
+    Zoo
+    Zookeeper
+    Zip
+    Zones
+    Zeit
