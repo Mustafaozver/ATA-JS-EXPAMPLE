@@ -4,6 +4,10 @@ module.exports=((ATA)=>{
 		...(ATA.Require(filePath))
 	};
 	
+	const renderer = (key, value)=>{
+		return value;
+	};
+	
 	const Set = (key="", value=false)=>{
 		Stack[key+""] = JSON.parse(JSON.stringify(value));
 	};
@@ -14,7 +18,7 @@ module.exports=((ATA)=>{
 	
 	const Push = ()=>{
 		//ATA.FS.writeFile(filePath, JSON.stringify(Stack), "UTF8", (err)=>{
-		ATA.FS.writeFile(filePath, JSON.stringify(Stack, null, "\t"), "UTF8", (err)=>{
+		ATA.FS.writeFile(filePath, JSON.stringify(Stack, renderer, "\t"), "UTF8", (err)=>{
 			if(err)Logger.error(err);
 		})
 	};
