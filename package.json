@@ -30,7 +30,7 @@
 	},
 	"homepage": "https://github.com/Mustafaozver/ATA-JS-EXPAMPLE#readme",
 	"dependencies": {
-		"ata.js": "^8.0.12",
+		"ata.js": "^9.0.2",
 		"body-parser": "^1.20.2",
 		"cookie-parser": "^1.4.6",
 		"cors": "^2.8.5",

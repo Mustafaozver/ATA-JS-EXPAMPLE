@@ -141,9 +141,8 @@ module.exports=((ATA)=>{
 	
 	const RunJS = (code="", obj={}, args=[])=>{
 		try{
-			return Function("try{with(this){" + code + "}}catch(e){console.log(\"ERROR => \",e)}").apply(GenerateDefault(obj), [...args]);
+			return Function("try{with(this){" + code + "}}catch(e){return e}").apply(GenerateDefault(obj), [...args]);
 		}catch(e){
-			//console.log("ERROR => ", e);
 			return e;
 		}
 	};
